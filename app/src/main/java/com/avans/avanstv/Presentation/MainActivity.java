@@ -1,4 +1,4 @@
-package com.avans.avanstv.presentation;
+package com.avans.avanstv.Presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
