@@ -1,4 +1,4 @@
-package com.avans.avanstv.Domain;
+package com.avans.avanstv.domain;
 
 import java.util.ArrayList;
 
