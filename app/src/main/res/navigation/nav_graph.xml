@@ -25,4 +25,9 @@
         android:name="com.avans.avanstv.Presentation.profileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/movieOverview"
+        android:name="com.avans.avanstv.Presentation.MovieOverview"
+        android:label="fragment_movie_overview"
+        tools:layout="@layout/fragment_movie_overview" />
 </navigation>
