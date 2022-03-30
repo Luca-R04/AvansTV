@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.avans.avanstv.Data.TMDB_Api;
-import com.avans.avanstv.domain.Movie;
-import com.avans.avanstv.domain.MovieResponse;
+import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Domain.MovieResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

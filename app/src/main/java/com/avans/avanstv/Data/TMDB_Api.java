@@ -1,7 +1,7 @@
 package com.avans.avanstv.Data;
 
-import com.avans.avanstv.domain.Movie;
-import com.avans.avanstv.domain.MovieResponse;
+import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Domain.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,4 +1,6 @@
-package com.avans.avanstv.domain;
+package com.avans.avanstv.Domain;
+
+import com.avans.avanstv.Domain.Movie;
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class MovieResponse {
         this.results = results;
     }
 
-    public List<com.avans.avanstv.domain.Movie> getMovies() {
+    public List<Movie> getMovies() {
         return results;
     }
 }
