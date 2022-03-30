@@ -1,4 +1,4 @@
-package com.avans.avanstv;
+package com.avans.avanstv.Presentation;
 
 import android.os.Bundle;
 
@@ -8,19 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ExploreFragment extends Fragment {
+import com.avans.avanstv.R;
+
+public class HomeFragment extends Fragment {
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
+        View homeView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        return exploreView;
+        // Inflate the layout for this fragment
+        return homeView;
     }
 }

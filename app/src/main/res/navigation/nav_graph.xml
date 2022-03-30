@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.avans.avanstv.HomeFragment"
+        android:name="com.avans.avanstv.Presentation.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="com.avans.avanstv.ExploreFragment"
+        android:name="com.avans.avanstv.Presentation.ExploreFragment"
         android:label="fragment_explore"
         tools:layout="@layout/fragment_explore" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.avans.avanstv.FavoritesFragment"
+        android:name="com.avans.avanstv.Presentation.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.avans.avanstv.profileFragment"
+        android:name="com.avans.avanstv.Presentation.profileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
