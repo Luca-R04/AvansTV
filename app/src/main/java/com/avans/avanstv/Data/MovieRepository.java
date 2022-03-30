@@ -1,4 +1,4 @@
-package com.avans.avanstv.applicationlogic;
+package com.avans.avanstv.Data;
 
 import android.os.AsyncTask;
 import android.util.Log;

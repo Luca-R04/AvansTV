@@ -9,7 +9,7 @@ public class MovieResponse {
         this.results = results;
     }
 
-    public List<Movie> getMovies() {
+    public List<com.avans.avanstv.domain.Movie> getMovies() {
         return results;
     }
 }
