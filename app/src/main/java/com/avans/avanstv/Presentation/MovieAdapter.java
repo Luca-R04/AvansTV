@@ -21,9 +21,9 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecyclerAdapter> {
     private List<Movie> movieList;
-    private Context mContext;
+    private final Context mContext;
 
-    public void setMeal_list(List<Movie> movieList) {
+    public void setMovies(List<Movie> movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }
@@ -37,7 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
     @NonNull
     @Override
     public MovieRecyclerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MovieRecyclerAdapter(LayoutInflater.from(mContext).inflate(R.layout.recycler_movie, parent,false));
+        return new MovieRecyclerAdapter(LayoutInflater.from(mContext).inflate(R.layout.recycler_movie, parent, false));
     }
 
     @Override
@@ -49,15 +49,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
                 .load(movieList.get(holder.getAdapterPosition()).getPoster_path())
                 .into(holder.imageView);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Log.e("MealAdapter", movieList.get(holder.getAdapterPosition()) + "");
-                MovieOverview mealOverview = new MovieOverview(movieList.get(holder.getAdapterPosition()));
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, mealOverview).addToBackStack(null).commit();
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Log.e("MealAdapter", movieList.get(holder.getAdapterPosition()) + "");
+            MovieOverview mealOverview = new MovieOverview(movieList.get(holder.getAdapterPosition()));
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, mealOverview).addToBackStack(null).commit();
         });
     }
 
@@ -69,9 +65,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
         return 0;
     }
 
-    class MovieRecyclerAdapter extends RecyclerView.ViewHolder{
-        private TextView textView;
-        private ImageView imageView;
+    static class MovieRecyclerAdapter extends RecyclerView.ViewHolder{
+        private final TextView textView;
+        private final ImageView imageView;
 
         public MovieRecyclerAdapter(@NonNull View itemView) {
             super(itemView);

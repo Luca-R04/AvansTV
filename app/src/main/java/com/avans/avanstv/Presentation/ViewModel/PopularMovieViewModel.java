@@ -14,11 +14,11 @@ import java.util.List;
 
 public class PopularMovieViewModel extends AndroidViewModel {
     private LiveData<List<Movie>> mMovie;
-    private MovieRepository mMovieRepository;
+    private final MovieRepository mMovieRepository = new MovieRepository();
 
     public PopularMovieViewModel(@NonNull Application application) {
         super(application);
-        mMovieRepository.getMovies();
+        mMovie = mMovieRepository.getLiveDataMovies();
     }
 
     public LiveData<List<Movie>> getMeals() {
