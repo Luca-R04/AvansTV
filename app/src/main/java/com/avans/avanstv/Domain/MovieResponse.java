@@ -1,7 +1,5 @@
 package com.avans.avanstv.Domain;
 
-import com.avans.avanstv.Domain.Movie;
-
 import java.util.List;
 
 public class MovieResponse {
