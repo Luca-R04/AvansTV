@@ -36,20 +36,20 @@ public class MovieRepository {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             try {
-                Log.d(TAG, "doInBackground - retrieve all Movies");
+                Log.d(TAG, "doInBackground - retrieve all popular movies");
 
                 Gson gson = new GsonBuilder()
                         .setLenient()
                         .create();
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://shareaMovie-api.herokuapp.com/")
+                        .baseUrl("https://api.themoviedb.org/3/")
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Log.d(TAG, "Calling getAllMovies on service - attempt at retrieving all Movies");
+                Log.d(TAG, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
                 Call<MovieResponse> call = service.getPopularMovies("f7c59563b1ecac0e4e6c1debf2a7485e");
                 Response<MovieResponse> response = call.execute();
 
