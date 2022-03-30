@@ -24,6 +24,7 @@ public class MovieRepository {
 
     public MovieRepository() {
         mMovies = new MutableLiveData<>();
+        new GetMoviesFromAPI().execute();
     }
 
     public LiveData<List<Movie>> getMovies() {
