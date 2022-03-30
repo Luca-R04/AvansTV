@@ -46,15 +46,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
 
         Glide
                 .with(mContext)
-                .load(movieList.get(position).getPoster_path())
+                .load(movieList.get(holder.getAdapterPosition()).getPoster_path())
                 .into(holder.imageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Log.e("MealAdapter", movieList.get(position) + "");
-                MovieOverview mealOverview = new MovieOverview(movieList.get(position));
+                Log.e("MealAdapter", movieList.get(holder.getAdapterPosition()) + "");
+                MovieOverview mealOverview = new MovieOverview(movieList.get(holder.getAdapterPosition()));
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, mealOverview).addToBackStack(null).commit();
             }
