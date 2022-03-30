@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.avans.avanstv.R;
 
-public class profileFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

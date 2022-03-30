@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.avans.avanstv.Presentation.profileFragment"
+        android:name="com.avans.avanstv.Presentation.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
