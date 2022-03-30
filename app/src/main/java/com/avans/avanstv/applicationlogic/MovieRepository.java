@@ -3,6 +3,7 @@ package com.avans.avanstv.applicationlogic;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.avans.avanstv.Data.TMDB_Api;
@@ -23,6 +24,10 @@ public class MovieRepository {
 
     public MovieRepository() {
         mMovies = new MutableLiveData<>();
+    }
+
+    public LiveData<List<Movie>> getMovies() {
+        return mMovies;
     }
 
     private static class GetMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
