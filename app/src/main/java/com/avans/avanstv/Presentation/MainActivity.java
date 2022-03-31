@@ -24,49 +24,17 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private PopularMovieViewModel mPopularMovieViewModel;
-    private TopRatedMovieViewModel mTopRatedMovieViewModel;
-    private MovieAdapter movieAdapter;
-    private MovieAdapter TopRatedMovieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
-        mTopRatedMovieViewModel = ViewModelProviders.of(this).get(TopRatedMovieViewModel.class);
 
-        mPopularMovieViewModel.getAllMovies().observe(this, movies -> {
-            movieAdapter.setMovies(movies); //updates adapter
-            setRandomMovie(movies);
-            Toast.makeText(this, "Loaded: " + movies.size() + " movies" ,Toast.LENGTH_SHORT).show();
-        });
-
-        mTopRatedMovieViewModel.getLatestMovies().observe(this, movies -> {
-            TopRatedMovieAdapter.setMovies(movies); //updates adapter
-            Toast.makeText(this, "Loaded: " + movies.size() + " movies" ,Toast.LENGTH_SHORT).show();
-        });
-
-        //Bottom navigation
-        //initiate controller for bottom navigation to witch between fragments
+       //Bottom navigation//initiate controller for bottom navigation to witch between fragments
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_nav);
         final NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.host_fragment);
         final NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-        // Create a Recyclerview and adapter to display the meals
-        RecyclerView PopularRecyclerView = (RecyclerView) findViewById(R.id.rv_popular);
-        movieAdapter = new MovieAdapter(this, mPopularMovieViewModel.getAllMovies().getValue());
-        // Get column count to adjust to vertical or horizontal layout
-        PopularRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        PopularRecyclerView.setAdapter(movieAdapter);
-
-        RecyclerView TopRatedRecyclerView = (RecyclerView) findViewById(R.id.rv_TopRated);
-        TopRatedMovieAdapter = new MovieAdapter(this, mTopRatedMovieViewModel.getLatestMovies().getValue());
-        // Get column count to adjust to vertical or horizontal layout
-        TopRatedRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        TopRatedRecyclerView.setAdapter(TopRatedMovieAdapter);
-
     }
 
     public void setRandomMovie(List<Movie> movies) {
