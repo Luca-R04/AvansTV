@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.R;
+import com.bumptech.glide.Glide;
 
 public class MovieOverview extends Fragment {
     private final Movie mMovie;
@@ -28,6 +30,14 @@ public class MovieOverview extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_overview, container, false);
+
+        ImageView imageView = view.findViewById(R.id.movie_image_detail);
+
+        Glide
+                .with(this)
+                .load("https://image.tmdb.org/t/p/original/" + mMovie.getPoster_path())
+                .centerCrop()
+                .into(imageView);
 
         // Inflate the layout for this fragment
         return view;
