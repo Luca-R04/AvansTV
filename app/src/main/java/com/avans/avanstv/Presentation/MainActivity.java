@@ -1,7 +1,6 @@
 package com.avans.avanstv.Presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
+import com.avans.avanstv.Presentation.ViewModel.TopRatedMovieViewModel;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,17 +25,25 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private PopularMovieViewModel mPopularMovieViewModel;
+    private TopRatedMovieViewModel mTopRatedMovieViewModel;
     private MovieAdapter movieAdapter;
+    private MovieAdapter TopRatedMovieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        mTopRatedMovieViewModel = ViewModelProviders.of(this).get(TopRatedMovieViewModel.class);
 
         mPopularMovieViewModel.getAllMovies().observe(this, movies -> {
             movieAdapter.setMovies(movies); //updates adapter
             setRandomMovie(movies);
+            Toast.makeText(this, "Loaded: " + movies.size() + " movies" ,Toast.LENGTH_SHORT).show();
+        });
+
+        mTopRatedMovieViewModel.getLatestMovies().observe(this, movies -> {
+            TopRatedMovieAdapter.setMovies(movies); //updates adapter
             Toast.makeText(this, "Loaded: " + movies.size() + " movies" ,Toast.LENGTH_SHORT).show();
         });
 
@@ -53,17 +61,23 @@ public class MainActivity extends AppCompatActivity {
         PopularRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         PopularRecyclerView.setAdapter(movieAdapter);
 
+        RecyclerView TopRatedRecyclerView = (RecyclerView) findViewById(R.id.rv_TopRated);
+        TopRatedMovieAdapter = new MovieAdapter(this, mTopRatedMovieViewModel.getLatestMovies().getValue());
+        // Get column count to adjust to vertical or horizontal layout
+        TopRatedRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        TopRatedRecyclerView.setAdapter(TopRatedMovieAdapter);
+
     }
 
     public void setRandomMovie(List<Movie> movies) {
         if (movies != null) {
             int random = new Random().nextInt(movies.size());
-            ImageView suggestedMealView = findViewById(R.id.img_randomMeal);
+            ImageView FeaturedMovieView = findViewById(R.id.img_randomMeal);
 
             Glide
                     .with(this)
                     .load("https://image.tmdb.org/t/p/original/" + movies.get(random).getPoster_path())
-                    .into(suggestedMealView);
+                    .into(FeaturedMovieView);
         } else {
             Log.d("HomeFragment", "The movie list is empty!");
         }
