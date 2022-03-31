@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".Presentation.HomeFragment">
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -126,9 +125,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             </com.google.android.material.card.MaterialCardView>
-
 
             <TextView
                 android:id="@+id/Popular_movie_textview"
@@ -167,7 +164,6 @@
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/suggested_movie_header"
                 tools:layout_editor_absoluteX="30dp" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

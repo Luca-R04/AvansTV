@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +27,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
         notifyDataSetChanged();
     }
 
-    public MovieAdapter(Context mContext,@NonNull List<Movie> meal_list) {
+    public MovieAdapter(Context mContext,@NonNull List<Movie> movieList) {
         this.mContext = mContext;
-        this.movieList = meal_list;
+        this.movieList = movieList;
         notifyDataSetChanged();
     }
 
@@ -42,18 +41,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
 
     @Override
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter holder, int position) {
-//        holder.textView.setText(movieList.get(position).getTitle());
-
         Glide
                 .with(mContext)
                 .load("https://image.tmdb.org/t/p/original/" + movieList.get(holder.getAdapterPosition()).getPoster_path())
                 .into(holder.imageView);
 
         holder.itemView.setOnClickListener(view -> {
-            Log.e("MovieAdapter", movieList.get(holder.getAdapterPosition()).getTitle() + "");
-            MovieOverview mealOverview = new MovieOverview(movieList.get(holder.getAdapterPosition()));
+            Log.i("MovieAdapter", movieList.get(holder.getAdapterPosition()).getTitle());
+            MovieOverview movieOverview = new MovieOverview(movieList.get(holder.getAdapterPosition()));
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, mealOverview).addToBackStack(null).commit();
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, movieOverview).commitNowAllowingStateLoss();
         });
     }
 
@@ -66,13 +63,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
     }
 
     static class MovieRecyclerAdapter extends RecyclerView.ViewHolder{
-//        private final TextView textView;
         private final ImageView imageView;
 
         public MovieRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.recycler_meals_img);
-//            textView = itemView.findViewById(R.id.recycler_meals_text);
+            imageView = itemView.findViewById(R.id.recycler_movie_img);
         }
     }
 

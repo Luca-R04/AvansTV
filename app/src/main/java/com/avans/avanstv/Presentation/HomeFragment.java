@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -44,6 +45,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         homeView = inflater.inflate(R.layout.fragment_home, container, false);
         mFeaturedMovieView = homeView.findViewById(R.id.img_randomMeal);
+        View homeView = inflater.inflate(R.layout.fragment_home, container, false);
+        mFeaturedMovieView = homeView.findViewById(R.id.img_random_movie);
 
         PopularMovieViewModel mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
         TopRatedMovieViewModel mTopRatedMovieViewModel = ViewModelProviders.of(this).get(TopRatedMovieViewModel.class);

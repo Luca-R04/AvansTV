@@ -12,11 +12,11 @@ import com.avans.avanstv.Domain.Movie;
 import java.util.List;
 
 public class PopularMovieViewModel extends AndroidViewModel {
-    private LiveData<List<Movie>> mMovie;
-    private final MovieRepository mMovieRepository = MovieRepository.getInstance();
+    private final LiveData<List<Movie>> mMovie;
 
     public PopularMovieViewModel(@NonNull Application application) {
         super(application);
+        MovieRepository mMovieRepository = MovieRepository.getInstance();
         mMovie = mMovieRepository.getLiveDataMovies();
     }
 
