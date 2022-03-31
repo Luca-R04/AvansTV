@@ -1,8 +1,13 @@
 package com.avans.avanstv.Domain;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class MovieResponse {
+    @SerializedName("result")
+    @Expose
     private final List<Movie> results;
 
     public MovieResponse(List<Movie> results) {
