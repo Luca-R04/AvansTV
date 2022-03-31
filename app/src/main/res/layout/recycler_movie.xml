@@ -10,28 +10,15 @@
     >
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/recycler_meals_img"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            />
-
-        <TextView
-            android:id="@+id/recycler_meals_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="text movie"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:padding="10dp"/>
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
 

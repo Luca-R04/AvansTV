@@ -55,20 +55,21 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_randomMovie"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/suggest_header"
-                app:cardUseCompatPadding="true"
+                android:layout_marginEnd="24dp"
+                app:cardBackgroundColor="@color/secondary"
                 app:cardCornerRadius="10dp"
-                >
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/suggest_header">
 
                 <ImageView
                     android:id="@+id/img_randomMeal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/secondary"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -86,13 +87,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/card_randomMovie"
                 app:layout_constraintStart_toStartOf="@+id/header"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_popular"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    app:layout_constraintTop_toBottomOf="@id/Popular_movie_textview"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_popular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Popular_movie_textview" />
 
 
                 <TextView
