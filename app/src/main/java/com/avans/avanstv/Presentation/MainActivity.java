@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
             Glide
                     .with(this)
                     .load("https://image.tmdb.org/t/p/original/" + movies.get(random).getPoster_path())
-                    .centerCrop()
                     .into(suggestedMealView);
         } else {
             Log.d("HomeFragment", "The movie list is empty!");

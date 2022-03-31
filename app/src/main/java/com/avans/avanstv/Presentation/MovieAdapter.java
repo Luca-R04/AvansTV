@@ -42,7 +42,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
 
     @Override
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter holder, int position) {
-        holder.textView.setText(movieList.get(position).getTitle());
+//        holder.textView.setText(movieList.get(position).getTitle());
 
         Glide
                 .with(mContext)
@@ -66,13 +66,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
     }
 
     static class MovieRecyclerAdapter extends RecyclerView.ViewHolder{
-        private final TextView textView;
+//        private final TextView textView;
         private final ImageView imageView;
 
         public MovieRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.recycler_meals_img);
-            textView = itemView.findViewById(R.id.recycler_meals_text);
+//            textView = itemView.findViewById(R.id.recycler_meals_text);
         }
     }
 
