@@ -71,7 +71,7 @@
 
                     <TextView
                         android:id="@+id/featured_title_id"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
@@ -79,39 +79,43 @@
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/featured_date_id"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="@string/featured_date_text"
                         android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toBottomOf="@+id/featured_title_id" />
 
                     <TextView
                         android:id="@+id/featured_language_id"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="@string/featured_language_text"
                         android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toBottomOf="@+id/featured_date_id" />
 
                     <TextView
                         android:id="@+id/featured_genres_id"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="@string/featured_genres_text"
                         android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toBottomOf="@+id/featured_language_id" />
 
