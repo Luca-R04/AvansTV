@@ -79,7 +79,7 @@
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -90,7 +90,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/featured_date_text"
                         android:textColor="@color/white"
-                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toBottomOf="@+id/featured_title_id" />
 
                     <TextView
@@ -101,7 +101,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/featured_language_text"
                         android:textColor="@color/white"
-                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toBottomOf="@+id/featured_date_id" />
 
                     <TextView
@@ -112,11 +112,11 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/featured_genres_text"
                         android:textColor="@color/white"
-                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintStart_toEndOf="@+id/img_random_movie"
                         app:layout_constraintTop_toBottomOf="@+id/featured_language_id" />
 
                     <ImageView
-                        android:id="@+id/img_randomMeal"
+                        android:id="@+id/img_random_movie"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"

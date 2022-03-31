@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 
@@ -44,8 +43,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         homeView = inflater.inflate(R.layout.fragment_home, container, false);
-        mFeaturedMovieView = homeView.findViewById(R.id.img_randomMeal);
-        View homeView = inflater.inflate(R.layout.fragment_home, container, false);
         mFeaturedMovieView = homeView.findViewById(R.id.img_random_movie);
 
         PopularMovieViewModel mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
@@ -89,18 +86,18 @@ public class HomeFragment extends Fragment {
 
             featuredTitle.setText(featuredMovie.getTitle());
             featuredDate.setText(featuredMovie.getRelease_date());
-            featuredLanguage.setText(featuredMovie.getOriginal_language());
+            String languageCaps = featuredMovie.getOriginal_language().substring(0, 1).toUpperCase() + featuredMovie.getOriginal_language().substring(1).toLowerCase();
+            featuredLanguage.setText(languageCaps);
             ArrayList<String> genreList = featuredMovie.getGenres();
 
             StringBuilder genres = new StringBuilder();
 
             if (genreList == null) {
-                genres.append("No Genres.");
+                genres.append("No genres.");
             } else {
                 genres.append("Genres: ");
                 for (String genre : genreList) {
                     genres.append(genre);
-
                     if (featuredMovie.getGenres().indexOf(genre) != featuredMovie.getGenres().size() - 1) {
                         genres.append(", ");
                     }
