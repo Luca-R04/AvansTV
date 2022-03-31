@@ -1,6 +1,5 @@
 package com.avans.avanstv.Data;
 
-import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -10,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieResponse;
-import com.avans.avanstv.Presentation.HomeFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -30,8 +28,8 @@ public class MovieRepository {
 
     public MovieRepository() {
         mLiveDataMovies = new MutableLiveData<>();
-//        new GetMoviesFromAPI().execute();
-        getPopularMovies();
+        new GetMoviesFromAPI().execute();
+//        getPopularMovies();
     }
 
     public LiveData<List<Movie>> getLiveDataMovies() {
@@ -72,10 +70,6 @@ public class MovieRepository {
 
                 mMovies = movies;
                 Log.d("MovieRepository", "onPostExecute retrieved movies!");
-
-                HomeFragment homeFragment = new HomeFragment();
-                homeFragment.setRandomMovie(mMovies);
-                Log.d("MovieRepository", "Set random movie for HomeFragment!");
             }
 
             @Override

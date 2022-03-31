@@ -46,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
 
         Glide
                 .with(mContext)
-                .load(movieList.get(holder.getAdapterPosition()).getPoster_path())
+                .load("https://image.tmdb.org/t/p/original/" + movieList.get(holder.getAdapterPosition()).getPoster_path())
                 .into(holder.imageView);
 
         holder.itemView.setOnClickListener(view -> {

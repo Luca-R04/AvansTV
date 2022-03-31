@@ -17,7 +17,7 @@ public class PopularMovieViewModel extends AndroidViewModel {
 
     public PopularMovieViewModel(@NonNull Application application) {
         super(application);
-        mMovie = mMovieRepository.getMovies();
+        mMovie = mMovieRepository.getLiveDataMovies();
     }
 
     public LiveData<List<Movie>> getAllMovies() {

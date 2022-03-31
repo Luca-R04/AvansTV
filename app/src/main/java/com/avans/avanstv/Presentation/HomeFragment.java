@@ -3,6 +3,7 @@ package com.avans.avanstv.Presentation;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Domain.Movie;
@@ -35,6 +37,8 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("HomeFragment", "OnCreate is called");
+//        setRandomMovie(mMovies);
+        Log.d("MovieRepository", "Set random movie for HomeFragment!");
     }
 
     @Override
@@ -46,15 +50,6 @@ public class HomeFragment extends Fragment {
 
 //        //listener for change in the dataset in the LiveView
 //        //updates the adapter when data is loaded
-//        popularMovieViewModel.getMeals().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
-//            @Override
-//            public void onChanged(List<Movie> movies){
-//                movieAdapter.setMeal_list(movies); //updates adapter
-//                setRandomMovie(movies);
-//                Toast.makeText(homeView.getContext(), "Loaded: " + movies.size() + " meals" ,Toast.LENGTH_SHORT).show();
-//            }
-//
-//        });
 
         // Inflate the layout for this fragment
         return homeView;
