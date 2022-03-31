@@ -50,7 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
                 .into(holder.imageView);
 
         holder.itemView.setOnClickListener(view -> {
-            Log.e("MealAdapter", movieList.get(holder.getAdapterPosition()) + "");
+            Log.e("MovieAdapter", movieList.get(holder.getAdapterPosition()).getTitle() + "");
             MovieOverview mealOverview = new MovieOverview(movieList.get(holder.getAdapterPosition()));
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, mealOverview).addToBackStack(null).commit();
