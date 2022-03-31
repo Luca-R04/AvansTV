@@ -5,15 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Presentation.HomeFragment">
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
 
             <LinearLayout
                 android:id="@+id/header"
@@ -67,13 +64,11 @@
                 app:layout_constraintTop_toBottomOf="@id/suggest_header">
 
                 <ImageView
-                    android:id="@+id/img_randomMeal"
+                    android:id="@+id/img_random_movie"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
-
             </com.google.android.material.card.MaterialCardView>
-
 
             <TextView
                 android:id="@+id/Popular_movie_textview"
@@ -93,7 +88,6 @@
                 android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/Popular_movie_textview" />
 
-
                 <TextView
                     android:id="@+id/suggested_movie_header"
                     android:layout_width="wrap_content"
@@ -112,7 +106,6 @@
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/suggested_movie_header"
                 tools:layout_editor_absoluteX="30dp" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
