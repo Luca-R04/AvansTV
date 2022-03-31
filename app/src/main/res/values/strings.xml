@@ -8,4 +8,8 @@
     <string name="popular">Popular</string>
     <string name="featured_movie">Featured movie</string>
     <string name="suggested">Top rated movies</string>
+    <string name="featured_genres_text">Genres</string>
+    <string name="featured_language_text">Language</string>
+    <string name="featured_date_text">Date</string>
+    <string name="featured_title_text">Title</string>
 </resources>

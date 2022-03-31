@@ -1,18 +1,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Presentation.HomeFragment">
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
 
             <LinearLayout
@@ -33,9 +33,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home"
-                    android:textStyle="bold"
                     android:textColor="@color/secondary"
-                    android:textSize="26sp"/>
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -43,14 +43,14 @@
                 android:id="@+id/suggest_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="25dp"
                 android:text="@string/featured_movie"
                 android:textColor="@color/black"
                 android:textSize="22sp"
-                android:textStyle="bold"
 
-                android:paddingTop="25dp"
-                app:layout_constraintTop_toBottomOf="@+id/header"
-                app:layout_constraintStart_toStartOf="@+id/header"/>
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/header"
+                app:layout_constraintTop_toBottomOf="@+id/header" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_randomMovie"
@@ -66,10 +66,65 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/suggest_header">
 
-                <ImageView
-                    android:id="@+id/img_randomMeal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/featured_title_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/featured_title_text"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/featured_date_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/featured_date_text"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintTop_toBottomOf="@+id/featured_title_id" />
+
+                    <TextView
+                        android:id="@+id/featured_language_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/featured_language_text"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintTop_toBottomOf="@+id/featured_date_id" />
+
+                    <TextView
+                        android:id="@+id/featured_genres_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/featured_genres_text"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toEndOf="@+id/img_randomMeal"
+                        app:layout_constraintTop_toBottomOf="@+id/featured_language_id" />
+
+                    <ImageView
+                        android:id="@+id/img_randomMeal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -79,13 +134,13 @@
                 android:id="@+id/Popular_movie_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="25dp"
                 android:text="@string/popular"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:paddingTop="25dp"
-                app:layout_constraintTop_toBottomOf="@+id/card_randomMovie"
-                app:layout_constraintStart_toStartOf="@+id/header"/>
+                app:layout_constraintStart_toStartOf="@+id/header"
+                app:layout_constraintTop_toBottomOf="@+id/card_randomMovie" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_popular"
@@ -94,17 +149,17 @@
                 app:layout_constraintTop_toBottomOf="@id/Popular_movie_textview" />
 
 
-                <TextView
-                    android:id="@+id/suggested_movie_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/suggested"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:paddingTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_popular"
-                    app:layout_constraintStart_toStartOf="@+id/Popular_movie_textview"/>
+            <TextView
+                android:id="@+id/suggested_movie_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="25dp"
+                android:text="@string/suggested"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/Popular_movie_textview"
+                app:layout_constraintTop_toBottomOf="@+id/rv_popular" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_TopRated"
