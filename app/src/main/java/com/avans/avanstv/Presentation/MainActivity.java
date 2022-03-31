@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private PopularMovieViewModel mPopularMovieViewModel;
-    private MovieAdapter adapter;
+    private MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
 
         mPopularMovieViewModel.getAllMovies().observe(this, movies -> {
-            adapter.setMovies(movies); //updates adapter
+            movieAdapter.setMovies(movies); //updates adapter
             setRandomMovie(movies);
             Toast.makeText(this, "Loaded: " + movies.size() + " movies" ,Toast.LENGTH_SHORT).show();
         });
@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a Recyclerview and adapter to display the meals
         RecyclerView PopularRecyclerView = (RecyclerView) findViewById(R.id.rv_popular);
-        adapter = new MovieAdapter(this, mPopularMovieViewModel.getAllMovies().getValue());
+        movieAdapter = new MovieAdapter(this, mPopularMovieViewModel.getAllMovies().getValue());
         // Get column count to adjust to vertical or horizontal layout
         PopularRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        PopularRecyclerView.setAdapter(adapter);
+        PopularRecyclerView.setAdapter(movieAdapter);
 
     }
 
