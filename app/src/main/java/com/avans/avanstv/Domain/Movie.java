@@ -7,7 +7,7 @@ public class Movie {
     public String backdrop_path;
     public Object belongs_to_collection;
     public int budget;
-    public ArrayList<String> genres;
+    public int[] genre_ids;
     public String homepage;
     public int id;
     public String imdb_id;
@@ -61,12 +61,12 @@ public class Movie {
         this.budget = budget;
     }
 
-    public ArrayList<String> getGenres() {
-        return genres;
+    public int[] getGenre_ids() {
+        return genre_ids;
     }
 
-    public void setGenres(ArrayList<String> genres) {
-        this.genres = genres;
+    public void setGenre_ids(int[] genre_ids) {
+        this.genre_ids = genre_ids;
     }
 
     public String getHomepage() {

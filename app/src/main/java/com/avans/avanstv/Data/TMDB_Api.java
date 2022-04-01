@@ -1,5 +1,6 @@
 package com.avans.avanstv.Data;
 
+import com.avans.avanstv.Domain.GenreResponse;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieResponse;
 
@@ -30,5 +31,5 @@ public interface TMDB_Api {
 
     //Get latest movies
     @GET("genre/movie/list")
-    Call<MovieResponse> getMovieGenres(@Query("api_key") String api_key);
+    Call<GenreResponse> getMovieGenres(@Query("api_key") String api_key);
 }
