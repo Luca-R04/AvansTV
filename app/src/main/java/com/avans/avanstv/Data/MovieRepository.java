@@ -61,7 +61,7 @@ public class MovieRepository {
 
         TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-        Call<MovieResponse> call = service.getLatestMovies(API_KEY);
+        Call<MovieResponse> call = service.getTopRatedMovies(API_KEY);
 
         call.enqueue(new Callback<MovieResponse>() {
             @Override
@@ -148,7 +148,7 @@ public class MovieRepository {
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
                 Log.d(TAG_Latest, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
-                Call<MovieResponse> call = service.getLatestMovies(API_KEY);
+                Call<MovieResponse> call = service.getTopRatedMovies(API_KEY);
                 Response<MovieResponse> response = call.execute();
 
                 Log.d(TAG_Latest, "Executed call, response.code = " + response.code());
