@@ -1,8 +1,9 @@
 package com.avans.avanstv.Domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie {
+public class Movie implements Serializable {
     public boolean adult;
     public String backdrop_path;
     public Object belongs_to_collection;
@@ -28,6 +29,7 @@ public class Movie {
     public boolean video;
     public double vote_average;
     public int vote_count;
+    private Video youtubeVideo;
 
     public boolean isAdult() {
         return adult;
@@ -227,5 +229,13 @@ public class Movie {
 
     public void setVote_count(int vote_count) {
         this.vote_count = vote_count;
+    }
+
+    public void setYoutubeVideo(Video youtubeVideo) {
+        this.youtubeVideo = youtubeVideo;
+    }
+
+    public Video getYoutubeVideo() {
+        return youtubeVideo;
     }
 }
