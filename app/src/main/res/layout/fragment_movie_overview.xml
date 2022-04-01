@@ -27,5 +27,108 @@
             android:background="@color/secondary"/>
 
 
+    <TextView
+        android:id="@+id/movie_title_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:text="@string/title_placeholder"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_image_detail"
+        android:paddingTop="10dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/movie_rating_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:paddingTop="15dp"
+        android:text="@string/rating_placeholder"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
+
+    <ImageView
+        android:id="@+id/star_icon"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:paddingTop="15dp"
+        android:src="@drawable/ic_star"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_rating_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/movie_rating_detail"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
+
+    <TextView
+        android:id="@+id/movie_category_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:paddingTop="20dp"
+        android:text="@string/category_placeholder"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_favorite"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="75dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_title_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
+        app:layout_constraintTop_toBottomOf="@+id/movie_image_detail"
+        app:layout_constraintVertical_bias="2"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/card_favorite_ic"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_favorite_border"
+            app:tint="@color/secondary" />
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/movie_description_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:text="Description:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/movie_category_detail"
+        app:layout_constraintTop_toBottomOf="@+id/movie_category_detail" />\
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="30dp"
+        android:textSize="16dp"
+        android:text="@string/description_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/movie_description_header"
+        app:layout_constraintTop_toBottomOf="@+id/movie_description_header" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
