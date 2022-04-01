@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content">
 
 
         <com.google.android.material.button.MaterialButton
@@ -29,23 +28,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/play_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Play"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
 
         <TextView
             android:id="@+id/movie_title_detail"
             android:layout_width="303dp"
             android:layout_height="wrap_content"
             android:paddingStart="30dp"
+            android:paddingEnd="30dp"
             android:paddingTop="10dp"
             android:text="@string/title_placeholder"
             android:textColor="@android:color/black"
@@ -54,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/play_button" />
+            app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
 
 
             <TextView
@@ -78,6 +70,7 @@
                 android:layout_marginStart="8dp"
                 android:paddingTop="15dp"
                 android:src="@drawable/ic_star"
+                android:contentDescription="@string/star_image_description"
                 app:layout_constraintBottom_toBottomOf="@+id/movie_rating_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -108,7 +101,7 @@
             android:layout_marginEnd="8dp"
             android:paddingEnd="30dp"
             android:text="@string/description_placeholder"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,13 +119,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
-            app:layout_constraintTop_toBottomOf="@+id/play_button"
+            app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView"
             tools:ignore="MissingConstraints">
 
             <ImageView
                 android:id="@+id/card_favorite_ic"
-                android:layout_width="100px"
-                android:layout_height="100px"
+                android:contentDescription="@string/favorite_image_description"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_favorite_border"
                 app:tint="@color/secondary" />
