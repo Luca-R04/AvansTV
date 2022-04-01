@@ -12,12 +12,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 
 public class MovieOverview extends Fragment {
     private final Movie mMovie;
+    private MovieRepository movieRepository = MovieRepository.getInstance();
 
     public MovieOverview(Movie mMovie) {
         this.mMovie = mMovie;
@@ -64,9 +67,37 @@ public class MovieOverview extends Fragment {
         movieTitle.setText(mMovie.getTitle());
         movieRating.setText(mMovie.getVote_average() + "");
 
-        //TODO: FIX GENRES, DISPLAYED NU NULL
-        movieGenres.setText(mMovie.getGenres() + "");
+//        TODO: FIX GENRES, DISPLAYED NU NULL
+        int[] genreList = mMovie.getGenre_ids();
+        Genre[] genreArray = movieRepository.getGenres();
+
+
+        StringBuilder genres = new StringBuilder();
+
+        if (genreList == null) {
+            genres.append("No genres.");
+        } else {
+            genres.append("Genres: ");
+            int i = 0;
+            for (Integer genreInt : genreList) {
+                for (Genre genreObj : genreArray) {
+                    if (genreInt == genreObj.getId()) {
+                        genres.append(genreObj.getName());
+                    }
+                }
+                if (genreList.length - 1 != i) {
+                    genres.append(", ");
+                    i++;
+                }
+            }
+            genres.append(".");
+        }
+
+
+        movieGenres.setText(genres);
         movieDescription.setText(mMovie.getOverview());
+
+
 
 
         // Inflate the layout for this fragment
