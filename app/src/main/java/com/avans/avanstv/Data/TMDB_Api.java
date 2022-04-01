@@ -2,6 +2,7 @@ package com.avans.avanstv.Data;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieResponse;
+import com.avans.avanstv.Domain.VideoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -31,4 +32,8 @@ public interface TMDB_Api {
     //Get latest movies
     @GET("genre/movie/list")
     Call<MovieResponse> getMovieGenres(@Query("api_key") String api_key);
+
+    //Get videos related to specific movie
+    @GET("movie/{movie_id}/videos")
+    Call<VideoResponse> getVideos(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
 }

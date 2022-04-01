@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieResponse;
+import com.avans.avanstv.Domain.Video;
+import com.avans.avanstv.Domain.VideoResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -39,6 +41,10 @@ public class MovieRepository {
 
     public LiveData<List<Movie>> getLiveDataLatest() {
         return mLiveDataLatestMovies;
+    }
+
+    public static void setVideosFromApi(int movieId) {
+        new SetVideosFromAPI().execute(movieId);
     }
 
     public static MovieRepository getInstance() {
@@ -76,6 +82,10 @@ public class MovieRepository {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
+
+//                    for (Movie movie : response.body().getMovies()) {
+//                        MovieRepository.setVideosFromApi(movie.getId());
+//                    }
 
                     return response.body().getMovies();
                 } else {
@@ -140,6 +150,67 @@ public class MovieRepository {
         protected void onPostExecute(List<Movie> movies) {
             if (movies != null) {
                 mLiveDataLatestMovies.setValue(movies);
+            }
+        }
+    }
+
+    private static class SetVideosFromAPI extends AsyncTask<Integer, Void, List<Video>> {
+        private final static String TAG_Latest = SetVideosFromAPI.class.getSimpleName();
+        private Integer movieId;
+
+        @Override
+        protected List<Video> doInBackground(Integer... integers) {
+            movieId = integers[0];
+
+            try {
+                Log.d(TAG_Latest, "doInBackground - retrieve all popular movies");
+
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://api.themoviedb.org/3/")
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+
+                TMDB_Api service = retrofit.create(TMDB_Api.class);
+
+                Log.d(TAG_Latest, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
+                Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
+                Response<VideoResponse> response = call.execute();
+
+                Log.d(TAG_Latest, "Executed call, response.code = " + response.code());
+
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    Log.d(TAG_Latest, "Good Response: " + response.body().getVideos());
+
+                    return response.body().getVideos();
+                } else {
+                    Log.d(TAG_Latest, "Bad Response: " + response.code());
+                    return null;
+                }
+            } catch (Exception e) {
+                Log.e(TAG_Latest, "Exception: " + e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Video> videos) {
+            if (videos != null) {
+                for (Movie movie : mLiveDataMovies.getValue()) {
+                    if (movie.getId() == movieId) {
+                        movie.setYoutubeVideo(videos.get(0));
+                    }
+                }
+
+                for (Movie movie : mLiveDataLatestMovies.getValue()) {
+                    if (movie.getId() == movieId) {
+                        movie.setYoutubeVideo(videos.get(0));
+                    }
+                }
             }
         }
     }
