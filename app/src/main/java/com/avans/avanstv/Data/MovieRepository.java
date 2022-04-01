@@ -47,7 +47,7 @@ public class MovieRepository {
         }
         return INSTANCE;
     }
-    
+
     private static class GetMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
         private final static String TAG = GetMoviesFromAPI.class.getSimpleName();
 
