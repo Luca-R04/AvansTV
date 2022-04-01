@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".Presentation.MovieOverview">
+        tools:context=".Presentation.MovieDetailsActivity">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_back"
@@ -17,15 +17,22 @@
             android:elevation="1dp"
             tools:ignore="MissingConstraints" />
 
-        <ImageView
-            android:id="@+id/movie_image_detail"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@color/secondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtubePlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
 
         <TextView
             android:id="@+id/movie_title_detail"
@@ -40,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_image_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/play_button" />
 
 
         <TextView
@@ -83,24 +90,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
 
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_favorite"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="210dp"
-            android:layout_marginEnd="10dp"
-            android:paddingEnd="50dp"
-            app:cardCornerRadius="75dp"
-            app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
-            app:layout_constraintStart_toStartOf="@+id/movie_title_detail"
-            app:layout_constraintTop_toTopOf="@+id/movie_image_detail"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints,RtlSymmetry">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_favorite"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginEnd="10dp"
+        android:paddingEnd="50dp"
+        app:cardCornerRadius="75dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
+        app:layout_constraintStart_toStartOf="@+id/movie_title_detail"
+        app:layout_constraintTop_toTopOf="@+id/youtubePlayerView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints,RtlSymmetry">
 
                 <ImageView
                     android:id="@+id/card_favorite_ic"

@@ -1,5 +1,6 @@
 package com.avans.avanstv.Presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,13 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.Presentation.ViewModel.TopRatedMovieViewModel;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -31,6 +33,7 @@ import java.util.Random;
 public class HomeFragment extends Fragment {
     private ImageView mFeaturedMovieView;
     private View homeView;
+    private final MovieRepository movieRepository = MovieRepository.getInstance();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,7 +54,7 @@ public class HomeFragment extends Fragment {
         TopRatedMovieViewModel mTopRatedMovieViewModel = ViewModelProviders.of(this).get(TopRatedMovieViewModel.class);
 
         // Create a Recyclerview and adapter to display the movies
-        RecyclerView PopularRecyclerView = (RecyclerView) homeView.findViewById(R.id.rv_popular);
+        RecyclerView PopularRecyclerView = homeView.findViewById(R.id.rv_popular);
         MovieAdapter movieAdapter = new MovieAdapter(this.getContext(), mPopularMovieViewModel.getAllMovies().getValue());
         PopularRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         PopularRecyclerView.setAdapter(movieAdapter);
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment {
             Toast.makeText(this.getContext(), "Loaded: " + movies.size() + " movies", Toast.LENGTH_SHORT).show();
         });
 
-        RecyclerView TopRatedRecyclerView = (RecyclerView) homeView.findViewById(R.id.rv_TopRated);
+        RecyclerView TopRatedRecyclerView = homeView.findViewById(R.id.rv_TopRated);
         MovieAdapter TopRatedMovieAdapter = new MovieAdapter(this.getContext(), mTopRatedMovieViewModel.getLatestMovies().getValue());
         TopRatedRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         TopRatedRecyclerView.setAdapter(TopRatedMovieAdapter);
@@ -90,7 +93,8 @@ public class HomeFragment extends Fragment {
             featuredDate.setText(featuredMovie.getRelease_date());
             String languageCaps = featuredMovie.getOriginal_language().substring(0, 1).toUpperCase() + featuredMovie.getOriginal_language().substring(1).toLowerCase();
             featuredLanguage.setText(languageCaps);
-            ArrayList<String> genreList = featuredMovie.getGenres();
+            int[] genreList = featuredMovie.getGenre_ids();
+            Genre[] genreArray = movieRepository.getGenres();
 
             StringBuilder genres = new StringBuilder();
 
@@ -98,10 +102,16 @@ public class HomeFragment extends Fragment {
                 genres.append("No genres.");
             } else {
                 genres.append("Genres: ");
-                for (String genre : genreList) {
-                    genres.append(genre);
-                    if (featuredMovie.getGenres().indexOf(genre) != featuredMovie.getGenres().size() - 1) {
+                int i = 0;
+                for (Integer genreInt : genreList) {
+                    for (Genre genreObj : genreArray) {
+                        if (genreInt == genreObj.getId()) {
+                            genres.append(genreObj.getName());
+                        }
+                    }
+                    if (genreList.length - 1 != i) {
                         genres.append(", ");
+                        i++;
                     }
                 }
                 genres.append(".");
@@ -120,9 +130,9 @@ public class HomeFragment extends Fragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MovieOverview movieOverview = new MovieOverview(featuredMovie);
-                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, movieOverview).commitNowAllowingStateLoss();
+                    Intent intent = new Intent(homeView.getContext(), MovieDetailsActivity.class);
+                    intent.putExtra("Movie", featuredMovie);
+                    startActivity(intent);
                 }
             });
 
@@ -130,6 +140,4 @@ public class HomeFragment extends Fragment {
             Log.d("HomeFragment", "The movie list is empty!");
         }
     }
-
-
 }
