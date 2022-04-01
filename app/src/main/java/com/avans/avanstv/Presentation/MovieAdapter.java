@@ -2,6 +2,7 @@ package com.avans.avanstv.Presentation;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +49,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
 
         holder.itemView.setOnClickListener(view -> {
             Log.i("MovieAdapter", movieList.get(holder.getAdapterPosition()).getTitle());
-            MovieOverview movieOverview = new MovieOverview(movieList.get(holder.getAdapterPosition()));
-            AppCompatActivity activity = (AppCompatActivity) view.getContext();
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, movieOverview).commitNowAllowingStateLoss();
+            Intent intent = new Intent(mContext, MovieDetailsActivity.class);
+            intent.putExtra("Movie", movieList.get(holder.getAdapterPosition()));
+            mContext.startActivity(intent);
         });
     }
 

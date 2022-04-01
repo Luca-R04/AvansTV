@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Github/AvansTV/app/src/main/res/layout/activity_movie_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_movie_overview.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/drawable/ic_explore.xml" value="0.156" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/activity_main.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/fragment_explore.xml" value="0.14635416666666667" />

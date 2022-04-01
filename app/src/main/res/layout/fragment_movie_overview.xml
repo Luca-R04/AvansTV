@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".Presentation.MovieOverview">
+        tools:context=".Presentation.MovieDetailsActivity">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_back"
@@ -17,15 +17,21 @@
             android:elevation="1dp"
             tools:ignore="MissingConstraints" />
 
-        <ImageView
-            android:id="@+id/movie_image_detail"
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtubePlayerView"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/secondary"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
