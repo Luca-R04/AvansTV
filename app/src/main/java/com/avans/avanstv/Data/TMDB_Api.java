@@ -24,7 +24,11 @@ public interface TMDB_Api {
     @GET("movie/{movie_id}?language={language}")
     Call<Movie> getMovieID(@Path("movie_id") int movie_id, @Query("api_key") String api_key, @Path("Language") String language);
 
-    //Get latest movies
+    //Get get top rated movies
     @GET("movie/top_rated")
-    Call<MovieResponse> getLatestMovies(@Query("api_key") String api_key);
+    Call<MovieResponse> getTopRatedMovies(@Query("api_key") String api_key);
+
+    //Get latest movies
+    @GET("genre/movie/list")
+    Call<MovieResponse> getMovieGenres(@Query("api_key") String api_key);
 }
