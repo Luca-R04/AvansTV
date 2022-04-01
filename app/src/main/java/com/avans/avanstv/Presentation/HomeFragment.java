@@ -96,7 +96,6 @@ public class HomeFragment extends Fragment {
             int[] genreList = featuredMovie.getGenre_ids();
             Genre[] genreArray = movieRepository.getGenres();
 
-
             StringBuilder genres = new StringBuilder();
 
             if (genreList == null) {
