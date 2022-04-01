@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.avans.avanstv.Domain.Movie;
@@ -30,6 +31,15 @@ public class MovieOverview extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_overview, container, false);
+
+        Button backArrow = view.findViewById(R.id.btn_back);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().remove(MovieOverview.this).commit();
+            }
+        });
 
         ImageView imageView = view.findViewById(R.id.movie_image_detail);
 
