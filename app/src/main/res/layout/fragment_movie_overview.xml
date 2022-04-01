@@ -7,15 +7,16 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".Presentation.MovieDetailsActivity">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_backarrow"
-            app:iconGravity="start"
-            android:background="@android:color/transparent"
-            android:elevation="1dp"
-            tools:ignore="MissingConstraints" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/back_btn_txt"
+        android:elevation="1dp"
+        app:icon="@drawable/ic_backarrow"
+        app:iconGravity="start"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/youtubePlayerView"
@@ -36,7 +37,7 @@
 
     <TextView
         android:id="@+id/movie_title_detail"
-        android:layout_width="wrap_content"
+        android:layout_width="303dp"
         android:layout_height="wrap_content"
         android:paddingStart="30dp"
         android:paddingTop="10dp"
@@ -77,32 +78,33 @@
             app:layout_constraintStart_toEndOf="@+id/movie_rating_detail"
             app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
 
-        <TextView
-            android:id="@+id/movie_genres_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:paddingTop="20dp"
-            android:text="@string/category_placeholder"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
+    <TextView
+        android:id="@+id/movie_genres_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="8dp"
+        android:paddingTop="20dp"
+        android:text="@string/category_placeholder"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_favorite"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:cardCornerRadius="75dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/movie_title_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
         app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView"
-        app:layout_constraintVertical_bias="2"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -128,15 +130,16 @@
             app:layout_constraintStart_toStartOf="@+id/movie_genres_detail"
             app:layout_constraintTop_toBottomOf="@+id/movie_genres_detail" />
 
-        <TextView
-            android:id="@+id/movie_description_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingEnd="30dp"
-            android:textSize="16dp"
-            android:text="@string/description_placeholder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/movie_description_header"
-            app:layout_constraintTop_toBottomOf="@+id/movie_description_header" />
+    <TextView
+        android:id="@+id/movie_description_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:paddingEnd="30dp"
+        android:text="@string/description_placeholder"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/movie_description_header"
+        app:layout_constraintTop_toBottomOf="@+id/movie_description_header" />
 </androidx.constraintlayout.widget.ConstraintLayout>

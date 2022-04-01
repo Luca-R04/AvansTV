@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment {
             featuredTitle.setText(featuredMovie.getTitle());
             featuredDate.setText(featuredMovie.getRelease_date());
             String languageCaps = featuredMovie.getOriginal_language().substring(0, 1).toUpperCase() + featuredMovie.getOriginal_language().substring(1).toLowerCase();
-            featuredLanguage.setText(languageCaps);
+            featuredLanguage.setText(getString(R.string.featured_language) + languageCaps);
             int[] genreList = featuredMovie.getGenre_ids();
             Genre[] genreArray = movieRepository.getGenres();
 
