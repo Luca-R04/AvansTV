@@ -101,8 +101,9 @@
         android:layout_marginEnd="8dp"
         app:cardCornerRadius="75dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/movie_title_detail"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
         app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView"
         tools:ignore="MissingConstraints">
@@ -115,20 +116,19 @@
             android:src="@drawable/ic_favorite_border"
             app:tint="@color/secondary" />
     </androidx.cardview.widget.CardView>
+        app:layout_constraintStart_toStartOf="@+id/movie_title_detail"
+        app:layout_constraintTop_toTopOf="@+id/youtubePlayerView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints,RtlSymmetry">
 
-
-        <TextView
-            android:id="@+id/movie_description_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:text="Description:"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/movie_genres_detail"
-            app:layout_constraintTop_toBottomOf="@+id/movie_genres_detail" />
+                <ImageView
+                    android:id="@+id/card_favorite_ic"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_favorite_border"
+                    app:tint="@color/secondary" />
+        </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/movie_description_detail"
