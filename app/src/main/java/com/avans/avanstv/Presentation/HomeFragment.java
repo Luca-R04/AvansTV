@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
         TopRatedMovieViewModel mTopRatedMovieViewModel = ViewModelProviders.of(this).get(TopRatedMovieViewModel.class);
 
         // Create a Recyclerview and adapter to display the movies
-        RecyclerView PopularRecyclerView = (RecyclerView) homeView.findViewById(R.id.rv_popular);
+        RecyclerView PopularRecyclerView = homeView.findViewById(R.id.rv_popular);
         MovieAdapter movieAdapter = new MovieAdapter(this.getContext(), mPopularMovieViewModel.getAllMovies().getValue());
         PopularRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         PopularRecyclerView.setAdapter(movieAdapter);
@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
             Toast.makeText(this.getContext(), "Loaded: " + movies.size() + " movies", Toast.LENGTH_SHORT).show();
         });
 
-        RecyclerView TopRatedRecyclerView = (RecyclerView) homeView.findViewById(R.id.rv_TopRated);
+        RecyclerView TopRatedRecyclerView = homeView.findViewById(R.id.rv_TopRated);
         MovieAdapter TopRatedMovieAdapter = new MovieAdapter(this.getContext(), mTopRatedMovieViewModel.getLatestMovies().getValue());
         TopRatedRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         TopRatedRecyclerView.setAdapter(TopRatedMovieAdapter);
