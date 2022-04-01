@@ -12,4 +12,8 @@
     <string name="featured_language_text">Language</string>
     <string name="featured_date_text">Date</string>
     <string name="featured_title_text">Title</string>
+    <string name="title_placeholder">Title placeholder</string>
+    <string name="rating_placeholder">Rating placeholder</string>
+    <string name="category_placeholder">Category placeholder</string>
+    <string name="description_placeholder">description placeholder</string>
 </resources>

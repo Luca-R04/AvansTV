@@ -1,13 +1,13 @@
 package com.avans.avanstv.Domain;
 
 public class GenreResponse {
-    private final String[] results;
+    private final Genre[] genres;
 
-    public GenreResponse(String[] results) {
-        this.results = results;
+    public GenreResponse(Genre[] genres) {
+        this.genres = genres;
     }
 
-    public String[] getGenres() {
-        return results;
+    public Genre[] getGenres() {
+        return genres;
     }
 }
