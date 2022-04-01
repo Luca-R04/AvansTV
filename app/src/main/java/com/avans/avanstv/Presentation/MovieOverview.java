@@ -2,6 +2,7 @@ package com.avans.avanstv.Presentation;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.R;
@@ -32,8 +34,18 @@ public class MovieOverview extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_overview, container, false);
 
+        //Find fields from layout.
         Button backArrow = view.findViewById(R.id.btn_back);
+        CardView cardFavorites = view.findViewById(R.id.card_favorite);
+        TextView movieTitle = view.findViewById(R.id.movie_title_detail);
+        TextView movieRating = view.findViewById(R.id.movie_rating_detail);
+        TextView movieGenres = view.findViewById(R.id.movie_genres_detail);
+        TextView movieDescription = view.findViewById(R.id.movie_description_detail);
 
+
+
+
+        //OnClickListener for the backArrow to close the fragment.
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,14 +53,20 @@ public class MovieOverview extends Fragment {
             }
         });
 
+        //Set all the fields
         ImageView imageView = view.findViewById(R.id.movie_image_detail);
-
         Glide
                 .with(this)
                 .load("https://image.tmdb.org/t/p/original/" + mMovie.getBackdrop_path())
                 .centerCrop()
                 .into(imageView);
 
+        movieTitle.setText(mMovie.getTitle());
+        movieRating.setText(mMovie.getVote_average() + "");
+
+        //TODO: FIX GENRES, DISPLAYED NU NULL
+        movieGenres.setText(mMovie.getGenres() + "");
+        movieDescription.setText(mMovie.getOverview());
 
 
         // Inflate the layout for this fragment
