@@ -197,13 +197,21 @@ public class MovieRepository {
 
                     for (Movie movie : mPopularMovies.getValue()) {
                         if (movie.getId() == movieId) {
-                            movie.setYoutubeVideo(videos.get(0));
+                            for (Video video : videos) {
+                                if (video.getType().equals("Trailer")) {
+                                    movie.setYoutubeVideo(video);
+                                }
+                            }
                         }
                     }
 
                     for (Movie movie : mTopRatedMovies.getValue()) {
                         if (movie.getId() == movieId) {
-                            movie.setYoutubeVideo(videos.get(0));
+                            for (Video video : videos) {
+                                if (video.getType().equals("Trailer")) {
+                                    movie.setYoutubeVideo(video);
+                                }
+                            }
                         }
                     }
 

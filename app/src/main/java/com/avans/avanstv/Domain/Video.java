@@ -18,4 +18,8 @@ public class Video implements Serializable {
     public String getKey() {
         return key;
     }
+
+    public String getType() {
+        return type;
+    }
 }
