@@ -47,39 +47,7 @@ public class MovieRepository {
         }
         return INSTANCE;
     }
-
-    public void getLatestMovies() {
-        Log.d("MovieRepository", "getPopularMovies is called");
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        TMDB_Api service = retrofit.create(TMDB_Api.class);
-
-        Call<MovieResponse> call = service.getTopRatedMovies(API_KEY);
-
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
-                assert response.body() != null;
-                mLiveDataLatestMovies.setValue(response.body().getMovies());
-
-                Log.d("MovieRepository", "onPostExecute retrieved movies!");
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<MovieResponse> call, @NonNull Throwable t) {
-                Log.d("MovieRepository", "Error logging in: " + t.getMessage());
-            }
-        });
-    }
-
-
+    
     private static class GetMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
         private final static String TAG = GetMoviesFromAPI.class.getSimpleName();
 
