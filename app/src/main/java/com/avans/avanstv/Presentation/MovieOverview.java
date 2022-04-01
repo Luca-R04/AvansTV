@@ -46,8 +46,6 @@ public class MovieOverview extends Fragment {
         TextView movieDescription = view.findViewById(R.id.movie_description_detail);
 
 
-
-
         //OnClickListener for the backArrow to close the fragment.
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,11 +64,9 @@ public class MovieOverview extends Fragment {
 
         movieTitle.setText(mMovie.getTitle());
         movieRating.setText(mMovie.getVote_average() + "");
-
-//        TODO: FIX GENRES, DISPLAYED NU NULL
+        
         int[] genreList = mMovie.getGenre_ids();
         Genre[] genreArray = movieRepository.getGenres();
-
 
         StringBuilder genres = new StringBuilder();
 
@@ -93,12 +89,8 @@ public class MovieOverview extends Fragment {
             genres.append(".");
         }
 
-
         movieGenres.setText(genres);
         movieDescription.setText(mMovie.getOverview());
-
-
-
 
         // Inflate the layout for this fragment
         return view;
