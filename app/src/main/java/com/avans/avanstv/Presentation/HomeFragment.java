@@ -1,5 +1,6 @@
 package com.avans.avanstv.Presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -130,9 +131,9 @@ public class HomeFragment extends Fragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MovieOverview movieOverview = new MovieOverview(featuredMovie);
-                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, movieOverview).commitNowAllowingStateLoss();
+                    Intent intent = new Intent(homeView.getContext(), MovieDetailsActivity.class);
+                    intent.putExtra("Movie", featuredMovie);
+                    startActivity(intent);
                 }
             });
 
@@ -140,6 +141,4 @@ public class HomeFragment extends Fragment {
             Log.d("HomeFragment", "The movie list is empty!");
         }
     }
-
-
 }

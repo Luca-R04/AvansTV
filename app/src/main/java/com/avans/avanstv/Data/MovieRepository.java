@@ -223,29 +223,41 @@ public class MovieRepository {
                 }
             }
         }
+    }
 
-        private static class GetGenresFromAPI extends AsyncTask<Void, Void, Genre[]> {
-            private final static String TAG_Genres = GetGenresFromAPI.class.getSimpleName();
-    
-            @Override
-            protected Genre[] doInBackground(Void... voids) {
-                try {
-                    Log.d(TAG_Genres, "doInBackground - retrieve all genres");
-                    Log.d(TAG_Genres, "Calling getMovieGenres on service - attempt at retrieving the genres");
-                    Call<GenreResponse> call = service.getMovieGenres(API_KEY);
-                    Response<GenreResponse> response = call.execute();
+    private static class GetGenresFromAPI extends AsyncTask<Void, Void, Genre[]> {
+        private final static String TAG_Genres = GetGenresFromAPI.class.getSimpleName();
 
-                    Log.d(TAG_Genres, "Executed call, response.code = " + response.code());
+        @Override
+        protected Genre[] doInBackground(Void... voids) {
+            try {
+                Log.d(TAG_Genres, "doInBackground - retrieve all genres");
+                Log.d(TAG_Genres, "Calling getMovieGenres on service - attempt at retrieving the genres");
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
 
-                    if (response.isSuccessful()) {
-                        assert response.body() != null;
-                        Log.d(TAG_Genres, "Good Response: " + Arrays.toString(response.body().getGenres()));
-                        genreArray = response.body().getGenres();
-                        return response.body().getGenres();
-                    } else {
-                        Log.d(TAG_Genres, "Bad Response: " + response.code());
-                        return null;
-                    }
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://api.themoviedb.org/3/")
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+
+                TMDB_Api service = retrofit.create(TMDB_Api.class);
+
+                Call<GenreResponse> call = service.getMovieGenres(API_KEY);
+                Response<GenreResponse> response = call.execute();
+
+                Log.d(TAG_Genres, "Executed call, response.code = " + response.code());
+
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    Log.d(TAG_Genres, "Good Response: " + Arrays.toString(response.body().getGenres()));
+                    genreArray = response.body().getGenres();
+                    return response.body().getGenres();
+                } else {
+                    Log.d(TAG_Genres, "Bad Response: " + response.code());
+                    return null;
+                }
             } catch (Exception e) {
                 Log.e(TAG_Genres, "Exception: " + e);
                 return null;

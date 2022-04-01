@@ -17,13 +17,13 @@
             android:elevation="1dp"
             tools:ignore="MissingConstraints" />
 
-        <com.google.android.youtube.player.YouTubePlayerView
-            android:id="@+id/youtubePlayerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtubePlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/play_button"
@@ -34,20 +34,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
 
-        <TextView
-            android:id="@+id/movie_title_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="30dp"
-            android:text="@string/title_placeholder"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_image_detail"
-            android:paddingTop="10dp"/>
+    <TextView
+        android:id="@+id/movie_title_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp"
+        android:text="@string/title_placeholder"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/play_button" />
 
 
         <TextView
@@ -90,28 +90,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_favorite"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginEnd="16dp"
-            app:cardCornerRadius="75dp"
-            app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/movie_title_detail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
-            app:layout_constraintTop_toBottomOf="@+id/movie_image_detail"
-            app:layout_constraintVertical_bias="2"
-            tools:ignore="MissingConstraints">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_favorite"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="75dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_title_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
+        app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView"
+        app:layout_constraintVertical_bias="2"
+        tools:ignore="MissingConstraints">
 
-            <ImageView
-                android:id="@+id/card_favorite_ic"
-                android:layout_width="100px"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_favorite_border"
-                app:tint="@color/secondary" />
-        </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/card_favorite_ic"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_favorite_border"
+            app:tint="@color/secondary" />
+    </androidx.cardview.widget.CardView>
 
 
         <TextView

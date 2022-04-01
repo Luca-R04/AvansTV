@@ -32,7 +32,7 @@ public interface TMDB_Api {
 
     //Get latest movies
     @GET("genre/movie/list")
-    Call<MovieResponse> getMovieGenres(@Query("api_key") String api_key);
+    Call<GenreResponse> getMovieGenres(@Query("api_key") String api_key);
 
     //Get videos related to specific movie
     @GET("movie/{movie_id}/videos")
