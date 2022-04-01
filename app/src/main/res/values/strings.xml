@@ -19,4 +19,5 @@
     <string name="movies_loaded_txt">Loaded movies</string>
     <string name="featured_language">Language:\u0020</string>
     <string name="back_btn_txt">Back to the home screen</string>
+    <string name="description_title_txt">Description</string>
 </resources>
