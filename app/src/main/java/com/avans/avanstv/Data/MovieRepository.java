@@ -24,11 +24,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepository {
+    private static volatile MovieRepository INSTANCE;
+    private static final String API_KEY = "f7c59563b1ecac0e4e6c1debf2a7485e";
     private static MutableLiveData<List<Movie>> mPopularMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
     private static Genre[] mGenres;
-    private static volatile MovieRepository INSTANCE;
-    private static final String API_KEY = "f7c59563b1ecac0e4e6c1debf2a7485e";
 
     public MovieRepository() {
         new GetGenresFromAPI().execute();
@@ -215,13 +215,6 @@ public class MovieRepository {
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e);
                 return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(List<Video> videos) {
-            if (videos != null) {
-
             }
         }
     }
