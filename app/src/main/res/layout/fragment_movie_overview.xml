@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -7,142 +7,148 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".Presentation.MovieDetailsActivity">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/back_btn_txt"
-        android:elevation="1dp"
-        app:icon="@drawable/ic_backarrow"
-        app:iconGravity="start"
-        tools:ignore="MissingConstraints" />
-
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youtubePlayerView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/play_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
-
-    <TextView
-        android:id="@+id/movie_title_detail"
-        android:layout_width="303dp"
-        android:layout_height="wrap_content"
-        android:paddingStart="30dp"
-        android:paddingTop="10dp"
-        android:text="@string/title_placeholder"
-        android:textColor="@android:color/black"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/play_button" />
+        android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/movie_rating_detail"
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/back_btn_txt"
+            android:elevation="1dp"
+            app:icon="@drawable/ic_backarrow"
+            app:iconGravity="start"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtubePlayerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
+
+        <TextView
+            android:id="@+id/movie_title_detail"
+            android:layout_width="303dp"
+            android:layout_height="wrap_content"
             android:paddingStart="30dp"
-            android:paddingTop="15dp"
-            android:text="@string/rating_placeholder"
+            android:paddingTop="10dp"
+            android:text="@string/title_placeholder"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="36sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/play_button" />
 
-        <ImageView
-            android:id="@+id/star_icon"
-            android:layout_width="24dp"
+
+            <TextView
+                android:id="@+id/movie_rating_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingTop="15dp"
+                android:text="@string/rating_placeholder"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
+
+            <ImageView
+                android:id="@+id/star_icon"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingTop="15dp"
+                android:src="@drawable/ic_star"
+                app:layout_constraintBottom_toBottomOf="@+id/movie_rating_detail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/movie_rating_detail"
+                app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
+
+        <TextView
+            android:id="@+id/movie_genres_detail"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:paddingTop="15dp"
-            android:src="@drawable/ic_star"
-            app:layout_constraintBottom_toBottomOf="@+id/movie_rating_detail"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingTop="20dp"
+            android:text="@string/category_placeholder"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/movie_rating_detail"
-            app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
 
-    <TextView
-        android:id="@+id/movie_genres_detail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:paddingTop="20dp"
-        android:text="@string/category_placeholder"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
+        <TextView
+            android:id="@+id/movie_description_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingEnd="30dp"
+            android:text="@string/description_placeholder"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/movie_description_detail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:paddingEnd="30dp"
-        android:text="@string/description_placeholder"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_favorite"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="75dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
+            app:layout_constraintTop_toBottomOf="@+id/play_button"
+            tools:ignore="MissingConstraints">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_favorite"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:cardCornerRadius="75dp"
-        app:cardElevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/movie_title_detail"
-        app:layout_constraintTop_toBottomOf="@+id/play_button"
-        tools:ignore="MissingConstraints">
+            <ImageView
+                android:id="@+id/card_favorite_ic"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_favorite_border"
+                app:tint="@color/secondary" />
 
-        <ImageView
-            android:id="@+id/card_favorite_ic"
-            android:layout_width="100px"
-            android:layout_height="100px"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_favorite_border"
-            app:tint="@color/secondary" />
+        </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/description_title_txt"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_genres_detail" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/description_title_txt"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_genres_detail" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
