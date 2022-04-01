@@ -3,7 +3,6 @@ package com.avans.avanstv.Presentation;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -126,13 +125,10 @@ public class HomeFragment extends Fragment {
             //Featured movie OnClickListener
             //Transfers movie info to MovieOverview
             CardView cardView = homeView.findViewById(R.id.card_randomMovie);
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(homeView.getContext(), MovieDetailsActivity.class);
-                    intent.putExtra("Movie", featuredMovie);
-                    startActivity(intent);
-                }
+            cardView.setOnClickListener(view -> {
+                Intent intent = new Intent(homeView.getContext(), MovieDetailsActivity.class);
+                intent.putExtra("Movie", featuredMovie);
+                startActivity(intent);
             });
 
         } else {

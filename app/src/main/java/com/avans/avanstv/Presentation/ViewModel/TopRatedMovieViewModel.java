@@ -17,7 +17,7 @@ public class TopRatedMovieViewModel extends AndroidViewModel {
     public TopRatedMovieViewModel(@NonNull Application application) {
         super(application);
         MovieRepository mMovieRepository = MovieRepository.getInstance();
-        mMovies = mMovieRepository.getLiveDataLatest();
+        mMovies = mMovieRepository.getTopRated();
     }
 
     public LiveData<List<Movie>> getLatestMovies() {

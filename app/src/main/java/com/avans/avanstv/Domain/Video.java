@@ -1,8 +1,9 @@
 package com.avans.avanstv.Domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Video {
+public class Video implements Serializable {
     private String iso_639_1;
     private String iso_3166_1;
     private String name;

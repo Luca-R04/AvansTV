@@ -1,5 +1,7 @@
 package com.avans.avanstv.Domain;
 
+import androidx.annotation.NonNull;
+
 public class Genre{
     public int id;
     public String name;
@@ -20,6 +22,7 @@ public class Genre{
         this.name = name;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Genre{" + "id=" + id + ", name='" + name + '\'' + '}';
