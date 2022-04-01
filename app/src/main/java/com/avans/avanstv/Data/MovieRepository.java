@@ -3,7 +3,6 @@ package com.avans.avanstv.Data;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -16,45 +15,45 @@ import com.avans.avanstv.Domain.VideoResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.sql.Array;
 import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepository {
-    private static MutableLiveData<List<Movie>> mLiveDataMovies;
-    private static MutableLiveData<List<Movie>> mLiveDataLatestMovies;
-    private static Genre[] genreArray;
+    private static MutableLiveData<List<Movie>> mPopularMovies;
+    private static MutableLiveData<List<Movie>> mTopRatedMovies;
+    private static Genre[] mGenres;
     private static volatile MovieRepository INSTANCE;
     private static final String API_KEY = "f7c59563b1ecac0e4e6c1debf2a7485e";
 
     public MovieRepository() {
         new GetGenresFromAPI().execute();
-        mLiveDataMovies = new MutableLiveData<>();
-        new GetMoviesFromAPI().execute();
-        mLiveDataLatestMovies = new MutableLiveData<>();
+
+        mPopularMovies = new MutableLiveData<>();
+        new GetPopularMoviesFromAPI().execute();
+
+        mTopRatedMovies = new MutableLiveData<>();
         new GetTopRatedMoviesFromAPI().execute();
     }
 
     public LiveData<List<Movie>> getLiveDataMovies() {
-        return mLiveDataMovies;
+        return mPopularMovies;
     }
 
-    public LiveData<List<Movie>> getLiveDataLatest() {
-        return mLiveDataLatestMovies;
+    public LiveData<List<Movie>> getTopRated() {
+        return mTopRatedMovies;
     }
 
-    public void setVideosFromApi(int movieId) {
+    public static void setVideosFromApi(int movieId) {
         new SetVideosFromAPI().execute(movieId);
     }
 
     public Genre[] getGenres() {
-        return genreArray;
+        return mGenres;
     }
 
     public static MovieRepository getInstance() {
@@ -64,8 +63,8 @@ public class MovieRepository {
         return INSTANCE;
     }
 
-    private static class GetMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
-        private final static String TAG = GetMoviesFromAPI.class.getSimpleName();
+    private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
+        private final static String TAG = GetPopularMoviesFromAPI.class.getSimpleName();
 
         @Override
         protected List<Movie> doInBackground(Void... voids) {
@@ -93,9 +92,9 @@ public class MovieRepository {
                     assert response.body() != null;
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
 
-                    // for (Movie movie : response.body().getMovies()) {
-                    // MovieRepository.setVideosFromApi(movie.getId());
-                    // }
+                     for (Movie movie : response.body().getMovies()) {
+                        MovieRepository.setVideosFromApi(movie.getId());
+                     }
 
                     return response.body().getMovies();
                 } else {
@@ -111,18 +110,18 @@ public class MovieRepository {
         @Override
         protected void onPostExecute(List<Movie> movies) {
             if (movies != null) {
-                mLiveDataMovies.setValue(movies);
+                mPopularMovies.setValue(movies);
             }
         }
     }
 
     private static class GetTopRatedMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
-        private final static String TAG_TopRated = GetTopRatedMoviesFromAPI.class.getSimpleName();
+        private final static String TAG = GetTopRatedMoviesFromAPI.class.getSimpleName();
 
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             try {
-                Log.d(TAG_TopRated, "doInBackground - retrieve all popular movies");
+                Log.d(TAG, "doInBackground - retrieve all popular movies");
 
                 Gson gson = new GsonBuilder()
                         .setLenient()
@@ -135,23 +134,23 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Log.d(TAG_TopRated, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
+                Log.d(TAG, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
                 Call<MovieResponse> call = service.getTopRatedMovies(API_KEY);
                 Response<MovieResponse> response = call.execute();
 
-                Log.d(TAG_TopRated, "Executed call, response.code = " + response.code());
+                Log.d(TAG, "Executed call, response.code = " + response.code());
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    Log.d(TAG_TopRated, "Good Response: " + response.body().getMovies());
+                    Log.d(TAG, "Good Response: " + response.body().getMovies());
 
                     return response.body().getMovies();
                 } else {
-                    Log.d(TAG_TopRated, "Bad Response: " + response.code());
+                    Log.d(TAG, "Bad Response: " + response.code());
                     return null;
                 }
             } catch (Exception e) {
-                Log.e(TAG_TopRated, "Exception: " + e);
+                Log.e(TAG, "Exception: " + e);
                 return null;
             }
         }
@@ -159,21 +158,20 @@ public class MovieRepository {
         @Override
         protected void onPostExecute(List<Movie> movies) {
             if (movies != null) {
-                mLiveDataLatestMovies.setValue(movies);
+                mTopRatedMovies.setValue(movies);
             }
         }
     }
 
     private static class SetVideosFromAPI extends AsyncTask<Integer, Void, List<Video>> {
-        private final static String TAG_Latest = SetVideosFromAPI.class.getSimpleName();
-        private Integer movieId;
+        private final static String TAG = SetVideosFromAPI.class.getSimpleName();
 
         @Override
         protected List<Video> doInBackground(Integer... integers) {
-            movieId = integers[0];
+            Integer movieId = integers[0];
 
             try {
-                Log.d(TAG_Latest, "doInBackground - retrieve all popular movies");
+                Log.d(TAG, "doInBackground - retrieve all popular movies");
 
                 Gson gson = new GsonBuilder()
                         .setLenient()
@@ -186,24 +184,24 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Log.d(TAG_Latest, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
+                Log.d(TAG, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
                 Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
                 Response<VideoResponse> response = call.execute();
 
-                Log.d(TAG_Latest, "Executed call, response.code = " + response.code());
+                Log.d(TAG, "Executed call, response.code = " + response.code());
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     List<Video> videos = response.body().getVideos();
-                    Log.d(TAG_Latest, "Good Response: " + videos);
+                    Log.d(TAG, "Good Response: " + videos);
 
-                    for (Movie movie : mLiveDataMovies.getValue()) {
+                    for (Movie movie : mPopularMovies.getValue()) {
                         if (movie.getId() == movieId) {
                             movie.setYoutubeVideo(videos.get(0));
                         }
                     }
 
-                    for (Movie movie : mLiveDataLatestMovies.getValue()) {
+                    for (Movie movie : mTopRatedMovies.getValue()) {
                         if (movie.getId() == movieId) {
                             movie.setYoutubeVideo(videos.get(0));
                         }
@@ -211,11 +209,11 @@ public class MovieRepository {
 
                     return videos;
                 } else {
-                    Log.d(TAG_Latest, "Bad Response: " + response.code());
+                    Log.d(TAG, "Bad Response: " + response.code());
                     return null;
                 }
             } catch (Exception e) {
-                Log.e(TAG_Latest, "Exception: " + e);
+                Log.e(TAG, "Exception: " + e);
                 return null;
             }
         }
@@ -229,13 +227,13 @@ public class MovieRepository {
     }
 
     private static class GetGenresFromAPI extends AsyncTask<Void, Void, Genre[]> {
-        private final static String TAG_Genres = GetGenresFromAPI.class.getSimpleName();
+        private final static String TAG = GetGenresFromAPI.class.getSimpleName();
 
         @Override
         protected Genre[] doInBackground(Void... voids) {
             try {
-                Log.d(TAG_Genres, "doInBackground - retrieve all genres");
-                Log.d(TAG_Genres, "Calling getMovieGenres on service - attempt at retrieving the genres");
+                Log.d(TAG, "doInBackground - retrieve all genres");
+                Log.d(TAG, "Calling getMovieGenres on service - attempt at retrieving the genres");
                 Gson gson = new GsonBuilder()
                         .setLenient()
                         .create();
@@ -250,19 +248,19 @@ public class MovieRepository {
                 Call<GenreResponse> call = service.getMovieGenres(API_KEY);
                 Response<GenreResponse> response = call.execute();
 
-                Log.d(TAG_Genres, "Executed call, response.code = " + response.code());
+                Log.d(TAG, "Executed call, response.code = " + response.code());
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    Log.d(TAG_Genres, "Good Response: " + Arrays.toString(response.body().getGenres()));
-                    genreArray = response.body().getGenres();
+                    Log.d(TAG, "Good Response: " + Arrays.toString(response.body().getGenres()));
+                    mGenres = response.body().getGenres();
                     return response.body().getGenres();
                 } else {
-                    Log.d(TAG_Genres, "Bad Response: " + response.code());
+                    Log.d(TAG, "Bad Response: " + response.code());
                     return null;
                 }
             } catch (Exception e) {
-                Log.e(TAG_Genres, "Exception: " + e);
+                Log.e(TAG, "Exception: " + e);
                 return null;
             }
         }

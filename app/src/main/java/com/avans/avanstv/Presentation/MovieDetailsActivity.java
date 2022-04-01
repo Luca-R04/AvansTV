@@ -1,14 +1,8 @@
 package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.cardview.widget.CardView;
 
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Domain.Genre;
@@ -24,26 +18,10 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
     YouTubePlayer.OnInitializedListener onInitializedListener;
     YouTubePlayerView youTubePlayerView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_movie_overview);
-
-        youTubePlayerView = findViewById(R.id.youtubePlayerView);
-
-        onInitializedListener = new YouTubePlayer.OnInitializedListener(){
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo("6JnN1DmbqoU");
-                youTubePlayer.play();
-            }
-
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-            }
-        };
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -51,11 +29,27 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 Movie movie = (Movie) intent.getSerializableExtra("Movie");
 
                 MovieRepository movieRepository = MovieRepository.getInstance();
-                movieRepository.setVideosFromApi(movie.getId());
+                youTubePlayerView = findViewById(R.id.youtubePlayerView);
 
-                Button playButton = findViewById(R.id.play_button);
+                onInitializedListener = new YouTubePlayer.OnInitializedListener(){
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                        if (movie.getYoutubeVideo() != null) {
+                            youTubePlayer.cueVideo(movie.getYoutubeVideo().getKey());
+                        } else {
+                            //TODO Laat thumbnail zien, omdat er geen trailer beschikbaar is.
+                        }
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                    }
+                };
+
+                youTubePlayerView.initialize("AIzaSyBsl39DH02ica_dPRXJWQsiRtcUcmeWx2g", onInitializedListener);
+
                 MaterialButton backButton = findViewById(R.id.btn_back);
-                CardView cardFavorites = findViewById(R.id.card_favorite);
                 TextView movieTitle = findViewById(R.id.movie_title_detail);
                 TextView movieRating = findViewById(R.id.movie_rating_detail);
                 TextView movieGenres = findViewById(R.id.movie_genres_detail);
@@ -67,9 +61,6 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     startActivity(i);
                 });
 
-                youTubePlayerView.initialize("AIzaSyBsl39DH02ica_dPRXJWQsiRtcUcmeWx2g", onInitializedListener);
-
-//                playButton.setOnClickListener(v -> youTubePlayerView.initialize("AIzaSyBsl39DH02ica_dPRXJWQsiRtcUcmeWx2g", onInitializedListener);));
 
                 movieTitle.setText(movie.getTitle());
                 movieRating.setText(String.valueOf(movie.getVote_average()));
@@ -100,27 +91,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 movieGenres.setText(genres);
                 movieDescription.setText(movie.getOverview());
-
-//                playButton.setOnClickListener(view ->
-//                        playVideo(movie.getYoutubeVideo().getKey(), youtubePlayerView)
-//                );
             }
         }
-    }
-
-    public void playVideo(final String videoId, YouTubePlayerView youTubePlayerView) {
-        //initialize youtube player view
-        youTubePlayerView.initialize("AIzaSyBsl39DH02ica_dPRXJWQsiRtcUcmeWx2g",
-                new YouTubePlayer.OnInitializedListener() {
-                    @Override
-                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                        youTubePlayer.cueVideo(videoId);
-                    }
-
-                    @Override
-                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                        Log.e("MovieOverview", "Failed to play YouTube video.");
-                    }
-                });
     }
 }
