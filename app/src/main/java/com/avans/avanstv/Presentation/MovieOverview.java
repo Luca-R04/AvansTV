@@ -45,9 +45,11 @@ public class MovieOverview extends Fragment {
 
         Glide
                 .with(this)
-                .load("https://image.tmdb.org/t/p/original/" + mMovie.getPoster_path())
+                .load("https://image.tmdb.org/t/p/original/" + mMovie.getBackdrop_path())
                 .centerCrop()
                 .into(imageView);
+
+
 
         // Inflate the layout for this fragment
         return view;
