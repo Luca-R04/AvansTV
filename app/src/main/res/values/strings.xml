@@ -16,4 +16,5 @@
     <string name="rating_placeholder">Rating placeholder</string>
     <string name="category_placeholder">Category placeholder</string>
     <string name="description_placeholder">description placeholder</string>
+    <string name="movies_loaded_txt">Loaded movies</string>
 </resources>

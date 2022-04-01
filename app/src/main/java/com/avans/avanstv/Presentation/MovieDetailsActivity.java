@@ -57,7 +57,6 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 movieTitle.setText(movie.getTitle());
                 movieRating.setText(movie.getVote_average() + "");
 
-                movieGenres.setText(movie.getGenres() + "");
                 int[] genreList = movie.getGenre_ids();
                 Genre[] genreArray = movieRepository.getGenres();
 

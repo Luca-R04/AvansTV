@@ -62,7 +62,6 @@ public class HomeFragment extends Fragment {
         mPopularMovieViewModel.getAllMovies().observe(this.getViewLifecycleOwner(), movies -> {
             movieAdapter.setMovies(movies); //updates adapter
             setRandomMovie(movies);
-            Toast.makeText(this.getContext(), "Loaded: " + movies.size() + " movies", Toast.LENGTH_SHORT).show();
         });
 
         RecyclerView TopRatedRecyclerView = homeView.findViewById(R.id.rv_TopRated);
@@ -72,7 +71,7 @@ public class HomeFragment extends Fragment {
 
         mTopRatedMovieViewModel.getLatestMovies().observe(this.getViewLifecycleOwner(), movies -> {
             TopRatedMovieAdapter.setMovies(movies); //updates adapter
-            Toast.makeText(this.getContext(), "Loaded: " + movies.size() + " movies", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), R.string.movies_loaded_txt, Toast.LENGTH_SHORT).show();
         });
 
         // Inflate the layout for this fragment
