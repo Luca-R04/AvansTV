@@ -2,6 +2,8 @@ package com.avans.avanstv.Presentation;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -111,6 +113,19 @@ public class HomeFragment extends Fragment {
                     .with(this)
                     .load("https://image.tmdb.org/t/p/original/" + featuredMovie.getPoster_path())
                     .into(mFeaturedMovieView);
+
+            //Featured movie OnClickListener
+            //Transfers movie info to MovieOverview
+            CardView cardView = homeView.findViewById(R.id.card_randomMovie);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MovieOverview movieOverview = new MovieOverview(featuredMovie);
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.host_fragment, movieOverview).commitNowAllowingStateLoss();
+                }
+            });
+
         } else {
             Log.d("HomeFragment", "The movie list is empty!");
         }
