@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.R;
 import com.google.android.material.button.MaterialButton;
@@ -27,10 +31,17 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
             if (intent.hasExtra("Movie")) {
                 Movie movie = (Movie) intent.getSerializableExtra("Movie");
                 final YouTubePlayerView youtubePlayerView = findViewById(R.id.youtubePlayerView);
+
+                MovieRepository movieRepository = MovieRepository.getInstance();
+//                movieRepository.setVideosFromApi(movie.getId());
+
                 Button playButton = findViewById(R.id.play_button);
                 MaterialButton backButton = findViewById(R.id.btn_back);
-//                MovieRepository movieRepository = MovieRepository.getInstance();
-//                movieRepository.setVideosFromApi(movie.getId());
+                CardView cardFavorites = findViewById(R.id.card_favorite);
+                TextView movieTitle = findViewById(R.id.movie_title_detail);
+                TextView movieRating = findViewById(R.id.movie_rating_detail);
+                TextView movieGenres = findViewById(R.id.movie_genres_detail);
+                TextView movieDescription = findViewById(R.id.movie_description_detail);
 
                 playButton.setOnClickListener(view ->
                         playVideo(movie.getYoutubeVideo().getKey(), youtubePlayerView)
@@ -41,6 +52,38 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 });
+
+
+                movieTitle.setText(movie.getTitle());
+                movieRating.setText(movie.getVote_average() + "");
+
+                movieGenres.setText(movie.getGenres() + "");
+                int[] genreList = movie.getGenre_ids();
+                Genre[] genreArray = movieRepository.getGenres();
+
+                StringBuilder genres = new StringBuilder();
+
+                if (genreList == null) {
+                    genres.append("No genres.");
+                } else {
+                    genres.append("Genres: ");
+                    int i = 0;
+                    for (Integer genreInt : genreList) {
+                        for (Genre genreObj : genreArray) {
+                            if (genreInt == genreObj.getId()) {
+                                genres.append(genreObj.getName());
+                            }
+                        }
+                        if (genreList.length - 1 != i) {
+                            genres.append(", ");
+                            i++;
+                        }
+                    }
+                    genres.append(".");
+                }
+
+                movieGenres.setText(genres);
+                movieDescription.setText(movie.getOverview());
             }
         }
     }
