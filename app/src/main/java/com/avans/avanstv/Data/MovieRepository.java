@@ -49,7 +49,7 @@ public class MovieRepository {
         return mLiveDataLatestMovies;
     }
 
-    public static void setVideosFromApi(int movieId) {
+    public void setVideosFromApi(int movieId) {
         new SetVideosFromAPI().execute(movieId);
     }
 
@@ -194,9 +194,22 @@ public class MovieRepository {
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    Log.d(TAG_Latest, "Good Response: " + response.body().getVideos());
+                    List<Video> videos = response.body().getVideos();
+                    Log.d(TAG_Latest, "Good Response: " + videos);
 
-                    return response.body().getVideos();
+                    for (Movie movie : mLiveDataMovies.getValue()) {
+                        if (movie.getId() == movieId) {
+                            movie.setYoutubeVideo(videos.get(0));
+                        }
+                    }
+
+                    for (Movie movie : mLiveDataLatestMovies.getValue()) {
+                        if (movie.getId() == movieId) {
+                            movie.setYoutubeVideo(videos.get(0));
+                        }
+                    }
+
+                    return videos;
                 } else {
                     Log.d(TAG_Latest, "Bad Response: " + response.code());
                     return null;
@@ -210,17 +223,7 @@ public class MovieRepository {
         @Override
         protected void onPostExecute(List<Video> videos) {
             if (videos != null) {
-                for (Movie movie : mLiveDataMovies.getValue()) {
-                    if (movie.getId() == movieId) {
-                        movie.setYoutubeVideo(videos.get(0));
-                    }
-                }
 
-                for (Movie movie : mLiveDataLatestMovies.getValue()) {
-                    if (movie.getId() == movieId) {
-                        movie.setYoutubeVideo(videos.get(0));
-                    }
-                }
             }
         }
     }
