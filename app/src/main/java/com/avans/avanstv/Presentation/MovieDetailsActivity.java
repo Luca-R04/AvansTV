@@ -2,12 +2,18 @@ package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.R;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -17,8 +23,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import java.util.List;
 
 public class MovieDetailsActivity extends YouTubeBaseActivity {
-    YouTubePlayer.OnInitializedListener onInitializedListener;
-    YouTubePlayerView youTubePlayerView;
+    private YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +37,29 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 MovieRepository movieRepository = MovieRepository.getInstance(getApplication());
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
+                ImageView thumbnailView = findViewById(R.id.thumbnail_view);
+                ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
 
-                onInitializedListener = new YouTubePlayer.OnInitializedListener(){
+                YouTubePlayer.OnInitializedListener onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                         if (movie.getYoutubeVideo() != null) {
                             youTubePlayer.cueVideo(movie.getYoutubeVideo().getKey());
                         } else {
-                            //TODO Laat thumbnail zien, omdat er geen trailer beschikbaar is.
+                            //TODO Laat thumbnail zien, omdat er geen trailer beschikbaar is. Werkt nog niet
+                            youTubePlayerView.setVisibility(View.GONE);
+                            constraintLayout.removeView(youTubePlayerView);
+                            constraintLayout.addView(thumbnailView);
+                            Glide
+                                    .with(MovieDetailsActivity.this)
+                                    .load("https://image.tmdb.org/t/p/original/" + movie.getPoster_path())
+                                    .into(thumbnailView);
                         }
                     }
 
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
+                        Toast.makeText(MovieDetailsActivity.this, "Failed to load trailer!", Toast.LENGTH_SHORT).show();
                     }
                 };
 
@@ -63,13 +77,11 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     startActivity(i);
                 });
 
-
                 movieTitle.setText(movie.getTitle());
                 movieRating.setText(String.valueOf(movie.getVote_average()));
 
                 List<Integer> genreList = movie.getGenre_ids();
                 Genre[] genreArray = movieRepository.getGenres();
-
                 StringBuilder genres = new StringBuilder();
 
                 if (genreList == null) {
