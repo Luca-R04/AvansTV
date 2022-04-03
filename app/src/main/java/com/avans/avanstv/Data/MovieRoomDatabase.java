@@ -9,7 +9,6 @@ import androidx.room.TypeConverters;
 
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
-import com.avans.avanstv.Domain.Video;
 
 @TypeConverters({Converters.class})
 @Database(entities = {Movie.class, Genre.class}, version = 4, exportSchema = false)

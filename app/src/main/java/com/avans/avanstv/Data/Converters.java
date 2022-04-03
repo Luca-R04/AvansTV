@@ -2,14 +2,12 @@ package com.avans.avanstv.Data;
 
 import androidx.room.TypeConverter;
 
-import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Video;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Converters {
@@ -48,27 +46,5 @@ public class Converters {
     public static String fromIntegerArray(List<Integer> list) {
         Gson gson = new Gson();
         return gson.toJson(list);
-    }
-
-    //Converters for the Date type
-    @TypeConverter
-    public static Date fromDateString(String date) {
-        return new Date(date);
-    }
-
-    @TypeConverter
-    public static String fromDate(Date date) {
-        return date.toString();
-    }
-
-    //Converters for the Genre class
-    @TypeConverter
-    public static Genre fromGenreString(String genre) {
-        return new Genre(genre);
-    }
-
-    @TypeConverter
-    public static String fromGenre(Genre genre) {
-        return genre.getName();
     }
 }

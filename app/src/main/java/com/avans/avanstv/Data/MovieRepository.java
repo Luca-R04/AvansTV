@@ -35,8 +35,8 @@ public class MovieRepository {
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
     private static Genre[] mGenresAPI;
     private static Genre[] mGenresDatabase;
-    private static MovieDao mMovieDao;
     private static GenreDao mGenreDao;
+    private static MovieDao mMovieDao;
     private static NetworkInfo mNetworkInfo;
 
     public MovieRepository(Application application) {
@@ -227,13 +227,11 @@ public class MovieRepository {
                                 movie.setYoutubeVideo(video);
                             }
                         }
-                        if (movie.getYoutubeVideo() != null) {
-                            mMovieDao.insert(movie);
-                        } else {
+                        if (movie.getYoutubeVideo() == null) {
                             Video video = new Video("");
                             movie.setYoutubeVideo(video);
-                            mMovieDao.insert(movie);
                         }
+                        mMovieDao.insert(movie);
                     }
 
                     for (Movie movie : mTopRatedMovies.getValue()) {
@@ -243,13 +241,11 @@ public class MovieRepository {
                             }
                         }
                         //This needs to be done for the Room database, otherwise it won't save the movie
-                        if (movie.getYoutubeVideo() != null) {
-                            mMovieDao.insert(movie);
-                        } else {
+                        if (movie.getYoutubeVideo() == null) {
                             Video video = new Video("");
                             movie.setYoutubeVideo(video);
-                            mMovieDao.insert(movie);
                         }
+                        mMovieDao.insert(movie);
                     }
 
                     return videos;
