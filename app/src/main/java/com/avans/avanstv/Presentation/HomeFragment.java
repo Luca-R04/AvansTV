@@ -31,8 +31,8 @@ import java.util.Random;
 
 public class HomeFragment extends Fragment {
     private ImageView mFeaturedMovieView;
-    private View homeView;
-    private final MovieRepository movieRepository = MovieRepository.getInstance();
+    private View mHomeView;
+    private MovieRepository mMovieRepository;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -41,19 +41,21 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mMovieRepository = MovieRepository.getInstance(getActivity().getApplication());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        homeView = inflater.inflate(R.layout.fragment_home, container, false);
-        mFeaturedMovieView = homeView.findViewById(R.id.img_random_movie);
+        mHomeView = inflater.inflate(R.layout.fragment_home, container, false);
+        mFeaturedMovieView = mHomeView.findViewById(R.id.img_random_movie);
 
         PopularMovieViewModel mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
         TopRatedMovieViewModel mTopRatedMovieViewModel = ViewModelProviders.of(this).get(TopRatedMovieViewModel.class);
 
         // Create a Recyclerview and adapter to display the movies
-        RecyclerView PopularRecyclerView = homeView.findViewById(R.id.rv_popular);
+        RecyclerView PopularRecyclerView = mHomeView.findViewById(R.id.rv_popular);
         MovieAdapter movieAdapter = new MovieAdapter(this.getContext(), mPopularMovieViewModel.getAllMovies().getValue());
         PopularRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         PopularRecyclerView.setAdapter(movieAdapter);
@@ -63,7 +65,7 @@ public class HomeFragment extends Fragment {
             setRandomMovie(movies);
         });
 
-        RecyclerView TopRatedRecyclerView = homeView.findViewById(R.id.rv_TopRated);
+        RecyclerView TopRatedRecyclerView = mHomeView.findViewById(R.id.rv_TopRated);
         MovieAdapter TopRatedMovieAdapter = new MovieAdapter(this.getContext(), mTopRatedMovieViewModel.getLatestMovies().getValue());
         TopRatedRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
         TopRatedRecyclerView.setAdapter(TopRatedMovieAdapter);
@@ -74,7 +76,7 @@ public class HomeFragment extends Fragment {
         });
 
         // Inflate the layout for this fragment
-        return homeView;
+        return mHomeView;
     }
 
     public void setRandomMovie(List<Movie> movies) {
@@ -82,17 +84,17 @@ public class HomeFragment extends Fragment {
             int random = new Random().nextInt(movies.size());
             Movie featuredMovie = movies.get(random);
 
-            TextView featuredTitle = homeView.findViewById(R.id.featured_title_id);
-            TextView featuredDate = homeView.findViewById(R.id.featured_date_id);
-            TextView featuredLanguage = homeView.findViewById(R.id.featured_language_id);
-            TextView featuredGenres = homeView.findViewById(R.id.featured_genres_id);
+            TextView featuredTitle = mHomeView.findViewById(R.id.featured_title_id);
+            TextView featuredDate = mHomeView.findViewById(R.id.featured_date_id);
+            TextView featuredLanguage = mHomeView.findViewById(R.id.featured_language_id);
+            TextView featuredGenres = mHomeView.findViewById(R.id.featured_genres_id);
 
             featuredTitle.setText(featuredMovie.getTitle());
             featuredDate.setText(featuredMovie.getRelease_date());
             String languageCaps = featuredMovie.getOriginal_language().substring(0, 1).toUpperCase() + featuredMovie.getOriginal_language().substring(1).toLowerCase();
             featuredLanguage.setText(getString(R.string.featured_language) + languageCaps);
-            int[] genreList = featuredMovie.getGenre_ids();
-            Genre[] genreArray = movieRepository.getGenres();
+            List<Integer> genreList = featuredMovie.getGenre_ids();
+            Genre[] genreArray = mMovieRepository.getGenres();
 
             StringBuilder genres = new StringBuilder();
 
@@ -107,7 +109,7 @@ public class HomeFragment extends Fragment {
                             genres.append(genreObj.getName());
                         }
                     }
-                    if (genreList.length - 1 != i) {
+                    if (genreList.size() - 1 != i) {
                         genres.append(", ");
                         i++;
                     }
@@ -124,9 +126,9 @@ public class HomeFragment extends Fragment {
 
             //Featured movie OnClickListener
             //Transfers movie info to MovieOverview
-            CardView cardView = homeView.findViewById(R.id.card_randomMovie);
+            CardView cardView = mHomeView.findViewById(R.id.card_randomMovie);
             cardView.setOnClickListener(view -> {
-                Intent intent = new Intent(homeView.getContext(), MovieDetailsActivity.class);
+                Intent intent = new Intent(mHomeView.getContext(), MovieDetailsActivity.class);
                 intent.putExtra("Movie", featuredMovie);
                 startActivity(intent);
             });

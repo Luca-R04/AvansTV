@@ -14,6 +14,8 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import java.util.List;
+
 public class MovieDetailsActivity extends YouTubeBaseActivity {
     YouTubePlayer.OnInitializedListener onInitializedListener;
     YouTubePlayerView youTubePlayerView;
@@ -28,7 +30,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
             if (intent.hasExtra("Movie")) {
                 Movie movie = (Movie) intent.getSerializableExtra("Movie");
 
-                MovieRepository movieRepository = MovieRepository.getInstance();
+                MovieRepository movieRepository = MovieRepository.getInstance(getApplication());
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
 
                 onInitializedListener = new YouTubePlayer.OnInitializedListener(){
@@ -65,7 +67,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 movieTitle.setText(movie.getTitle());
                 movieRating.setText(String.valueOf(movie.getVote_average()));
 
-                int[] genreList = movie.getGenre_ids();
+                List<Integer> genreList = movie.getGenre_ids();
                 Genre[] genreArray = movieRepository.getGenres();
 
                 StringBuilder genres = new StringBuilder();
@@ -81,7 +83,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                                 genres.append(genreObj.getName());
                             }
                         }
-                        if (genreList.length - 1 != i) {
+                        if (genreList.size() - 1 != i) {
                             genres.append(", ");
                             i++;
                         }

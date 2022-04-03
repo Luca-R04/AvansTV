@@ -1,22 +1,31 @@
 package com.avans.avanstv.Domain;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Movie implements Serializable {
+    @PrimaryKey
+    @SerializedName("id")
+    public int movieId;
     public boolean adult;
     public String backdrop_path;
-    public Object belongs_to_collection;
+    public String belongs_to_collection;
     public int budget;
-    public int[] genre_ids;
+    public List<Integer> genre_ids;
     public String homepage;
-    public int id;
     public String imdb_id;
     public String original_language;
     public String original_title;
     public String overview;
     public double popularity;
-    public Object poster_path;
+    public String poster_path;
     public ArrayList<String> production_companies;
     public ArrayList<String> production_countries;
     public String release_date;
@@ -47,11 +56,11 @@ public class Movie implements Serializable {
         this.backdrop_path = backdrop_path;
     }
 
-    public Object getBelongs_to_collection() {
+    public String getBelongs_to_collection() {
         return belongs_to_collection;
     }
 
-    public void setBelongs_to_collection(Object belongs_to_collection) {
+    public void setBelongs_to_collection(String belongs_to_collection) {
         this.belongs_to_collection = belongs_to_collection;
     }
 
@@ -63,11 +72,11 @@ public class Movie implements Serializable {
         this.budget = budget;
     }
 
-    public int[] getGenre_ids() {
+    public List<Integer> getGenre_ids() {
         return genre_ids;
     }
 
-    public void setGenre_ids(int[] genre_ids) {
+    public void setGenre_ids(List<Integer> genre_ids) {
         this.genre_ids = genre_ids;
     }
 
@@ -79,12 +88,12 @@ public class Movie implements Serializable {
         this.homepage = homepage;
     }
 
-    public int getId() {
-        return id;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public String getImdb_id() {
@@ -127,11 +136,11 @@ public class Movie implements Serializable {
         this.popularity = popularity;
     }
 
-    public Object getPoster_path() {
+    public String getPoster_path() {
         return poster_path;
     }
 
-    public void setPoster_path(Object poster_path) {
+    public void setPoster_path(String poster_path) {
         this.poster_path = poster_path;
     }
 

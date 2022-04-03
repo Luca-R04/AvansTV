@@ -1,5 +1,9 @@
 package com.avans.avanstv.Data;
 
+import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,18 +30,38 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MovieRepository {
     private static volatile MovieRepository INSTANCE;
     private static final String API_KEY = "f7c59563b1ecac0e4e6c1debf2a7485e";
+    private static final String TAG = "MovieRepository";
     private static MutableLiveData<List<Movie>> mPopularMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
-    private static Genre[] mGenres;
+    private static Genre[] mGenresAPI;
+    private static Genre[] mGenresDatabase;
+    private static MovieDao mMovieDao;
+    private static GenreDao mGenreDao;
+    private static NetworkInfo mNetworkInfo;
 
-    public MovieRepository() {
-        new GetGenresFromAPI().execute();
+    public MovieRepository(Application application) {
+        MovieRoomDatabase db = MovieRoomDatabase.getDatabase(application);
+        mMovieDao = db.movieDao();
+        mGenreDao = db.genreDao();
 
         mPopularMovies = new MutableLiveData<>();
-        new GetPopularMoviesFromAPI().execute();
-
         mTopRatedMovies = new MutableLiveData<>();
-        new GetTopRatedMoviesFromAPI().execute();
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            mNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        }
+
+        if (mNetworkInfo == null || !mNetworkInfo.isConnected()) {
+            Log.i(TAG, "There is no internet connection, retrieve data from the local database.");
+            new GetGenresFromDatabase().execute();
+            new GetMoviesFromDatabase().execute();
+        } else {
+            Log.i(TAG, "There is a internet connection, retrieve data from API.");
+            new GetGenresFromAPI().execute();
+            new GetTopRatedMoviesFromAPI().execute();
+            new GetPopularMoviesFromAPI().execute();
+        }
     }
 
     public LiveData<List<Movie>> getLiveDataMovies() {
@@ -53,12 +77,15 @@ public class MovieRepository {
     }
 
     public Genre[] getGenres() {
-        return mGenres;
+        if (mNetworkInfo == null || !mNetworkInfo.isConnected()) {
+            return mGenresDatabase;
+        }
+        return mGenresAPI;
     }
 
-    public static MovieRepository getInstance() {
+    public static MovieRepository getInstance(Application application) {
         if (INSTANCE == null) {
-            INSTANCE = new MovieRepository();
+            INSTANCE = new MovieRepository(application);
         }
         return INSTANCE;
     }
@@ -69,7 +96,7 @@ public class MovieRepository {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             try {
-                Log.d(TAG, "doInBackground - retrieve all popular movies");
+                Log.d(TAG, "doInBackground - retrieve all popular movies from the API");
 
                 Gson gson = new GsonBuilder()
                         .setLenient()
@@ -82,7 +109,6 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Log.d(TAG, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
                 Call<MovieResponse> call = service.getPopularMovies(API_KEY);
                 Response<MovieResponse> response = call.execute();
 
@@ -93,7 +119,7 @@ public class MovieRepository {
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
 
                      for (Movie movie : response.body().getMovies()) {
-                        MovieRepository.setVideosFromApi(movie.getId());
+                        MovieRepository.setVideosFromApi(movie.getMovieId());
                      }
 
                     return response.body().getMovies();
@@ -121,7 +147,7 @@ public class MovieRepository {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             try {
-                Log.d(TAG, "doInBackground - retrieve all popular movies");
+                Log.d(TAG, "doInBackground - retrieve all top rated movies from API");
 
                 Gson gson = new GsonBuilder()
                         .setLenient()
@@ -134,7 +160,6 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Log.d(TAG, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
                 Call<MovieResponse> call = service.getTopRatedMovies(API_KEY);
                 Response<MovieResponse> response = call.execute();
 
@@ -171,7 +196,7 @@ public class MovieRepository {
             Integer movieId = integers[0];
 
             try {
-                Log.d(TAG, "doInBackground - retrieve all popular movies");
+                Log.d(TAG, "doInBackground - set videos for specific movie");
 
                 Gson gson = new GsonBuilder()
                         .setLenient()
@@ -184,7 +209,6 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Log.d(TAG, "Calling getPopularMovies on service - attempt at retrieving the popular movies");
                 Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
                 Response<VideoResponse> response = call.execute();
 
@@ -195,23 +219,36 @@ public class MovieRepository {
                     List<Video> videos = response.body().getVideos();
                     Log.d(TAG, "Good Response: " + videos);
 
+                    mMovieDao.deleteAll();
+
                     for (Movie movie : mPopularMovies.getValue()) {
-                        if (movie.getId() == movieId) {
+                        if (movie.getMovieId() == movieId) {
                             for (Video video : videos) {
-                                if (video.getType().equals("Trailer")) {
-                                    movie.setYoutubeVideo(video);
-                                }
+                                movie.setYoutubeVideo(video);
                             }
+                        }
+                        if (movie.getYoutubeVideo() != null) {
+                            mMovieDao.insert(movie);
+                        } else {
+                            Video video = new Video("");
+                            movie.setYoutubeVideo(video);
+                            mMovieDao.insert(movie);
                         }
                     }
 
                     for (Movie movie : mTopRatedMovies.getValue()) {
-                        if (movie.getId() == movieId) {
+                        if (movie.getMovieId() == movieId) {
                             for (Video video : videos) {
-                                if (video.getType().equals("Trailer")) {
-                                    movie.setYoutubeVideo(video);
-                                }
+                                movie.setYoutubeVideo(video);
                             }
+                        }
+                        //This needs to be done for the Room database, otherwise it won't save the movie
+                        if (movie.getYoutubeVideo() != null) {
+                            mMovieDao.insert(movie);
+                        } else {
+                            Video video = new Video("");
+                            movie.setYoutubeVideo(video);
+                            mMovieDao.insert(movie);
                         }
                     }
 
@@ -234,7 +271,6 @@ public class MovieRepository {
         protected Genre[] doInBackground(Void... voids) {
             try {
                 Log.d(TAG, "doInBackground - retrieve all genres");
-                Log.d(TAG, "Calling getMovieGenres on service - attempt at retrieving the genres");
                 Gson gson = new GsonBuilder()
                         .setLenient()
                         .create();
@@ -254,7 +290,13 @@ public class MovieRepository {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     Log.d(TAG, "Good Response: " + Arrays.toString(response.body().getGenres()));
-                    mGenres = response.body().getGenres();
+                    mGenreDao.deleteAll();
+
+                    mGenresAPI = response.body().getGenres();
+                    for (Genre genre : mGenresAPI) {
+                        mGenreDao.insert(genre);
+                    }
+
                     return response.body().getGenres();
                 } else {
                     Log.d(TAG, "Bad Response: " + response.code());
@@ -263,6 +305,31 @@ public class MovieRepository {
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e);
                 return null;
+            }
+        }
+    }
+
+    private static class GetGenresFromDatabase extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mGenresDatabase = mGenreDao.getAllGenres();
+            return null;
+        }
+    }
+
+    private static class GetMoviesFromDatabase extends AsyncTask<Void, Void, List<Movie>> {
+
+        @Override
+        protected List<Movie> doInBackground(Void... voids) {
+            return mMovieDao.getAllMovies();
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            if (movies != null) {
+                mPopularMovies.setValue(movies);
+                //TODO Values van LiveData objecten setten, maar het zijn er twee. Beide moeten waardes hebben.
             }
         }
     }
