@@ -41,10 +41,10 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter holder, int position) {
-//        Glide
-//                .with(mContext)
-//                .load("https://image.tmdb.org/t/p/original/" + mMovieList.get(holder.getAdapterPosition()).getPoster_path())
-//                .into(holder.imageView);
+        Glide
+                .with(mContext)
+                .load("https://image.tmdb.org/t/p/original/" + mMovieList.get(holder.getAdapterPosition()).getPoster_path())
+                .into(holder.imageView);
 
         holder.movieTitle.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
         holder.movieDate.setText(mMovieList.get(holder.getAdapterPosition()).getRelease_date());
