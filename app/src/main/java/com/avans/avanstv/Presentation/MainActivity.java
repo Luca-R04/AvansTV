@@ -1,10 +1,13 @@
 package com.avans.avanstv.Presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.avans.avanstv.R;
@@ -25,5 +28,22 @@ public class MainActivity extends AppCompatActivity {
         assert navHostFragment != null;
         final NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        // Load preferences when the app is created
+        loadSettings();
+    }
+
+    private void loadSettings() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor spEdit = sp.edit();
+
+        String language = sp.getString("language", "");
+        Boolean isDarkMode = sp.getBoolean("theme", false);
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }
