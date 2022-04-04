@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/movie_title"
+                android:id="@+id/explore_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/featured_date"
+                android:id="@+id/explore_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -46,10 +46,10 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_featured_movie"
-                app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+                app:layout_constraintTop_toBottomOf="@+id/explore_title" />
 
             <TextView
-                android:id="@+id/featured_language"
+                android:id="@+id/explore_rating"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -58,10 +58,10 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_featured_movie"
-                app:layout_constraintTop_toBottomOf="@+id/featured_date" />
+                app:layout_constraintTop_toBottomOf="@+id/explore_date" />
 
             <TextView
-                android:id="@+id/featured_genres"
+                android:id="@+id/explore_genres"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -70,7 +70,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_featured_movie"
-                app:layout_constraintTop_toBottomOf="@+id/featured_language" />
+                app:layout_constraintTop_toBottomOf="@+id/explore_rating" />
 
             <ImageView
                 android:id="@+id/img_featured_movie"

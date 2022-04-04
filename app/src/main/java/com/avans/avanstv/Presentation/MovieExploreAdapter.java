@@ -70,7 +70,7 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
 
         public MovieRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.img_explore_movie);
+            imageView = itemView.findViewById(R.id.img_featured_movie);
             movieTitle = itemView.findViewById(R.id.movie_title);
         }
     }
