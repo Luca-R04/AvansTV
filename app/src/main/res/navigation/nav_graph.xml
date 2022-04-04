@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_movie_overview" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.avans.avanstv.SettingsFragment"
+        android:name="com.avans.avanstv.Presentation.SettingsFragment"
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_profileFragment"

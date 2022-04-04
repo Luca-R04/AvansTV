@@ -1,12 +1,13 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
         <ListPreference
-            app:defaultValue="language"
+            app:key="language"
             app:entries="@array/language_values"
             app:entryValues="@array/language_id_values"
-            app:key="theme"
             app:title="Language"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            android:defaultValue="en"
+            android:summary="%s"/>
 
         <SwitchPreferenceCompat
             app:key="theme"

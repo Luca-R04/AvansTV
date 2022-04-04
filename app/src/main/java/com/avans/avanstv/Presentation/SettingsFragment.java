@@ -1,8 +1,10 @@
-package com.avans.avanstv;
+package com.avans.avanstv.Presentation;
 
 import android.os.Bundle;
 
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.avans.avanstv.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
