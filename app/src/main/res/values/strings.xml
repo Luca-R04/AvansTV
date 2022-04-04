@@ -24,4 +24,13 @@
     <string name="favorite_image_description">Image of a heart</string>
     <string name="username_placeholder">Username</string>
     <string name="thumbnail_description">Thumbnail of the movie</string>
+
+
+    <!-- Preferences -->
+    <string name="theme_title">Theme</string>
+    <string name="theme_on">Darkmode turned on</string>
+    <string name="theme_off">Lightmode turned on</string>
+
+
+
 </resources>
