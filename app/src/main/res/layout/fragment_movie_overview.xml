@@ -3,7 +3,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".Presentation.MovieDetailsActivity">
 
@@ -30,7 +29,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingClass" />
 
         <TextView
             android:id="@+id/movie_title_detail"
@@ -40,7 +40,7 @@
             android:paddingEnd="30dp"
             android:paddingTop="10dp"
             android:text="@string/title_placeholder"
-            android:textColor="@android:color/black"
+            android:textColor="@color/text"
             android:textSize="36sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
                 android:paddingStart="30dp"
                 android:paddingTop="15dp"
                 android:text="@string/rating_placeholder"
-                android:textColor="@android:color/black"
+                android:textColor="@color/text"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
