@@ -35,6 +35,7 @@
             android:contentDescription="Button for filter options"
             android:minWidth="48dp"
             android:minHeight="48dp"
+            android:backgroundTint="@android:color/transparent"
             android:src="@drawable/ic_filter_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
