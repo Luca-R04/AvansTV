@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
+import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.R;
 
@@ -35,6 +37,16 @@ public class ExploreFragment extends Fragment {
 
         mPopularMovieViewModel.getAllMovies().observe(this.getViewLifecycleOwner(), movies -> {
             movieAdapter.setMovies(movies); //updates adapter
+        });
+
+        SearchView searchView = exploreView.findViewById(R.id.explore_search);
+        MovieRepository movieRepository = MovieRepository.getInstance(getActivity().getApplication());
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("Search for a movie");
+        searchView.setOnSearchClickListener(view -> {
+            if (!searchView.getQuery().equals("")) {
+                movieRepository.searchMovie(searchView.getQuery().toString());
+            }
         });
 
         return exploreView;

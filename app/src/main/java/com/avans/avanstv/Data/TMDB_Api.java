@@ -15,8 +15,17 @@ public interface TMDB_Api {
     /** Authentication **/
 
     /** Movies **/
+    //Get popular movies
     @GET("movie/popular")
     Call<MovieResponse> getPopularMovies(@Query("api_key") String api_key);
+
+    //Get get top rated movies
+    @GET("movie/top_rated")
+    Call<MovieResponse> getTopRatedMovies(@Query("api_key") String api_key);
+
+    //Search for a movie
+    @GET("search/movie")
+    Call<MovieResponse> searchMovie(@Query("search_term") String searchTerm, @Query("api_key") String api_key);
 
     //Get movie by id
     @GET("movie/{movie_id}")
@@ -26,11 +35,7 @@ public interface TMDB_Api {
     @GET("movie/{movie_id}?language={language}")
     Call<Movie> getMovieID(@Path("movie_id") int movie_id, @Query("api_key") String api_key, @Path("Language") String language);
 
-    //Get get top rated movies
-    @GET("movie/top_rated")
-    Call<MovieResponse> getTopRatedMovies(@Query("api_key") String api_key);
-
-    //Get latest movies
+    //Get movie genres
     @GET("genre/movie/list")
     Call<GenreResponse> getMovieGenres(@Query("api_key") String api_key);
 
