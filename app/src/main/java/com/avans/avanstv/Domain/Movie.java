@@ -39,6 +39,15 @@ public class Movie implements Serializable {
     public double vote_average;
     public int vote_count;
     private Video youtubeVideo;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public boolean isAdult() {
         return adult;

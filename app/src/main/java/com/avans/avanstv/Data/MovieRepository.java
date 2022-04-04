@@ -19,6 +19,7 @@ import com.avans.avanstv.Domain.VideoResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -117,12 +118,14 @@ public class MovieRepository {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
+                    List<Movie> movies = response.body().getMovies();
 
-                     for (Movie movie : response.body().getMovies()) {
+                    for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
-                     }
+                        movie.setType("Popular");
+                    }
 
-                    return response.body().getMovies();
+                    return movies;
                 } else {
                     Log.d(TAG, "Bad Response: " + response.code());
                     return null;
@@ -168,8 +171,14 @@ public class MovieRepository {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
+                    List<Movie> movies = response.body().getMovies();
 
-                    return response.body().getMovies();
+                    for (Movie movie : movies) {
+                        MovieRepository.setVideosFromApi(movie.getMovieId());
+                        movie.setType("TopRated");
+                    }
+
+                    return movies;
                 } else {
                     Log.d(TAG, "Bad Response: " + response.code());
                     return null;
@@ -196,8 +205,6 @@ public class MovieRepository {
             Integer movieId = integers[0];
 
             try {
-                Log.d(TAG, "doInBackground - set videos for specific movie");
-
                 Gson gson = new GsonBuilder()
                         .setLenient()
                         .create();
@@ -212,12 +219,9 @@ public class MovieRepository {
                 Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
                 Response<VideoResponse> response = call.execute();
 
-                Log.d(TAG, "Executed call, response.code = " + response.code());
-
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     List<Video> videos = response.body().getVideos();
-                    Log.d(TAG, "Good Response: " + videos);
 
                     mMovieDao.deleteAll();
 
@@ -250,7 +254,7 @@ public class MovieRepository {
 
                     return videos;
                 } else {
-                    Log.d(TAG, "Bad Response: " + response.code());
+                    Log.e(TAG, "Bad Response: " + response.code());
                     return null;
                 }
             } catch (Exception e) {
@@ -323,9 +327,18 @@ public class MovieRepository {
 
         @Override
         protected void onPostExecute(List<Movie> movies) {
+            List<Movie> popularMovies = new ArrayList<>();
+            List<Movie> topRatedMovies = new ArrayList<>();
             if (movies != null) {
-                mPopularMovies.setValue(movies);
-                //TODO Values van LiveData objecten setten, maar het zijn er twee. Beide moeten waardes hebben.
+                for (Movie movie : movies) {
+                    if (movie.getType().equals("Popular")) {
+                        popularMovies.add(movie);
+                    } else {
+                        topRatedMovies.add(movie);
+                    }
+                }
+                mPopularMovies.setValue(popularMovies);
+                mTopRatedMovies.setValue(topRatedMovies);
             }
         }
     }
