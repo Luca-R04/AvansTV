@@ -22,5 +22,6 @@
     <string name="description_title_txt">Description</string>
     <string name="star_image_description">Image of a star for ratings</string>
     <string name="favorite_image_description">Image of a heart</string>
+    <string name="username_placeholder">Username</string>
     <string name="thumbnail_description">Thumbnail of the movie</string>
 </resources>
