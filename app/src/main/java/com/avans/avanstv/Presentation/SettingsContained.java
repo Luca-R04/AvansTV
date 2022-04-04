@@ -2,13 +2,18 @@ package com.avans.avanstv.Presentation;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.preference.PreferenceScreen;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.avans.avanstv.R;
+import com.google.android.material.button.MaterialButton;
 
 
 public class SettingsContained extends Fragment {
@@ -25,7 +30,21 @@ public class SettingsContained extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings_contained, container, false);
 
+        getChildFragmentManager().beginTransaction().replace(R.id.rootPreferenceHolder, new SettingsFragment()).commit();
+
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        MaterialButton backArrow = view.findViewById(R.id.settings_btn_back);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_settingsContained_to_profileFragment);
+            }
+        });
     }
 }

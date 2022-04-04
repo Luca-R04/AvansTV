@@ -30,7 +30,7 @@
     <string name="theme_title">Theme</string>
     <string name="theme_on">Darkmode turned on</string>
     <string name="theme_off">Lightmode turned on</string>
-
+    <string name="settings">Settings</string>
 
 
 </resources>
