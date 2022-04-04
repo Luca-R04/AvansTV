@@ -42,17 +42,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_settingsFragment);
-
-//                loadSettings();
             }
         });
 
     }
 
-    private void loadSettings() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        String language = sp.getString("language", "");
-        Boolean isDarkMode = sp.getBoolean("theme", false);
-    }
 }
