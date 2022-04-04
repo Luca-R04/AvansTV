@@ -1,8 +1,12 @@
 package com.avans.avanstv.Domain;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity
 public class Genre{
+    @PrimaryKey
     public int id;
     public String name;
 
@@ -19,6 +23,10 @@ public class Genre{
     }
 
     public void setName(String name) {
+        this.name = name;
+    }
+
+    public Genre(String name) {
         this.name = name;
     }
 

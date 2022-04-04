@@ -7,6 +7,7 @@
         tools:context=".Presentation.MovieDetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -31,6 +32,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingClass" />
+
+        <ImageView
+            android:id="@+id/thumbnail_view"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/thumbnail_description" />
 
         <TextView
             android:id="@+id/movie_title_detail"
