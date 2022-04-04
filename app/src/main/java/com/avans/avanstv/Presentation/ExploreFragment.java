@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
+import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.R;
 
@@ -30,11 +32,21 @@ public class ExploreFragment extends Fragment {
         // Create a Recyclerview and adapter to display the movies
         RecyclerView exploreRecyclerView = exploreView.findViewById(R.id.rv_explore);
         MovieExploreAdapter movieAdapter = new MovieExploreAdapter(this.getContext(), mPopularMovieViewModel.getAllMovies().getValue());
-        exploreRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
+        exploreRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         exploreRecyclerView.setAdapter(movieAdapter);
 
         mPopularMovieViewModel.getAllMovies().observe(this.getViewLifecycleOwner(), movies -> {
             movieAdapter.setMovies(movies); //updates adapter
+        });
+
+        SearchView searchView = exploreView.findViewById(R.id.explore_search);
+        MovieRepository movieRepository = MovieRepository.getInstance(getActivity().getApplication());
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("Search for a movie");
+        searchView.setOnSearchClickListener(view -> {
+            if (!searchView.getQuery().equals("")) {
+                movieRepository.searchMovie(searchView.getQuery().toString());
+            }
         });
 
         return exploreView;

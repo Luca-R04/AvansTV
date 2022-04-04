@@ -34,13 +34,14 @@ public class MovieRepository {
     private static final String TAG = "MovieRepository";
     private static MutableLiveData<List<Movie>> mPopularMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
+    private static List<Movie> mSearchResults;
     private static Genre[] mGenresAPI;
     private static Genre[] mGenresDatabase;
     private static GenreDao mGenreDao;
     private static MovieDao mMovieDao;
     private static NetworkInfo mNetworkInfo;
 
-    public MovieRepository(Application application) {
+    private MovieRepository(Application application) {
         MovieRoomDatabase db = MovieRoomDatabase.getDatabase(application);
         mMovieDao = db.movieDao();
         mGenreDao = db.genreDao();
@@ -82,6 +83,11 @@ public class MovieRepository {
             return mGenresDatabase;
         }
         return mGenresAPI;
+    }
+
+    public List<Movie> searchMovie(String searchTerm) {
+        new SearchMovie().execute(searchTerm);
+        return mSearchResults;
     }
 
     public static MovieRepository getInstance(Application application) {
@@ -308,6 +314,53 @@ public class MovieRepository {
             }
         }
     }
+
+    private static class SearchMovie extends AsyncTask<String, Void, List<Movie>> {
+        private final static String TAG = SearchMovie.class.getSimpleName();
+
+        @Override
+        protected List<Movie> doInBackground(String... strings) {
+            try {
+                Log.d(TAG, "doInBackground - retrieve all genres");
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://api.themoviedb.org/3/")
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+
+                TMDB_Api service = retrofit.create(TMDB_Api.class);
+
+                Call<MovieResponse> call = service.searchMovie(strings[0], API_KEY);
+                Response<MovieResponse> response = call.execute();
+
+                Log.d(TAG, "Executed call, response.code = " + response.code());
+
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    Log.d(TAG, "Good Response: " + response.body().getMovies());
+
+                    return response.body().getMovies();
+                } else {
+                    Log.d(TAG, "Bad Response: " + response.code());
+                    return null;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Exception: " + e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            if (movies != null) {
+                mSearchResults = movies;
+            }
+        }
+    }
+
 
     private static class GetGenresFromDatabase extends AsyncTask<Void, Void, Void> {
 
