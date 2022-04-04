@@ -13,11 +13,15 @@
     <string name="featured_title_text">Titel</string>
     <string name="title_placeholder">Titel placeholder</string>
     <string name="movies_loaded_txt">Films ingeladen</string>
-    <string name="featured_language">Taal:\\u0020</string>
+    <string name="featured_language">"Taal: "</string>
     <string name="back_btn_txt">Terug naar het home scherm</string>
     <string name="description_title_txt">Beschrijving</string>
     <string name="username_placeholder">Gebruiker</string>
     <string name="theme_title">Thema</string>
     <string name="theme_on">Darkmode aan</string>
     <string name="theme_off">Lightmode aan</string>
+    <string name="settings">Instellingen</string>
+    <string name="language">Taal</string>
+    <string name="favorite_movies">Favorieten films</string>
+    <string name="favorite_lists">Favorieten lijsten</string>
 </resources>

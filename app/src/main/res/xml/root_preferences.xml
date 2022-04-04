@@ -4,7 +4,7 @@
             app:key="language"
             app:entries="@array/language_values"
             app:entryValues="@array/language_id_values"
-            app:title="Language"
+            app:title="@string/language"
             app:useSimpleSummaryProvider="true"
             android:defaultValue="en"
             android:summary="%s"/>
