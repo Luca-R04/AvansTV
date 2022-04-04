@@ -30,7 +30,7 @@ public class ExploreFragment extends Fragment {
         // Create a Recyclerview and adapter to display the movies
         RecyclerView exploreRecyclerView = exploreView.findViewById(R.id.rv_explore);
         MovieExploreAdapter movieAdapter = new MovieExploreAdapter(this.getContext(), mPopularMovieViewModel.getAllMovies().getValue());
-        exploreRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
+        exploreRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         exploreRecyclerView.setAdapter(movieAdapter);
 
         mPopularMovieViewModel.getAllMovies().observe(this.getViewLifecycleOwner(), movies -> {
