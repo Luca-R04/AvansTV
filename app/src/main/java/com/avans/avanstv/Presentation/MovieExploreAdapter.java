@@ -1,5 +1,6 @@
 package com.avans.avanstv.Presentation;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
@@ -50,9 +53,6 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
         holder.movieDate.setText(mMovieList.get(holder.getAdapterPosition()).getRelease_date());
         holder.movieRating.setText(String.valueOf(mMovieList.get(holder.getAdapterPosition()).getVote_average()));
 
-
-        holder.movieGenres.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
-
         holder.itemView.setOnClickListener(view -> {
             Log.i("MovieAdapter", mMovieList.get(holder.getAdapterPosition()).getTitle());
             Intent intent = new Intent(mContext, MovieDetailsActivity.class);
@@ -71,7 +71,7 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
 
     static class MovieRecyclerAdapter extends RecyclerView.ViewHolder {
         private final ImageView imageView;
-        private final TextView movieTitle, movieDate, movieRating, movieGenres;
+        private final TextView movieTitle, movieDate, movieRating;
 
         public MovieRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
@@ -79,7 +79,6 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
             movieTitle = itemView.findViewById(R.id.explore_title);
             movieDate = itemView.findViewById(R.id.explore_date);
             movieRating = itemView.findViewById(R.id.explore_rating);
-            movieGenres = itemView.findViewById(R.id.explore_genres);
         }
     }
 }
