@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">AvansTV</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="explore">Explore</string>
     <string name="favorite">Favorite</string>
@@ -8,22 +8,22 @@
     <string name="popular">Popular</string>
     <string name="featured_movie">Featured movie</string>
     <string name="suggested">Top rated movies</string>
-    <string name="featured_genres_text">Genres</string>
+    <string name="featured_genres_text" translatable="false">Genres</string>
     <string name="featured_language_text">Language</string>
     <string name="featured_date_text">Date</string>
     <string name="featured_title_text">Title</string>
     <string name="title_placeholder">Title placeholder</string>
-    <string name="rating_placeholder">Rating placeholder</string>
-    <string name="category_placeholder">Category placeholder</string>
-    <string name="description_placeholder">Description placeholder</string>
+    <string name="rating_placeholder" translatable="false">Rating placeholder</string>
+    <string name="category_placeholder" translatable="false">Category placeholder</string>
+    <string name="description_placeholder" translatable="false">Description placeholder</string>
     <string name="movies_loaded_txt">Loaded movies</string>
     <string name="featured_language">Language:\u0020</string>
     <string name="back_btn_txt">Back to the home screen</string>
     <string name="description_title_txt">Description</string>
-    <string name="star_image_description">Image of a star for ratings</string>
-    <string name="favorite_image_description">Image of a heart</string>
+    <string name="star_image_description" translatable="false">Image of a star for ratings</string>
+    <string name="favorite_image_description" translatable="false">Image of a heart</string>
     <string name="username_placeholder">Username</string>
-    <string name="thumbnail_description">Thumbnail of the movie</string>
+    <string name="thumbnail_description" translatable="false">Thumbnail of the movie</string>
 
 
     <!-- Preferences -->

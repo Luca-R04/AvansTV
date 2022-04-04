@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AvansTV</string>
+    <string name="home">Home</string>
+    <string name="explore">Ontdek</string>
+    <string name="favorite">Favorieten</string>
+    <string name="profile">Profiel</string>
+    <string name="popular">Populair</string>
+    <string name="featured_movie">Aanbevolen film</string>
+    <string name="suggested">Best beoordeelde films</string>
+    <string name="featured_language_text">Taal</string>
+    <string name="featured_date_text">Datum</string>
+    <string name="featured_title_text">Titel</string>
+    <string name="title_placeholder">Titel placeholder</string>
+    <string name="movies_loaded_txt">Films ingeladen</string>
+    <string name="featured_language">Taal:\\u0020</string>
+    <string name="back_btn_txt">Terug naar het home scherm</string>
+    <string name="description_title_txt">Beschrijving</string>
+    <string name="username_placeholder">Gebruiker</string>
+    <string name="theme_title">Thema</string>
+    <string name="theme_on">Darkmode aan</string>
+    <string name="theme_off">Lightmode aan</string>
+</resources>
