@@ -41,12 +41,17 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter holder, int position) {
-        Glide
-                .with(mContext)
-                .load("https://image.tmdb.org/t/p/original/" + mMovieList.get(holder.getAdapterPosition()).getPoster_path())
-                .into(holder.imageView);
+//        Glide
+//                .with(mContext)
+//                .load("https://image.tmdb.org/t/p/original/" + mMovieList.get(holder.getAdapterPosition()).getPoster_path())
+//                .into(holder.imageView);
 
         holder.movieTitle.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
+        holder.movieDate.setText(mMovieList.get(holder.getAdapterPosition()).getRelease_date());
+        holder.movieRating.setText(String.valueOf(mMovieList.get(holder.getAdapterPosition()).getVote_average()));
+
+
+        holder.movieGenres.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
 
         holder.itemView.setOnClickListener(view -> {
             Log.i("MovieAdapter", mMovieList.get(holder.getAdapterPosition()).getTitle());
@@ -66,12 +71,15 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
 
     static class MovieRecyclerAdapter extends RecyclerView.ViewHolder {
         private final ImageView imageView;
-        private final TextView movieTitle;
+        private final TextView movieTitle, movieDate, movieRating, movieGenres;
 
         public MovieRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.img_featured_movie);
-            movieTitle = itemView.findViewById(R.id.movie_title);
+            imageView = itemView.findViewById(R.id.img_explore_movie);
+            movieTitle = itemView.findViewById(R.id.explore_title);
+            movieDate = itemView.findViewById(R.id.explore_date);
+            movieRating = itemView.findViewById(R.id.explore_rating);
+            movieGenres = itemView.findViewById(R.id.explore_genres);
         }
     }
 }
