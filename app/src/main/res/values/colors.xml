@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="text">#2C2C2C</color>
+    <color name="inverse">#FFFFFFFF</color>
 </resources>
