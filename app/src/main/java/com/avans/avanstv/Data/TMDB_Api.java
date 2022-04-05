@@ -25,7 +25,7 @@ public interface TMDB_Api {
 
     //Search for a movie
     @GET("search/movie")
-    Call<MovieResponse> searchMovie(@Query("search_term") String searchTerm, @Query("api_key") String api_key);
+    Call<MovieResponse> searchMovie(@Query("query") String searchTerm, @Query("api_key") String api_key);
 
     //Get movie by id
     @GET("movie/{movie_id}")
