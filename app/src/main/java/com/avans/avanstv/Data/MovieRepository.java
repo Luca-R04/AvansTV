@@ -13,6 +13,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.avans.avanstv.Domain.Cast;
+import com.avans.avanstv.Domain.CastResponse;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.GenreResponse;
 import com.avans.avanstv.Domain.Movie;
@@ -41,6 +43,8 @@ public class MovieRepository {
     private static List<Movie> mSearchResults;
     private static Genre[] mGenresAPI;
     private static Genre[] mGenresDatabase;
+    private static List<Cast> mCastAPI;
+    private static List<Cast> mCastDatabase;
     private static GenreDao mGenreDao;
     private static MovieDao mMovieDao;
     private static NetworkInfo mNetworkInfo;
@@ -330,6 +334,59 @@ public class MovieRepository {
             }
         }
     }
+
+//    private static class GetCastFromAPI extends AsyncTask<Integer, Void, List<Cast>> {
+//        private final static String TAG = GetGenresFromAPI.class.getSimpleName();
+//
+//        @Override
+//        protected List<Cast> doInBackground(Integer... integers) {
+//            Integer movieId = integers[0];
+//
+//            try {
+//                Log.d(TAG, "doInBackground - retrieve all genres");
+//                Gson gson = new GsonBuilder()
+//                        .setLenient()
+//                        .create();
+//
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl("https://api.themoviedb.org/3/")
+//                        .addConverterFactory(GsonConverterFactory.create(gson))
+//                        .build();
+//
+//                TMDB_Api service = retrofit.create(TMDB_Api.class);
+//
+//                Call<CastResponse> call = service.getMovieCast(integers[0], API_KEY);
+//                Response<CastResponse> response = call.execute();
+//
+//                Log.d(TAG, "Executed call, response.code = " + response.code());
+//
+//                if (response.isSuccessful()) {
+//                    assert response.body() != null;
+//                    Log.d(TAG, "Good Response: " + response.body().getCast());
+//                    mCastDatabase.deleteAll();
+//
+//                    mCastAPI = response.body().getCast();
+//                    for (Genre genre : mGenresAPI) {
+//                        mGenreDao.insert(genre);
+//                    }
+//
+//                    for (Movie movie : mPopularMovies.getValue()) {
+//                        if (movie.getMovieId() == movieId) {
+//                            movie.setCast(mCastAPI);
+//                        }
+//                    }
+//
+//                    return response.body().getCast();
+//                } else {
+//                    Log.d(TAG, "Bad Response: " + response.code());
+//                    return null;
+//                }
+//            } catch (Exception e) {
+//                Log.e(TAG, "Exception: " + e);
+//                return null;
+//            }
+//        }
+//    }
 
     private static class SearchMovie extends AsyncTask<String, Void, List<Movie>> {
         private final static String TAG = SearchMovie.class.getSimpleName();
