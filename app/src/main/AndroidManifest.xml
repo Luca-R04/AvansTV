@@ -5,6 +5,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AvansTV">
+        <activity
+            android:name=".Presentation.CreateListActivity"
+            android:exported="false" />
         <activity
             android:name=".Presentation.MovieDetailsActivity"
             android:exported="false" />
@@ -25,9 +34,5 @@
             </intent-filter>
         </activity>
     </application>
-    <queries>
-        <intent>
-            <action android:name="com.google.android.youtube.api.service.START" />
-        </intent>
-    </queries>
+
 </manifest>
