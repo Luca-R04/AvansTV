@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 
@@ -64,6 +65,10 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "Loading more movies...", Toast.LENGTH_LONG).show();
+                    MovieRepository.getMoreMovies();
+                    List<Movie> newMovies = MovieRepository.getLiveDataMovies().getValue();
+                    assert newMovies != null;
+                    mMovieList.addAll(newMovies);
                 }
             });
         }
@@ -76,8 +81,13 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
             holder.movieTitle.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
 
             StringBuilder dateMovie = new StringBuilder();
-            String[] splitDate = mMovieList.get(holder.getAdapterPosition()).getRelease_date().split("-");
-            dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+
+            if (mMovieList.get(holder.getAdapterPosition()).getRelease_date().split("-").length == 3) {
+                String[] splitDate = mMovieList.get(holder.getAdapterPosition()).getRelease_date().split("-");
+                dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+            } else {
+                dateMovie.append(mMovieList.get(holder.getAdapterPosition()).getRelease_date());
+            }
 
             holder.movieDate.setText(dateMovie);
             holder.movieRating.setText(String.valueOf(mMovieList.get(holder.getAdapterPosition()).getVote_average()));
