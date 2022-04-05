@@ -38,27 +38,32 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieListAdapter.MovieRecyclerAdapter holder, int position) {
-        //Set values for text fields
-        MovieList movieList = mMovieLists.get(holder.getAdapterPosition());
-        List<Movie> movies = movieList.getMovies();
 
-        holder.listName.setText(movieList.getName());
+        if (mMovieLists.size() < holder.getAdapterPosition()) {
+            //Set values for text fields
+            MovieList movieList = mMovieLists.get(holder.getAdapterPosition());
+            List<Movie> movies = movieList.getMovies();
 
-        if (movies != null) {
-            if (movies.size() >= 3) {
-                holder.movie1.setText(movies.get(0).getTitle());
-                holder.movie2.setText(movies.get(1).getTitle());
-                holder.movie3.setText(movies.get(2).getTitle());
-            } else if (movies.size() >= 2) {
-                holder.movie1.setText(movies.get(0).getTitle());
-                holder.movie2.setText(movies.get(1).getTitle());
+            holder.listName.setText(movieList.getName());
+
+            if (movies != null) {
+                if (movies.size() >= 3) {
+                    holder.movie1.setText(movies.get(0).getTitle());
+                    holder.movie2.setText(movies.get(1).getTitle());
+                    holder.movie3.setText(movies.get(2).getTitle());
+                } else if (movies.size() >= 2) {
+                    holder.movie1.setText(movies.get(0).getTitle());
+                    holder.movie2.setText(movies.get(1).getTitle());
+                } else {
+                    holder.movie1.setText(movies.get(0).getTitle());
+                }
             } else {
-                holder.movie1.setText(movies.get(0).getTitle());
+                holder.listName.setText(R.string.no_list_available);
             }
-        } else {
-            holder.listName.setText(R.string.no_list_available);
         }
-    }
+        }
+
+
 
     @Override
     public int getItemCount() {
