@@ -24,16 +24,11 @@
         android:id="@+id/profileFragment"
         android:name="com.avans.avanstv.Presentation.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_settingsContained"
             app:destination="@id/settingsContained" />
     </fragment>
-    <fragment
-        android:id="@+id/movieOverview"
-        android:name="com.avans.avanstv.Presentation.MovieOverview"
-        android:label="fragment_movie_overview"
-        tools:layout="@layout/fragment_movie_overview" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.avans.avanstv.Presentation.SettingsFragment"
@@ -42,7 +37,7 @@
         android:id="@+id/settingsContained"
         android:name="com.avans.avanstv.Presentation.SettingsContained"
         android:label="fragment_settings_contained"
-        tools:layout="@layout/fragment_settings_contained" >
+        tools:layout="@layout/fragment_settings_contained">
         <action
             android:id="@+id/action_settingsContained_to_profileFragment"
             app:destination="@id/profileFragment" />
