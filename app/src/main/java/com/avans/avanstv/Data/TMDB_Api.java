@@ -17,7 +17,7 @@ public interface TMDB_Api {
     /** Movies **/
     //Get popular movies
     @GET("movie/popular")
-    Call<MovieResponse> getPopularMovies(@Query("api_key") String api_key);
+    Call<MovieResponse> getPopularMovies(@Query("api_key") String api_key, @Query("page") int page);
 
     //Get get top rated movies
     @GET("movie/top_rated")
