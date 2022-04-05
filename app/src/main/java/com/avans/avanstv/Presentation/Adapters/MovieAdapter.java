@@ -1,5 +1,4 @@
-package com.avans.avanstv.Presentation;
-
+package com.avans.avanstv.Presentation.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Presentation.MovieDetailsActivity;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 
@@ -70,6 +70,4 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
             imageView = itemView.findViewById(R.id.recycler_movie_img);
         }
     }
-
 }
-

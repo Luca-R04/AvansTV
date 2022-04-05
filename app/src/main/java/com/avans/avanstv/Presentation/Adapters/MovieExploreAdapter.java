@@ -1,6 +1,5 @@
-package com.avans.avanstv.Presentation;
+package com.avans.avanstv.Presentation.Adapters;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -16,9 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.avanstv.Data.MovieRepository;
-import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
-import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
+import com.avans.avanstv.Presentation.MovieDetailsActivity;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 
@@ -26,7 +24,7 @@ import java.util.List;
 
 public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapter.MovieRecyclerAdapter>{
     private List<Movie> mMovieList;
-    private Context mContext;
+    private final Context mContext;
 
     public void setMovies(List<Movie> movieList) {
         this.mMovieList = movieList;
@@ -44,32 +42,25 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
     public MovieRecyclerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
 
-        if(viewType == R.layout.explore_recycler_movie){
+        if (viewType == R.layout.explore_recycler_movie){
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_recycler_movie, parent, false);
-        }
-
-        else {
+        } else {
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.load_button, parent, false);
         }
 
         return new MovieRecyclerAdapter(itemView);
-
-//        return new MovieRecyclerAdapter(LayoutInflater.from(mContext).inflate(R.layout.explore_recycler_movie, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter holder, int position) {
 
         if(position == mMovieList.size()) {
-            holder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(mContext, "Loading more movies...", Toast.LENGTH_LONG).show();
-                    MovieRepository.getMoreMovies();
-                    List<Movie> newMovies = MovieRepository.getLiveDataMovies().getValue();
-                    assert newMovies != null;
-                    mMovieList.addAll(newMovies);
-                }
+            holder.button.setOnClickListener(view -> {
+                Toast.makeText(mContext, "Loading more movies...", Toast.LENGTH_LONG).show();
+                MovieRepository.getMoreMovies();
+                List<Movie> newMovies = MovieRepository.getLiveDataMovies().getValue();
+                assert newMovies != null;
+                mMovieList.addAll(newMovies);
             });
         }
         else {

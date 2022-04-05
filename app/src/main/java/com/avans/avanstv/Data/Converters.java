@@ -3,6 +3,7 @@ package com.avans.avanstv.Data;
 import androidx.room.TypeConverter;
 
 import com.avans.avanstv.Domain.Cast;
+import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.Video;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,7 +21,20 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String fromArrayList(ArrayList<String> list) {
+    public static String fromArrayList(List<String> list) {
+        Gson gson = new Gson();
+        return gson.toJson(list);
+    }
+
+    //Global converters for ArrayList<Movie>
+    @TypeConverter
+    public static List<Movie> fromMovieString(String value) {
+        Type listType = new TypeToken<List<Movie>>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromMovieArray(List<Movie> list) {
         Gson gson = new Gson();
         return gson.toJson(list);
     }
