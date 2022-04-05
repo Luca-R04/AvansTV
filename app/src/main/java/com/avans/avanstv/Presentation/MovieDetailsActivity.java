@@ -46,10 +46,9 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                         if (movie.getYoutubeVideo() != null) {
                             youTubePlayer.cueVideo(movie.getYoutubeVideo().getKey());
                         } else {
-                            //TODO Laat thumbnail zien, omdat er geen trailer beschikbaar is. Werkt nog niet
-                            youTubePlayerView.setVisibility(View.GONE);
-                            constraintLayout.removeView(youTubePlayerView);
-                            constraintLayout.addView(thumbnailView);
+                            youTubePlayerView.setVisibility(View.INVISIBLE);
+                            constraintLayout.setVisibility(View.VISIBLE);
+                            thumbnailView.setBackgroundColor(getResources().getColor(R.color.primary));
                             Glide
                                     .with(MovieDetailsActivity.this)
                                     .load("https://image.tmdb.org/t/p/original/" + movie.getPoster_path())
