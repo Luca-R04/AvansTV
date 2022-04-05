@@ -63,7 +63,7 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "Button Clicked", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Loading more movies...", Toast.LENGTH_LONG).show();
                 }
             });
         }
