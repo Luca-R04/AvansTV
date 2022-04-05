@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Genre{
     @PrimaryKey
-    public int id;
-    public String name;
+    private int id;
+    private String name;
 
     public int getId() {
         return id;

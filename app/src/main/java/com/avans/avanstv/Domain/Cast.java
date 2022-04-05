@@ -3,18 +3,18 @@ package com.avans.avanstv.Domain;
 import androidx.annotation.NonNull;
 
 public class Cast {
-    public boolean adult;
-    public int gender;
-    public int id;
-    public String known_for_department;
-    public String name;
-    public String original_name;
-    public double popularity;
-    public String profile_path;
-    public int cast_id;
-    public String character;
-    public String credit_id;
-    public int order;
+    private boolean adult;
+    private int gender;
+    private int id;
+    private String known_for_department;
+    private String name;
+    private String original_name;
+    private double popularity;
+    private String profile_path;
+    private int cast_id;
+    private String character;
+    private String credit_id;
+    private int order;
 
     public boolean isAdult() {
         return adult;

@@ -13,34 +13,35 @@ import java.util.List;
 public class Movie implements Serializable {
     @PrimaryKey
     @SerializedName("id")
-    public int movieId;
-    public boolean adult;
-    public String backdrop_path;
-    public String belongs_to_collection;
-    public int budget;
-    public List<Integer> genre_ids;
-    public String homepage;
-    public String imdb_id;
-    public String original_language;
-    public String original_title;
-    public String overview;
-    public double popularity;
-    public String poster_path;
-    public ArrayList<String> production_companies;
-    public ArrayList<String> production_countries;
-    public String release_date;
-    public int revenue;
-    public int runtime;
-    public ArrayList<String> spoken_languages;
-    public String status;
-    public String tagline;
-    public String title;
-    public boolean video;
-    public double vote_average;
-    public int vote_count;
+    private int movieId;
+    private boolean adult;
+    private String backdrop_path;
+    private String belongs_to_collection;
+    private int budget;
+    private List<Integer> genre_ids;
+    private String homepage;
+    private String imdb_id;
+    private String original_language;
+    private String original_title;
+    private String overview;
+    private double popularity;
+    private String poster_path;
+    private ArrayList<String> production_companies;
+    private ArrayList<String> production_countries;
+    private String release_date;
+    private int revenue;
+    private int runtime;
+    private ArrayList<String> spoken_languages;
+    private String status;
+    private String tagline;
+    private String title;
+    private boolean video;
+    private double vote_average;
+    private int vote_count;
     private Video youtubeVideo;
     private List<Cast> cast;
     private String type;
+    private boolean favorite;
 
     public List<Cast> getCast() {
         return cast;
@@ -48,6 +49,14 @@ public class Movie implements Serializable {
 
     public void setCast(List<Cast> cast) {
         this.cast = cast;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     public String getType() {
