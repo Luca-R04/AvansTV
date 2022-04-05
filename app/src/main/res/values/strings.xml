@@ -37,4 +37,5 @@
     <string name="date_placeholder">Date placeholder</string>
     <string name="more_movies_btn_txt">Load more movies</string>
     <string name="query_hint">Search for a movie</string>
+    <string name="no_list_available">There are no lists available</string>
 </resources>
