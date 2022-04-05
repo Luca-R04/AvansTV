@@ -24,4 +24,9 @@
     <string name="language">Taal</string>
     <string name="favorite_movies">Favorieten films</string>
     <string name="favorite_lists">Favorieten lijsten</string>
+    <string name="list_input_hint">Naam</string>
+    <string name="date_placeholder">Datum</string>
+    <string name="more_movies_btn_txt">Laad meer films</string>
+    <string name="create_list_button">Maak aan</string>
+    <string name="query_hint">Zoek naar een film</string>
 </resources>

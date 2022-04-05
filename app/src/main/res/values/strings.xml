@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">AvansTV</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="explore">Explore</string>
     <string name="favorite">Favorite</string>
@@ -24,7 +23,8 @@
     <string name="favorite_image_description" translatable="false">Image of a heart</string>
     <string name="username_placeholder">Username</string>
     <string name="thumbnail_description" translatable="false">Thumbnail of the movie</string>
-
+    <string name="list_input_hint">Name</string>
+    <string name="create_list_button">Create</string>
 
     <!-- Preferences -->
     <string name="theme_title">Theme</string>
@@ -37,6 +37,4 @@
     <string name="date_placeholder">Date placeholder</string>
     <string name="more_movies_btn_txt">Load more movies</string>
     <string name="query_hint">Search for a movie</string>
-
-
 </resources>
