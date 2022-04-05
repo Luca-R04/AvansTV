@@ -1,7 +1,10 @@
 package com.avans.avanstv.Data;
 
+import static com.avans.avanstv.Presentation.MainActivity.getLanguage;
+
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -16,6 +19,7 @@ import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieResponse;
 import com.avans.avanstv.Domain.Video;
 import com.avans.avanstv.Domain.VideoResponse;
+import com.avans.avanstv.Presentation.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -116,7 +120,11 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Call<MovieResponse> call = service.getPopularMovies(API_KEY, 1);
+                //Get language from SavedPreference
+                String language = getLanguage();
+
+
+                Call<MovieResponse> call = service.getPopularMovies(API_KEY, 1, language);
                 Response<MovieResponse> response = call.execute();
 
                 Log.d(TAG, "Executed call, response.code = " + response.code());
@@ -153,6 +161,7 @@ public class MovieRepository {
     private static class GetTopRatedMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
         private final static String TAG = GetTopRatedMoviesFromAPI.class.getSimpleName();
 
+
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             try {
@@ -169,7 +178,8 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Call<MovieResponse> call = service.getTopRatedMovies(API_KEY);
+                String language = getLanguage();
+                Call<MovieResponse> call = service.getTopRatedMovies(API_KEY, language);
                 Response<MovieResponse> response = call.execute();
 
                 Log.d(TAG, "Executed call, response.code = " + response.code());

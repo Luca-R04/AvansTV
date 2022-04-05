@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -20,11 +21,16 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
+    private SharedPreferences sp;
+    private static String language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //set SP
+        this.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         // Bottom navigation//initiate controller for bottom navigation to witch between fragments
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_nav);
@@ -38,10 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadSettings() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor spEdit = sp.edit();
-
-        String language = sp.getString("language", "");
+        this.language = sp.getString("language", "");
         Boolean isDarkMode = sp.getBoolean("theme", false);
 
         if (isDarkMode) {
@@ -56,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
+    }
 
+    //Method for exporting to repository from SavedPreferences;
+    public static String getLanguage(){
+        return language;
     }
 }
