@@ -13,8 +13,8 @@ import com.avans.avanstv.Domain.Movie;
 import java.util.List;
 
 public class SearchMovieViewModel extends AndroidViewModel {
-    private MutableLiveData<List<Movie>> mMovie = new MutableLiveData<>();
-    private MovieRepository mMovieRepository;
+    private final MutableLiveData<List<Movie>> mMovie = new MutableLiveData<>();
+    private final MovieRepository mMovieRepository;
 
     public void setMovie(String query) {
         this.mMovie.setValue(mMovieRepository.searchMovie(query));

@@ -13,8 +13,6 @@ import retrofit2.http.Query;
 
 public interface TMDB_Api {
 
-    /** Authentication **/
-
     /** Movies **/
     //Get popular movies
     @GET("movie/popular")

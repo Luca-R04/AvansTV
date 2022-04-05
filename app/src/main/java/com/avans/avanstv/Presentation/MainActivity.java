@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSettings() {
         this.language = sp.getString("language", "");
-        Boolean isDarkMode = sp.getBoolean("theme", false);
+        boolean isDarkMode = sp.getBoolean("theme", false);
 
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

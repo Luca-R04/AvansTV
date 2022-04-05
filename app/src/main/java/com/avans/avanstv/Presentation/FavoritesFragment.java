@@ -43,9 +43,8 @@ public class FavoritesFragment extends Fragment {
         favoritesRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
         favoritesRecyclerView.setAdapter(movieAdapter);
 
-        movieListViewModel.getAllLists().observe(this.getViewLifecycleOwner(), movies -> {
-            movieAdapter.setMovieLists(movies); //updates adapter
-        });
+        //updates adapter
+        movieListViewModel.getAllLists().observe(this.getViewLifecycleOwner(), movieAdapter::setMovieLists);
 
         // Inflate the layout for this fragment
         return favoriteView;

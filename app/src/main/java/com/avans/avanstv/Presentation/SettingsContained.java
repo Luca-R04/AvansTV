@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.preference.PreferenceScreen;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +39,6 @@ public class SettingsContained extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         MaterialButton backArrow = view.findViewById(R.id.settings_btn_back);
 
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_settingsContained_to_profileFragment);
-            }
-        });
+        backArrow.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_settingsContained_to_profileFragment));
     }
 }

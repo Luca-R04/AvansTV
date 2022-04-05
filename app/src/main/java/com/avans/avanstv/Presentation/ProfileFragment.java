@@ -1,13 +1,11 @@
 package com.avans.avanstv.Presentation;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.preference.PreferenceManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,12 +36,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ImageView settingsCog = mView.findViewById(R.id.settings_button);
 
-        settingsCog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_settingsContained);
-            }
-        });
+        settingsCog.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_profileFragment_to_settingsContained));
 
     }
 

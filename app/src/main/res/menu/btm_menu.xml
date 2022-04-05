@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/home"
+    <item
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
-        android:id="@+id/homeFragment"/>
-    <item android:title="@string/explore"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/exploreFragment"
         android:icon="@drawable/ic_explore"
-        android:id="@+id/exploreFragment"/>
-    <item android:title="@string/favorite"
+        android:title="@string/explore" />
+    <item
+        android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_favorite"
-        android:id="@+id/favoritesFragment"/>
-    <item android:title="@string/profile"
+        android:title="@string/favorite" />
+    <item
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_account"
-        android:id="@+id/profileFragment"/>
+        android:title="@string/profile" />
 
 </menu>

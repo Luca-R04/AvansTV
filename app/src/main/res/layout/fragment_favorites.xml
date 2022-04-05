@@ -10,7 +10,6 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="30dp"
         android:paddingTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +34,6 @@
         android:text="@string/favorite_movies"
         android:textColor="@color/text"
         android:textSize="22sp"
-
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/header"
         app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -56,7 +54,6 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/secondary"
-
             app:cardCornerRadius="10dp" />
 
         <androidx.cardview.widget.CardView
@@ -111,7 +108,6 @@
         android:focusable="true"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
