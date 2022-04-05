@@ -349,6 +349,7 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
+                Log.d(TAG, strings[0]);
                 Call<MovieResponse> call = service.searchMovie(strings[0], API_KEY);
                 Response<MovieResponse> response = call.execute();
 
