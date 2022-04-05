@@ -15,6 +15,7 @@ import android.widget.SearchView;
 
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
+import com.avans.avanstv.Presentation.ViewModel.SearchMovieViewModel;
 import com.avans.avanstv.R;
 
 public class ExploreFragment extends Fragment {
@@ -30,6 +31,7 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         PopularMovieViewModel mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        SearchMovieViewModel mSearchViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel.class);
 
         // Create a Recyclerview and adapter to display the movies
         RecyclerView exploreRecyclerView = exploreView.findViewById(R.id.rv_explore);
@@ -37,30 +39,41 @@ public class ExploreFragment extends Fragment {
         exploreRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         exploreRecyclerView.setAdapter(movieAdapter);
 
-        mPopularMovieViewModel.getAllMovies().observe(this.getViewLifecycleOwner(), movies -> {
-            movieAdapter.setMovies(movies); //updates adapter
-        });
+        //updates adapter
+        mPopularMovieViewModel.getAllMovies().observe(this.getViewLifecycleOwner(),
+                movieAdapter::setMovies);
 
         SearchView searchView = exploreView.findViewById(R.id.explore_search);
-        MovieRepository movieRepository = MovieRepository.getInstance(getActivity().getApplication());
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint(getString(R.string.query_hint));
+
+
+
 
         //QueryTextListener on the searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                movieRepository.searchMovie(searchView.getQuery().toString());
-                Log.d(TAG, "" + movieRepository.searchMovie(searchView.getQuery().toString()));
+                mSearchViewModel.setMovie(searchView.getQuery().toString());
+                //updates adapter
+                mSearchViewModel.getAllMovies().observe(getViewLifecycleOwner(),
+                        movieAdapter::setMovies);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 Log.d(TAG, "The textfield now says:" + searchView.getQuery().toString());
+                //updates adapter
+                mSearchViewModel.getAllMovies().observe(getViewLifecycleOwner(),
+                        movieAdapter::setMovies);
                 return false;
             }
         });
+
+        //updates adapter
+        mSearchViewModel.getAllMovies().observe(getViewLifecycleOwner(),
+                movieAdapter::setMovies);
 
         return exploreView;
     }
