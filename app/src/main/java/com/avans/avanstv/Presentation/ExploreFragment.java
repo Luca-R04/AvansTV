@@ -18,6 +18,7 @@ import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.R;
 
 public class ExploreFragment extends Fragment {
+    public static final String TAG = ExploreFragment.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,12 +51,13 @@ public class ExploreFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 movieRepository.searchMovie(searchView.getQuery().toString());
+                Log.d(TAG, "" + movieRepository.searchMovie(searchView.getQuery().toString()));
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.d("ExploreFragment", "The textfield now says:" + searchView.getQuery().toString());
+                Log.d(TAG, "The textfield now says:" + searchView.getQuery().toString());
                 return false;
             }
         });
