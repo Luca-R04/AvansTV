@@ -9,12 +9,14 @@ import androidx.room.TypeConverters;
 
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Domain.MovieList;
 
 @TypeConverters({Converters.class})
-@Database(entities = {Movie.class, Genre.class}, version = 5, exportSchema = false)
+@Database(entities = {Movie.class, Genre.class, MovieList.class}, version = 7, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
     public abstract GenreDao genreDao();
+    public abstract MovieListDao movieListDao();
     private static MovieRoomDatabase instance;
 
     public static MovieRoomDatabase getDatabase(final Context context) {
