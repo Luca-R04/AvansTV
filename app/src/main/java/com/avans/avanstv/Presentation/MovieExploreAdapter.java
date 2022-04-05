@@ -50,7 +50,12 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
                 .into(holder.imageView);
 
         holder.movieTitle.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
-        holder.movieDate.setText(mMovieList.get(holder.getAdapterPosition()).getRelease_date());
+
+        StringBuilder dateMovie = new StringBuilder();
+        String[] splitDate = mMovieList.get(holder.getAdapterPosition()).getRelease_date().split("-");
+        dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+
+        holder.movieDate.setText(dateMovie);
         holder.movieRating.setText(String.valueOf(mMovieList.get(holder.getAdapterPosition()).getVote_average()));
 
         holder.itemView.setOnClickListener(view -> {

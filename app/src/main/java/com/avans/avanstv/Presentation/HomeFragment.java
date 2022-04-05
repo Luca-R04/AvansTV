@@ -95,7 +95,11 @@ public class HomeFragment extends Fragment {
             TextView featuredGenres = mHomeView.findViewById(R.id.featured_genres_id);
 
             featuredTitle.setText(featuredMovie.getTitle());
-            featuredDate.setText(featuredMovie.getRelease_date());
+
+            StringBuilder dateMovie = new StringBuilder();
+            String[] splitDate = featuredMovie.getRelease_date().split("-");
+            dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+            featuredDate.setText(dateMovie);
             String languageCaps = featuredMovie.getOriginal_language().substring(0, 1).toUpperCase() + featuredMovie.getOriginal_language().substring(1).toLowerCase();
             featuredLanguage.setText(getString(R.string.featured_language) + languageCaps);
             List<Integer> genreList = featuredMovie.getGenre_ids();
