@@ -7,18 +7,17 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 
+import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.R;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Locale;
-
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sp;
@@ -29,17 +28,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //set SP
+        //Set SharedPreferences
         this.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        // Bottom navigation//initiate controller for bottom navigation to witch between fragments
+        //Bottom navigation//initiate controller for bottom navigation to witch between fragments
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_nav);
         final NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.host_fragment);
         assert navHostFragment != null;
         final NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        // Load preferences when the app is created
+        //Create instance here for performance reasons
+        MovieListRepository movieListRepository = MovieListRepository.getInstance(getApplication());
+
+        //Load preferences when the app is created
         loadSettings();
     }
 

@@ -29,7 +29,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 import java.util.Random;
 
-
 public class HomeFragment extends Fragment {
     private ImageView mFeaturedMovieView;
     private View mHomeView;
@@ -96,8 +95,10 @@ public class HomeFragment extends Fragment {
             String[] splitDate = featuredMovie.getRelease_date().split("-");
             dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
             featuredDate.setText(dateMovie);
+
             String languageCaps = featuredMovie.getOriginal_language().substring(0, 1).toUpperCase() + featuredMovie.getOriginal_language().substring(1).toLowerCase();
             featuredLanguage.setText(getString(R.string.featured_language) + languageCaps);
+
             List<Integer> genreList = featuredMovie.getGenre_ids();
             Genre[] genreArray = mMovieRepository.getGenres();
 
