@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +43,20 @@ public class ExploreFragment extends Fragment {
         SearchView searchView = exploreView.findViewById(R.id.explore_search);
         MovieRepository movieRepository = MovieRepository.getInstance(getActivity().getApplication());
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQueryHint("Search for a movie");
-        searchView.setOnSearchClickListener(view -> {
-            if (!searchView.getQuery().equals("")) {
+        searchView.setQueryHint(getString(R.string.query_hint));
+
+        //QueryTextListener on the searchView;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
                 movieRepository.searchMovie(searchView.getQuery().toString());
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d("ExploreFragment", "The textfield now says:" + searchView.getQuery().toString());
+                return false;
             }
         });
 
