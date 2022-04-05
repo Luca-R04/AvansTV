@@ -40,7 +40,7 @@ public class FavoritesFragment extends Fragment {
         RecyclerView favoritesRecyclerView = favoriteView.findViewById(R.id.favorites_list_section1);
         MovieListAdapter movieAdapter = new MovieListAdapter(this.getContext(),
                 movieListViewModel.getAllLists().getValue());
-        favoritesRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+        favoritesRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
         favoritesRecyclerView.setAdapter(movieAdapter);
 
         movieListViewModel.getAllLists().observe(this.getViewLifecycleOwner(), movies -> {

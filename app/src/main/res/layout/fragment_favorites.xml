@@ -88,7 +88,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorites_list_section1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="30dp"
@@ -105,12 +105,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:clickable="true"
         android:contentDescription="@string/create_list_button"
         android:focusable="true"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorites_list_section1" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
