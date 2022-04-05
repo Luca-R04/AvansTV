@@ -38,13 +38,12 @@ public class FavoritesFragment extends Fragment {
         MovieListViewModel movieListViewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
 
         RecyclerView favoritesRecyclerView = favoriteView.findViewById(R.id.favorites_list_section1);
-        MovieListAdapter movieAdapter = new MovieListAdapter(this.getContext(),
-                movieListViewModel.getAllLists().getValue());
+        MovieListAdapter movieAdapter = new MovieListAdapter(this.getContext(), movieListViewModel.getAllLists().getValue());
         favoritesRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
         favoritesRecyclerView.setAdapter(movieAdapter);
 
         //updates adapter
-        movieListViewModel.getAllLists().observe(this.getViewLifecycleOwner(), movieAdapter::setMovieLists);
+        movieListViewModel.getAllLists().observe(getViewLifecycleOwner(), movieAdapter::setMovieLists);
 
         // Inflate the layout for this fragment
         return favoriteView;

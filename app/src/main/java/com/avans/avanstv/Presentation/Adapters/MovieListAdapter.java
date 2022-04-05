@@ -15,7 +15,7 @@ import com.avans.avanstv.R;
 
 import java.util.List;
 
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieRecyclerAdapter>{
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListRecyclerAdapter> {
     private List<MovieList> mMovieLists;
     private final Context mContext;
 
@@ -32,52 +32,56 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     @NonNull
     @Override
-    public MovieListAdapter.MovieRecyclerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MovieRecyclerAdapter(LayoutInflater.from(mContext).inflate(R.layout.favorites_recycler_list, parent, false));
+    public MovieListRecyclerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MovieListRecyclerAdapter(LayoutInflater.from(mContext).inflate(R.layout.favorites_recycler_list, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieListAdapter.MovieRecyclerAdapter holder, int position) {
-
-        if (mMovieLists.size() < holder.getAdapterPosition()) {
+    public void onBindViewHolder(@NonNull MovieListRecyclerAdapter holder, int position) {
+//        if (mMovieLists.size() < holder.getAdapterPosition()) {
             //Set values for text fields
             MovieList movieList = mMovieLists.get(holder.getAdapterPosition());
             List<Movie> movies = movieList.getMovies();
 
-            holder.listName.setText(movieList.getName());
+            if (movieList != null) {
+                holder.listName.setText(movieList.getName());
 
-            if (movies != null) {
-                if (movies.size() >= 3) {
-                    holder.movie1.setText(movies.get(0).getTitle());
-                    holder.movie2.setText(movies.get(1).getTitle());
-                    holder.movie3.setText(movies.get(2).getTitle());
-                } else if (movies.size() >= 2) {
-                    holder.movie1.setText(movies.get(0).getTitle());
-                    holder.movie2.setText(movies.get(1).getTitle());
-                } else {
-                    holder.movie1.setText(movies.get(0).getTitle());
+                if (movies != null) {
+                    if (movies.size() >= 3) {
+                        holder.movie1.setText(movies.get(0).getTitle());
+                        holder.movie2.setText(movies.get(1).getTitle());
+                        holder.movie3.setText(movies.get(2).getTitle());
+                    } else if (movies.size() >= 2) {
+                        holder.movie1.setText(movies.get(0).getTitle());
+                        holder.movie2.setText(movies.get(1).getTitle());
+                    } else {
+                        holder.movie1.setText(movies.get(0).getTitle());
+                    }
                 }
             } else {
-                holder.listName.setText(R.string.no_list_available);
+                holder.infoText.setText(R.string.no_list_available);
             }
-        }
-        }
-
-
+//        }
+    }
 
     @Override
     public int getItemCount() {
         if (mMovieLists != null) {
-            return mMovieLists.size() + 1;
+            return mMovieLists.size();
         }
         return 0;
     }
 
-    static class MovieRecyclerAdapter extends RecyclerView.ViewHolder {
-        private final TextView listName, movie1, movie2, movie3;
+    static class MovieListRecyclerAdapter extends RecyclerView.ViewHolder {
+        private final TextView infoText;
+        private final TextView listName;
+        private final TextView movie1;
+        private final TextView movie2;
+        private final TextView movie3;
 
-        public MovieRecyclerAdapter(@NonNull View itemView) {
+        public MovieListRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
+            infoText = itemView.findViewById(R.id.no_list_textview);
             listName = itemView.findViewById(R.id.list_name);
             movie1 = itemView.findViewById(R.id.movie_1);
             movie2 = itemView.findViewById(R.id.movie_2);
