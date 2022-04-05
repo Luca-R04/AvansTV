@@ -39,16 +39,16 @@ public class Movie implements Serializable {
     public double vote_average;
     public int vote_count;
     private Video youtubeVideo;
-//    private List<Cast> cast;
+    private List<Cast> cast;
     private String type;
 
-//    public List<Cast> getCast() {
-//        return cast;
-//    }
-//
-//    public void setCast(List<Cast> cast) {
-//        this.cast = cast;
-//    }
+    public List<Cast> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<Cast> cast) {
+        this.cast = cast;
+    }
 
     public String getType() {
         return type;

@@ -64,15 +64,15 @@ public class Converters {
     }
 
     //Global converters for ArrayList<String>
-//    @TypeConverter
-//    public static ArrayList<String> fromCast(String value) {
-//        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-//        return new Gson().fromJson(value, listType);
-//    }
-//
-//    @TypeConverter
-//    public static String fromArray(ArrayList<String> list) {
-//        Gson gson = new Gson();
-//        return gson.toJson(list);
-//    }
+    @TypeConverter
+    public static List<Cast> fromCast(String value) {
+        Type listType = new TypeToken<List<Cast>>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromCastArray(List<Cast> list) {
+        Gson gson = new Gson();
+        return gson.toJson(list);
+    }
 }
