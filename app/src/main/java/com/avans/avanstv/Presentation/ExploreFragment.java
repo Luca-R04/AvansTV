@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Presentation.Adapters.MovieExploreAdapter;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.Presentation.ViewModel.SearchMovieViewModel;
 import com.avans.avanstv.R;

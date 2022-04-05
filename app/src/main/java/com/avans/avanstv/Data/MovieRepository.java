@@ -4,7 +4,6 @@ import static com.avans.avanstv.Presentation.MainActivity.getLanguage;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -19,7 +18,6 @@ import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieResponse;
 import com.avans.avanstv.Domain.Video;
 import com.avans.avanstv.Domain.VideoResponse;
-import com.avans.avanstv.Presentation.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
