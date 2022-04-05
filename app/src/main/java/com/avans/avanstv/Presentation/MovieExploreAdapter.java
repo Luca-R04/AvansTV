@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,44 +41,73 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
     @NonNull
     @Override
     public MovieRecyclerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MovieRecyclerAdapter(LayoutInflater.from(mContext).inflate(R.layout.explore_recycler_movie, parent, false));
+        View itemView;
+
+        if(viewType == R.layout.explore_recycler_movie){
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_recycler_movie, parent, false);
+        }
+
+        else {
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.load_button, parent, false);
+        }
+
+        return new MovieRecyclerAdapter(itemView);
+
+//        return new MovieRecyclerAdapter(LayoutInflater.from(mContext).inflate(R.layout.explore_recycler_movie, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter holder, int position) {
-        Glide
-                .with(mContext)
-                .load("https://image.tmdb.org/t/p/original/" + mMovieList.get(holder.getAdapterPosition()).getPoster_path())
-                .into(holder.imageView);
 
-        holder.movieTitle.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
+        if(position == mMovieList.size()) {
+            holder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext, "Button Clicked", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else {
+            Glide
+                    .with(mContext)
+                    .load("https://image.tmdb.org/t/p/original/" + mMovieList.get(holder.getAdapterPosition()).getPoster_path())
+                    .into(holder.imageView);
 
-        StringBuilder dateMovie = new StringBuilder();
-        String[] splitDate = mMovieList.get(holder.getAdapterPosition()).getRelease_date().split("-");
-        dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+            holder.movieTitle.setText(mMovieList.get(holder.getAdapterPosition()).getTitle());
 
-        holder.movieDate.setText(dateMovie);
-        holder.movieRating.setText(String.valueOf(mMovieList.get(holder.getAdapterPosition()).getVote_average()));
+            StringBuilder dateMovie = new StringBuilder();
+            String[] splitDate = mMovieList.get(holder.getAdapterPosition()).getRelease_date().split("-");
+            dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
 
-        holder.itemView.setOnClickListener(view -> {
-            Log.i("MovieAdapter", mMovieList.get(holder.getAdapterPosition()).getTitle());
-            Intent intent = new Intent(mContext, MovieDetailsActivity.class);
-            intent.putExtra("Movie", mMovieList.get(holder.getAdapterPosition()));
-            mContext.startActivity(intent);
-        });
+            holder.movieDate.setText(dateMovie);
+            holder.movieRating.setText(String.valueOf(mMovieList.get(holder.getAdapterPosition()).getVote_average()));
+
+            holder.itemView.setOnClickListener(view -> {
+                Log.i("MovieAdapter", mMovieList.get(holder.getAdapterPosition()).getTitle());
+                Intent intent = new Intent(mContext, MovieDetailsActivity.class);
+                intent.putExtra("Movie", mMovieList.get(holder.getAdapterPosition()));
+                mContext.startActivity(intent);
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         if (mMovieList != null) {
-            return mMovieList.size();
+            return mMovieList.size() + 1;
         }
         return 0;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == mMovieList.size()) ? R.layout.load_button : R.layout.explore_recycler_movie;
     }
 
     static class MovieRecyclerAdapter extends RecyclerView.ViewHolder {
         private final ImageView imageView;
         private final TextView movieTitle, movieDate, movieRating;
+        private final Button button;
 
         public MovieRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
@@ -84,6 +115,7 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
             movieTitle = itemView.findViewById(R.id.explore_title);
             movieDate = itemView.findViewById(R.id.explore_date);
             movieRating = itemView.findViewById(R.id.explore_rating);
+            button = (Button) itemView.findViewById(R.id.more_movies_btn);
         }
     }
 }
