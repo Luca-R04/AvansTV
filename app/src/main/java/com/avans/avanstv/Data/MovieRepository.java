@@ -116,7 +116,7 @@ public class MovieRepository {
 
                 TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-                Call<MovieResponse> call = service.getPopularMovies(API_KEY);
+                Call<MovieResponse> call = service.getPopularMovies(API_KEY, 1);
                 Response<MovieResponse> response = call.execute();
 
                 Log.d(TAG, "Executed call, response.code = " + response.code());

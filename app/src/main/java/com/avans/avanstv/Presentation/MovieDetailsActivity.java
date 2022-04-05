@@ -68,6 +68,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 MaterialButton backButton = findViewById(R.id.btn_back);
                 TextView movieTitle = findViewById(R.id.movie_title_detail);
                 TextView movieRating = findViewById(R.id.movie_rating_detail);
+                TextView movieDate = findViewById(R.id.movie_date_detail);
                 TextView movieGenres = findViewById(R.id.movie_genres_detail);
                 TextView movieDescription = findViewById(R.id.movie_description_detail);
 
@@ -79,6 +80,11 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 movieTitle.setText(movie.getTitle());
                 movieRating.setText(String.valueOf(movie.getVote_average()));
+
+                StringBuilder dateMovie = new StringBuilder();
+                String[] splitDate = movie.getRelease_date().split("-");
+                dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+                movieDate.setText(dateMovie);
 
                 List<Integer> genreList = movie.getGenre_ids();
                 Genre[] genreArray = movieRepository.getGenres();

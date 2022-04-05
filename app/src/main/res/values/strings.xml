@@ -34,6 +34,7 @@
     <string name="language">Language</string>
     <string name="favorite_movies">Favorite movies</string>
     <string name="favorite_lists">Favorite lists</string>
+    <string name="date_placeholder">Date placeholder</string>
 
 
 </resources>

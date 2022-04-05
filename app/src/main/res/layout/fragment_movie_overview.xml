@@ -60,7 +60,20 @@
             app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView" />
 
 
-            <TextView
+        <TextView
+            android:id="@+id/movie_date_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/date_placeholder"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
+
+        <TextView
                 android:id="@+id/movie_rating_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,15 +106,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:paddingTop="20dp"
             android:text="@string/category_placeholder"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_rating_detail" />
+            app:layout_constraintTop_toBottomOf="@id/movie_date_detail" />
 
         <TextView
             android:id="@+id/movie_description_detail"
@@ -110,9 +122,11 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:paddingEnd="30dp"
             android:text="@string/description_placeholder"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
