@@ -44,6 +44,7 @@ public class MovieRepository {
     private static GenreDao mGenreDao;
     private static MovieDao mMovieDao;
     private static NetworkInfo mNetworkInfo;
+    private static int pageNumber = 1;
 
     private MovieRepository(Application application) {
         MovieRoomDatabase db = MovieRoomDatabase.getDatabase(application);
@@ -70,7 +71,7 @@ public class MovieRepository {
         }
     }
 
-    public LiveData<List<Movie>> getLiveDataMovies() {
+    public static LiveData<List<Movie>> getLiveDataMovies() {
         return mPopularMovies;
     }
 
@@ -92,6 +93,11 @@ public class MovieRepository {
     public List<Movie> searchMovie(String searchTerm) {
         new SearchMovie().execute(searchTerm);
         return mSearchResults;
+    }
+
+    public static void getMoreMovies() {
+        pageNumber++;
+        new GetPopularMoviesFromAPI().execute();
     }
 
     public static MovieRepository getInstance(Application application) {
@@ -124,7 +130,7 @@ public class MovieRepository {
                 String language = getLanguage();
 
 
-                Call<MovieResponse> call = service.getPopularMovies(API_KEY, 1, language);
+                Call<MovieResponse> call = service.getPopularMovies(API_KEY, pageNumber, language);
                 Response<MovieResponse> response = call.execute();
 
                 Log.d(TAG, "Executed call, response.code = " + response.code());
