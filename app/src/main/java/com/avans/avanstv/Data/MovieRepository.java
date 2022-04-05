@@ -47,6 +47,14 @@ public class MovieRepository {
     private static MovieDao mMovieDao;
     private static NetworkInfo mNetworkInfo;
     private static int pageNumber = 1;
+    private static final Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+    private static final Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://api.themoviedb.org/3/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    private static final TMDB_Api service = retrofit.create(TMDB_Api.class);
 
     private MovieRepository(Application application) {
         MovieRoomDatabase db = MovieRoomDatabase.getDatabase(application);
@@ -73,6 +81,13 @@ public class MovieRepository {
         }
     }
 
+    public static MovieRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new MovieRepository(application);
+        }
+        return INSTANCE;
+    }
+
     public static LiveData<List<Movie>> getLiveDataMovies() {
         return mPopularMovies;
     }
@@ -81,8 +96,9 @@ public class MovieRepository {
         return mTopRatedMovies;
     }
 
-    public static void setVideosFromApi(int movieId) {
-        new SetVideosFromAPI().execute(movieId);
+    public static void getMoreMovies() {
+        pageNumber++;
+        new GetPopularMoviesFromAPI().execute();
     }
 
     public Genre[] getGenres() {
@@ -92,21 +108,13 @@ public class MovieRepository {
         return mGenresAPI;
     }
 
+    public static void setVideosFromApi(int movieId) {
+        new SetVideosFromAPI().execute(movieId);
+    }
+
     public List<Movie> searchMovie(String searchTerm) {
         new SearchMovie().execute(searchTerm);
         return mSearchResults;
-    }
-
-    public static void getMoreMovies() {
-        pageNumber++;
-        new GetPopularMoviesFromAPI().execute();
-    }
-
-    public static MovieRepository getInstance(Application application) {
-        if (INSTANCE == null) {
-            INSTANCE = new MovieRepository(application);
-        }
-        return INSTANCE;
     }
 
     private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
@@ -117,20 +125,8 @@ public class MovieRepository {
             try {
                 Log.d(TAG, "doInBackground - retrieve all popular movies from the API");
 
-                Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://api.themoviedb.org/3/")
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-
-                TMDB_Api service = retrofit.create(TMDB_Api.class);
-
                 //Get language from SavedPreference
                 String language = getLanguage();
-
 
                 Call<MovieResponse> call = service.getPopularMovies(API_KEY, pageNumber, language);
                 Response<MovieResponse> response = call.execute();
@@ -169,22 +165,10 @@ public class MovieRepository {
     private static class GetTopRatedMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
         private final static String TAG = GetTopRatedMoviesFromAPI.class.getSimpleName();
 
-
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             try {
                 Log.d(TAG, "doInBackground - retrieve all top rated movies from API");
-
-                Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://api.themoviedb.org/3/")
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-
-                TMDB_Api service = retrofit.create(TMDB_Api.class);
 
                 String language = getLanguage();
                 Call<MovieResponse> call = service.getTopRatedMovies(API_KEY, language);
@@ -221,25 +205,14 @@ public class MovieRepository {
         }
     }
 
-    private static class SetVideosFromAPI extends AsyncTask<Integer, Void, List<Video>> {
+    private static class SetVideosFromAPI extends AsyncTask<Integer, Void, Void> {
         private final static String TAG = SetVideosFromAPI.class.getSimpleName();
 
         @Override
-        protected List<Video> doInBackground(Integer... integers) {
+        protected Void doInBackground(Integer... integers) {
             Integer movieId = integers[0];
 
             try {
-                Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://api.themoviedb.org/3/")
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-
-                TMDB_Api service = retrofit.create(TMDB_Api.class);
-
                 Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
                 Response<VideoResponse> response = call.execute();
 
@@ -276,7 +249,7 @@ public class MovieRepository {
                         mMovieDao.insert(movie);
                     }
 
-                    return videos;
+                    return null;
                 } else {
                     Log.e(TAG, "Bad Response: " + response.code());
                     return null;
@@ -295,16 +268,6 @@ public class MovieRepository {
         protected Genre[] doInBackground(Void... voids) {
             try {
                 Log.d(TAG, "doInBackground - retrieve all genres");
-                Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://api.themoviedb.org/3/")
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-
-                TMDB_Api service = retrofit.create(TMDB_Api.class);
 
                 Call<GenreResponse> call = service.getMovieGenres(API_KEY);
                 Response<GenreResponse> response = call.execute();
@@ -333,58 +296,43 @@ public class MovieRepository {
         }
     }
 
-//    private static class GetCastFromAPI extends AsyncTask<Integer, Void, List<Cast>> {
-//        private final static String TAG = GetGenresFromAPI.class.getSimpleName();
-//
-//        @Override
-//        protected List<Cast> doInBackground(Integer... integers) {
-//            Integer movieId = integers[0];
-//
-//            try {
-//                Log.d(TAG, "doInBackground - retrieve all genres");
-//                Gson gson = new GsonBuilder()
-//                        .setLenient()
-//                        .create();
-//
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl("https://api.themoviedb.org/3/")
-//                        .addConverterFactory(GsonConverterFactory.create(gson))
-//                        .build();
-//
-//                TMDB_Api service = retrofit.create(TMDB_Api.class);
-//
-//                Call<CastResponse> call = service.getMovieCast(integers[0], API_KEY);
-//                Response<CastResponse> response = call.execute();
-//
-//                Log.d(TAG, "Executed call, response.code = " + response.code());
-//
-//                if (response.isSuccessful()) {
-//                    assert response.body() != null;
-//                    Log.d(TAG, "Good Response: " + response.body().getCast());
-//                    mCastDatabase.deleteAll();
-//
-//                    mCastAPI = response.body().getCast();
-//                    for (Genre genre : mGenresAPI) {
-//                        mGenreDao.insert(genre);
-//                    }
-//
-//                    for (Movie movie : mPopularMovies.getValue()) {
-//                        if (movie.getMovieId() == movieId) {
-//                            movie.setCast(mCastAPI);
-//                        }
-//                    }
-//
-//                    return response.body().getCast();
-//                } else {
-//                    Log.d(TAG, "Bad Response: " + response.code());
-//                    return null;
-//                }
-//            } catch (Exception e) {
-//                Log.e(TAG, "Exception: " + e);
-//                return null;
-//            }
-//        }
-//    }
+    private static class GetCastFromAPI extends AsyncTask<Integer, Void, Void> {
+        private final static String TAG = GetCastFromAPI.class.getSimpleName();
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            Integer movieId = integers[0];
+
+            try {
+                Log.d(TAG, "doInBackground - retrieve cast for specific movie");
+
+                Call<CastResponse> call = service.getMovieCast(integers[0], API_KEY);
+                Response<CastResponse> response = call.execute();
+
+                Log.d(TAG, "Executed call, response.code = " + response.code());
+
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    Log.d(TAG, "Good Response: " + response.body().getCast());
+
+                    mCastAPI = response.body().getCast();
+                    for (Movie movie : mPopularMovies.getValue()) {
+                        if (movie.getMovieId() == movieId) {
+                            movie.setCast(mCastAPI);
+                        }
+                    }
+
+                    return null;
+                } else {
+                    Log.d(TAG, "Bad Response: " + response.code());
+                    return null;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Exception: " + e);
+                return null;
+            }
+        }
+    }
 
     private static class SearchMovie extends AsyncTask<String, Void, List<Movie>> {
         private final static String TAG = SearchMovie.class.getSimpleName();
@@ -392,17 +340,7 @@ public class MovieRepository {
         @Override
         protected List<Movie> doInBackground(String... strings) {
             try {
-                Log.d(TAG, "doInBackground - retrieve all genres");
-                Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://api.themoviedb.org/3/")
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-
-                TMDB_Api service = retrofit.create(TMDB_Api.class);
+                Log.d(TAG, "doInBackground - search for movies");
 
                 Log.d(TAG, strings[0]);
                 Call<MovieResponse> call = service.searchMovie(strings[0], API_KEY);
@@ -413,6 +351,10 @@ public class MovieRepository {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
+
+                    for (Movie movie : response.body().getMovies()) {
+                        setVideosFromApi(movie.getMovieId());
+                    }
 
                     return response.body().getMovies();
                 } else {
@@ -435,7 +377,6 @@ public class MovieRepository {
 
 
     private static class GetGenresFromDatabase extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected Void doInBackground(Void... voids) {
             mGenresDatabase = mGenreDao.getAllGenres();
@@ -444,7 +385,6 @@ public class MovieRepository {
     }
 
     private static class GetMoviesFromDatabase extends AsyncTask<Void, Void, List<Movie>> {
-
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getAllMovies();
