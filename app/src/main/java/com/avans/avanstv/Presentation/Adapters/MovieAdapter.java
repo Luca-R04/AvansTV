@@ -19,17 +19,17 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecyclerAdapter> {
-    private List<Movie> movieList;
+    private List<Movie> mMovieList;
     private final Context mContext;
 
     public void setMovies(List<Movie> movieList) {
-        this.movieList = movieList;
+        this.mMovieList = movieList;
         notifyDataSetChanged();
     }
 
-    public MovieAdapter(Context mContext,@NonNull List<Movie> movieList) {
+    public MovieAdapter(Context mContext,@NonNull List<Movie> mMovieList) {
         this.mContext = mContext;
-        this.movieList = movieList;
+        this.mMovieList = mMovieList;
         notifyDataSetChanged();
     }
 
@@ -43,21 +43,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter holder, int position) {
         Glide
                 .with(mContext)
-                .load("https://image.tmdb.org/t/p/original/" + movieList.get(holder.getAdapterPosition()).getPoster_path())
+                .load("https://image.tmdb.org/t/p/original/" + mMovieList.get(holder.getAdapterPosition()).getPoster_path())
                 .into(holder.imageView);
 
         holder.itemView.setOnClickListener(view -> {
-            Log.i("MovieAdapter", movieList.get(holder.getAdapterPosition()).getTitle());
+            Log.i("MovieAdapter", mMovieList.get(holder.getAdapterPosition()).getTitle());
             Intent intent = new Intent(mContext, MovieDetailsActivity.class);
-            intent.putExtra("Movie", movieList.get(holder.getAdapterPosition()));
+            intent.putExtra("Movie", mMovieList.get(holder.getAdapterPosition()));
             mContext.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        if (movieList!= null) {
-            return movieList.size();
+        if (mMovieList != null) {
+            return mMovieList.size();
         }
         return 0;
     }
