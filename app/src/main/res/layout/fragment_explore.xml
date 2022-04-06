@@ -39,7 +39,8 @@
             android:minHeight="48dp"
             android:src="@drawable/ic_filter_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/secondary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <SearchView
