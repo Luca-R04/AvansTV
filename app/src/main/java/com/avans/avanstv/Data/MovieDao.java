@@ -16,6 +16,9 @@ public interface MovieDao {
     @Query("DELETE FROM Movie")
     void deleteAll();
 
+    @Query("UPDATE Movie SET favorite = :isFavorite WHERE movieId = :movieId")
+    void setFavorite(int movieId, boolean isFavorite);
+
     @Query("SELECT * FROM Movie;")
     List<Movie> getAllMovies();
 }

@@ -3,10 +3,12 @@ package com.avans.avanstv.Presentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.avans.avanstv.Data.MovieRepository;
@@ -110,6 +112,21 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 movieGenres.setText(genres);
                 movieDescription.setText(movie.getOverview());
+
+                ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
+                CardView favoriteWrapper = findViewById(R.id.card_favorite);
+                favoriteButton.setOnClickListener(view -> {
+                    if (!movie.isFavorite()) {
+                        movie.setFavorite(true);
+                        favoriteButton.setBackgroundColor(getResources().getColor(R.color.primary));
+                        favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.primary));
+                    } else {
+                        movie.setFavorite(false);
+                        favoriteButton.setBackgroundColor(getResources().getColor(R.color.white));
+                        favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.white));
+                    }
+                    movieRepository.setFavoriteMovie(movie);
+                });
             }
         }
     }

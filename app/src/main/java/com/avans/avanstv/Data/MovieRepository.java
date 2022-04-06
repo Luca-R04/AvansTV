@@ -117,6 +117,10 @@ public class MovieRepository {
         return mSearchResults;
     }
 
+    public void setFavoriteMovie(Movie movie) {
+        new SetFavoriteMovie().execute(movie);
+    }
+
     private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
         private final static String TAG = GetPopularMoviesFromAPI.class.getSimpleName();
 
@@ -372,6 +376,15 @@ public class MovieRepository {
             if (movies != null) {
                 mSearchResults = movies;
             }
+        }
+    }
+
+    private static class SetFavoriteMovie extends AsyncTask<Movie, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.setFavorite(movies[0].getMovieId(), movies[0].isFavorite());
+            return null;
         }
     }
 

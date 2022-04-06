@@ -145,12 +145,13 @@
             app:layout_constraintTop_toBottomOf="@+id/youtubePlayerView"
             tools:ignore="MissingConstraints">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/card_favorite_ic"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/favorite_image_description"
+                android:background="@color/white"
                 android:src="@drawable/ic_favorite_border"
                 app:tint="@color/secondary" />
 
