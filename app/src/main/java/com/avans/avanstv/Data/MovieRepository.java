@@ -77,14 +77,13 @@ public class MovieRepository {
             Log.i(TAG, "There is no internet connection, retrieve data from the local database.");
             new GetGenresFromDatabase().execute();
             new GetMoviesFromDatabase().execute();
-            new GetFavoriteMovies().execute();
         } else {
             Log.i(TAG, "There is a internet connection, retrieve data from API.");
             new GetGenresFromAPI().execute();
             new GetTopRatedMoviesFromAPI().execute();
             new GetPopularMoviesFromAPI().execute();
-            new GetFavoriteMovies().execute();
         }
+        new GetFavoriteMovies().execute();
     }
 
     public static MovieRepository getInstance(Application application) {
@@ -133,10 +132,15 @@ public class MovieRepository {
 
     public void setFavoriteMovie(Movie movie) {
         new SetFavoriteMovie().execute(movie);
+        new GetFavoriteMovies().execute();
     }
 
     public LiveData<List<Movie>> getFavoriteMovies() {
         return mFavoritesMovieList;
+    }
+
+    public static void setVideosForMovie(Movie movie) {
+        new SetVideosForMovie().execute(movie);
     }
 
     private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
@@ -160,9 +164,17 @@ public class MovieRepository {
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
                     List<Movie> movies = response.body().getMovies();
 
+                    mMovieDao.deleteAll();
+
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
                         movie.setType("Popular");
+
+                        if (movie.getYoutubeVideo() == null) {
+                            Video video = new Video("");
+                            movie.setYoutubeVideo(video);
+                        }
+                        mMovieDao.insert(movie);
                     }
 
                     mAllMovies.addAll(movies);
@@ -208,6 +220,12 @@ public class MovieRepository {
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
                         movie.setType("TopRated");
+
+                        if (movie.getYoutubeVideo() == null) {
+                            Video video = new Video("");
+                            movie.setYoutubeVideo(video);
+                        }
+                        mMovieDao.insert(movie);
                     }
 
                     mAllMovies.addAll(movies);
@@ -250,14 +268,9 @@ public class MovieRepository {
                         if (movie.getMovieId() == movieId) {
                             for (Video video : videos) {
                                 movie.setYoutubeVideo(video);
+                                MovieRepository.setVideosForMovie(movie);
                             }
                         }
-                        //This needs to be done for the Room database, otherwise it won't save the movie
-                        if (movie.getYoutubeVideo() == null) {
-                            Video video = new Video("");
-                            movie.setYoutubeVideo(video);
-                        }
-                        mMovieDao.insert(movie);
                     }
 
                 } else {
@@ -393,6 +406,14 @@ public class MovieRepository {
         }
     }
 
+    private static class SetVideosForMovie extends AsyncTask<Movie, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.setVideo(movies[0].getMovieId(), movies[0].getYoutubeVideo());
+            return null;
+        }
+    }
 
     private static class GetFavoriteMovies extends AsyncTask<Void, Void, List<Movie>> {
 

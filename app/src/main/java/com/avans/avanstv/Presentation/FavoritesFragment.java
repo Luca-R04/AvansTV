@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -46,7 +46,7 @@ public class FavoritesFragment extends Fragment {
 
         RecyclerView favoritesRecyclerView = favoriteView.findViewById(R.id.favorites_list_section1);
         MovieListAdapter movieAdapter = new MovieListAdapter(this.getContext(), movieListViewModel.getAllLists().getValue());
-        favoritesRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
+        favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         favoritesRecyclerView.setAdapter(movieAdapter);
 
         //updates adapter
@@ -66,7 +66,7 @@ public class FavoritesFragment extends Fragment {
     }
 
     private void setFavoriteMovies(List<Movie> movies) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < movies.size(); i++) {
             if (!movies.isEmpty()) {
                 Glide
                         .with(this.getActivity())
