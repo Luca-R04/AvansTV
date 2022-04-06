@@ -92,10 +92,24 @@
                 app:layout_constraintStart_toStartOf="@+id/favorites_header"
                 app:layout_constraintTop_toBottomOf="@+id/favorite_movies_section" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_list_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:clickable="true"
+                android:contentDescription="@string/create_list_button"
+                android:focusable="true"
+                android:src="@android:drawable/ic_input_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite_movies_section" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favorites_list_section1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:paddingStart="30dp"
                 android:paddingTop="16dp"
@@ -105,19 +119,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/favorite_list_header">
 
             </androidx.recyclerview.widget.RecyclerView>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_list_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                android:clickable="true"
-                android:contentDescription="@string/create_list_button"
-                android:focusable="true"
-                android:src="@android:drawable/ic_input_add"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

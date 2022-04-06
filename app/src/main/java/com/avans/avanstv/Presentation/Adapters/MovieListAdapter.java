@@ -43,7 +43,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             MovieList movieList = mMovieLists.get(holder.getAdapterPosition());
             List<Movie> movies = movieList.getMovies();
 
-            if (movieList != null) {
                 holder.listName.setText(movieList.getName());
 
                 if (movies != null) {
@@ -58,9 +57,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                         holder.movie1.setText(movies.get(0).getTitle());
                     }
                 }
-            } else {
-                holder.infoText.setText(R.string.no_list_available);
-            }
 //        }
     }
 

@@ -33,6 +33,7 @@ public class MovieListRepository {
 
     public void insertMovieList(MovieList movieList) {
         new InsertMovieList().execute(movieList);
+        new GetMovieLists().execute();
     }
 
     private static class InsertMovieList extends AsyncTask<MovieList, Void, Void> {
