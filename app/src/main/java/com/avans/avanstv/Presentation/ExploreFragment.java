@@ -3,6 +3,8 @@ package com.avans.avanstv.Presentation;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.avans.avanstv.Presentation.Adapters.MovieExploreAdapter;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
@@ -71,5 +75,18 @@ public class ExploreFragment extends Fragment {
         mSearchViewModel.getAllMovies().observe(getViewLifecycleOwner(), movieAdapter::setMovies);
 
         return exploreView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //OnClickListener
+        //On filterbutton
+        ImageButton filterButton = view.findViewById(R.id.filter_button);
+        filterButton.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
+        } );
+
     }
 }
