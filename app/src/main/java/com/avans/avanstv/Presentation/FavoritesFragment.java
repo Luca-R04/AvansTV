@@ -67,7 +67,7 @@ public class FavoritesFragment extends Fragment {
 
     private void setFavoriteMovies(List<Movie> movies) {
         for (int i = 0; i < 3; i++) {
-            if (movies.get(i) != null) {
+            if (!movies.isEmpty()) {
                 Glide
                         .with(this.getActivity())
                         .load("https://image.tmdb.org/t/p/original/" + movies.get(i).getPoster_path())
