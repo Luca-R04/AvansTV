@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Domain.Cast;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieList;
