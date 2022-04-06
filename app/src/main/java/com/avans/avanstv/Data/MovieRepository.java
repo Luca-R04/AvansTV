@@ -107,6 +107,10 @@ public class MovieRepository {
         new GetPopularMoviesFromAPI().execute();
     }
 
+    public void getCast(int movieID) {
+        new GetCastFromAPI().execute(movieID);
+    }
+
     public Genre[] getGenres() {
         if (mNetworkInfo == null || !mNetworkInfo.isConnected()) {
             return mGenresDatabase;
@@ -322,7 +326,7 @@ public class MovieRepository {
                     Log.d(TAG, "Good Response: " + response.body().getCast());
 
                     mCastAPI = response.body().getCast();
-                    for (Movie movie : mPopularMovies.getValue()) {
+                    for (Movie movie : mAllMovies) {
                         if (movie.getMovieId() == movieId) {
                             movie.setCast(mCastAPI);
                         }

@@ -1,6 +1,7 @@
 package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,18 +11,11 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Domain.Cast;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
-import com.avans.avanstv.Presentation.Adapters.CastAdapter;
-import com.avans.avanstv.Presentation.Adapters.MovieAdapter;
-import com.avans.avanstv.Presentation.ViewModel.CastViewModel;
-import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
-import com.avans.avanstv.Presentation.ViewModel.TopRatedMovieViewModel;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
@@ -30,6 +24,9 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetailsActivity extends YouTubeBaseActivity {
@@ -46,6 +43,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 Movie movie = (Movie) intent.getSerializableExtra("Movie");
 
                 MovieRepository movieRepository = MovieRepository.getInstance(getApplication());
+                movieRepository.getCast(movie.getMovieId());
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
@@ -80,6 +78,22 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 TextView movieDate = findViewById(R.id.movie_date_detail);
                 TextView movieGenres = findViewById(R.id.movie_genres_detail);
                 TextView movieDescription = findViewById(R.id.movie_description_detail);
+                TextView movieCast1 = findViewById(R.id.cast_name_card1);
+                TextView movieCast2 = findViewById(R.id.cast_name_card2);
+                TextView movieCast3 = findViewById(R.id.cast_name_card3);
+                ImageView imageCast1 = findViewById(R.id.cast_img_1);
+                ImageView imageCast2 = findViewById(R.id.cast_img_2);
+                ImageView imageCast3 = findViewById(R.id.cast_img_3);
+
+                List<TextView> castTextViews = new ArrayList<>();
+                castTextViews.add(movieCast1);
+                castTextViews.add(movieCast2);
+                castTextViews.add(movieCast3);
+
+                List<ImageView> castImageView = new ArrayList<>();
+                castImageView.add(imageCast1);
+                castImageView.add(imageCast2);
+                castImageView.add(imageCast3);
 
                 backButton.setOnClickListener(view -> {
                     Intent i = new Intent(this, MainActivity.class);
@@ -91,8 +105,12 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 movieRating.setText(String.valueOf(movie.getVote_average()));
 
                 StringBuilder dateMovie = new StringBuilder();
-                String[] splitDate = movie.getRelease_date().split("-");
-                dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+                if (movie.getRelease_date().split("-").length == 3) {
+                    String[] splitDate = movie.getRelease_date().split("-");
+                    dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+                } else {
+                    dateMovie.append(movie.getRelease_date());
+                }
                 movieDate.setText(dateMovie);
 
                 List<Integer> genreList = movie.getGenre_ids();
@@ -121,16 +139,18 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 movieGenres.setText(genres);
                 movieDescription.setText(movie.getOverview());
 
-//                CastViewModel mCastViewModel = ViewModelProviders.of(this).get(CastViewModel.class);
+//                List<Cast> castList = movie.getCast();
 //
-//                // Create a Recyclerview and adapter to display the movies
-//                RecyclerView castRecyclerView = findViewById(R.id.cast_recyclerview);
-//                CastAdapter castAdapter = new CastAdapter(this, movie.getCast());
-//                castRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//                castRecyclerView.setAdapter(castAdapter);
+//                for (int i = 0; i < 3; i++) {
+//                    Cast cast = castList.get(i);
 //
-//                //updates adapter
-//                mCastViewModel.getAllCast().observe(this.getLifeCycleOwner(), castAdapter::setCastList);
+//                    Glide
+//                            .with(this)
+//                            .load("https://image.tmdb.org/t/p/w138_and_h175_face" + cast.getProfile_path())
+//                            .into(castImageView.get(i));
+//
+//                    castTextViews.get(i).setText(cast.getName());
+//                }
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 CardView favoriteWrapper = findViewById(R.id.card_favorite);
