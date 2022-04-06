@@ -38,6 +38,8 @@ public class MovieRepository {
     private static final String TAG = "MovieRepository";
     private static MutableLiveData<List<Movie>> mPopularMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
+    private static MutableLiveData<List<Movie>> mFavoritesMovieList;
+    private static List<Movie> mAllMovies;
     private static List<Movie> mSearchResults;
     private static Genre[] mGenresAPI;
     private static Genre[] mGenresDatabase;
@@ -63,6 +65,8 @@ public class MovieRepository {
 
         mPopularMovies = new MutableLiveData<>();
         mTopRatedMovies = new MutableLiveData<>();
+        mFavoritesMovieList = new MutableLiveData<>();
+        mAllMovies = new ArrayList<>();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -73,11 +77,13 @@ public class MovieRepository {
             Log.i(TAG, "There is no internet connection, retrieve data from the local database.");
             new GetGenresFromDatabase().execute();
             new GetMoviesFromDatabase().execute();
+            new GetFavoriteMovies().execute();
         } else {
             Log.i(TAG, "There is a internet connection, retrieve data from API.");
             new GetGenresFromAPI().execute();
             new GetTopRatedMoviesFromAPI().execute();
             new GetPopularMoviesFromAPI().execute();
+            new GetFavoriteMovies().execute();
         }
     }
 
@@ -125,6 +131,10 @@ public class MovieRepository {
         new SetFavoriteMovie().execute(movie);
     }
 
+    public LiveData<List<Movie>> getFavoriteMovies() {
+        return mFavoritesMovieList;
+    }
+
     private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
         private final static String TAG = GetPopularMoviesFromAPI.class.getSimpleName();
 
@@ -150,6 +160,8 @@ public class MovieRepository {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
                         movie.setType("Popular");
                     }
+
+                    mAllMovies.addAll(movies);
 
                     return movies;
                 } else {
@@ -194,6 +206,8 @@ public class MovieRepository {
                         movie.setType("TopRated");
                     }
 
+                    mAllMovies.addAll(movies);
+
                     return movies;
                 } else {
                     Log.d(TAG, "Bad Response: " + response.code());
@@ -228,22 +242,7 @@ public class MovieRepository {
                     assert response.body() != null;
                     List<Video> videos = response.body().getVideos();
 
-                    mMovieDao.deleteAll();
-
-                    for (Movie movie : mPopularMovies.getValue()) {
-                        if (movie.getMovieId() == movieId) {
-                            for (Video video : videos) {
-                                movie.setYoutubeVideo(video);
-                            }
-                        }
-                        if (movie.getYoutubeVideo() == null) {
-                            Video video = new Video("");
-                            movie.setYoutubeVideo(video);
-                        }
-                        mMovieDao.insert(movie);
-                    }
-
-                    for (Movie movie : mTopRatedMovies.getValue()) {
+                    for (Movie movie : mAllMovies) {
                         if (movie.getMovieId() == movieId) {
                             for (Video video : videos) {
                                 movie.setYoutubeVideo(video);
@@ -257,11 +256,10 @@ public class MovieRepository {
                         mMovieDao.insert(movie);
                     }
 
-                    return null;
                 } else {
                     Log.e(TAG, "Bad Response: " + response.code());
-                    return null;
                 }
+                return null;
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e);
                 return null;
@@ -330,11 +328,10 @@ public class MovieRepository {
                         }
                     }
 
-                    return null;
                 } else {
                     Log.d(TAG, "Bad Response: " + response.code());
-                    return null;
                 }
+                return null;
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e);
                 return null;
@@ -392,6 +389,20 @@ public class MovieRepository {
         }
     }
 
+
+    private static class GetFavoriteMovies extends AsyncTask<Void, Void, List<Movie>> {
+
+        @Override
+        protected List<Movie> doInBackground(Void... voids) {
+            return mMovieDao.getFavoriteMovies();
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            super.onPostExecute(movies);
+            mFavoritesMovieList.setValue(movies);
+        }
+    }
 
     private static class GetGenresFromDatabase extends AsyncTask<Void, Void, Void> {
         @Override
