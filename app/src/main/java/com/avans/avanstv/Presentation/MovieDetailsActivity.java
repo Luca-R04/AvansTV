@@ -10,10 +10,18 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Presentation.Adapters.CastAdapter;
+import com.avans.avanstv.Presentation.Adapters.MovieAdapter;
+import com.avans.avanstv.Presentation.ViewModel.CastViewModel;
+import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
+import com.avans.avanstv.Presentation.ViewModel.TopRatedMovieViewModel;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
@@ -112,6 +120,17 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 movieGenres.setText(genres);
                 movieDescription.setText(movie.getOverview());
+
+//                CastViewModel mCastViewModel = ViewModelProviders.of(this).get(CastViewModel.class);
+//
+//                // Create a Recyclerview and adapter to display the movies
+//                RecyclerView castRecyclerView = findViewById(R.id.cast_recyclerview);
+//                CastAdapter castAdapter = new CastAdapter(this, movie.getCast());
+//                castRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+//                castRecyclerView.setAdapter(castAdapter);
+//
+//                //updates adapter
+//                mCastViewModel.getAllCast().observe(this.getLifeCycleOwner(), castAdapter::setCastList);
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 CardView favoriteWrapper = findViewById(R.id.card_favorite);

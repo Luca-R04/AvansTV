@@ -108,6 +108,10 @@ public class MovieRepository {
         return mGenresAPI;
     }
 
+    public List<Cast> getCastList() {
+        return mCastAPI;
+    }
+
     public static void setVideosFromApi(int movieId) {
         new SetVideosFromAPI().execute(movieId);
     }
