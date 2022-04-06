@@ -3,6 +3,7 @@ package com.avans.avanstv.Presentation;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import java.util.List;
 
 public class MovieDetailsActivity extends YouTubeBaseActivity {
     private YouTubePlayerView youTubePlayerView;
+    private final static String TAG = MovieDetailsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +141,10 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 movieGenres.setText(genres);
                 movieDescription.setText(movie.getOverview());
 
+
+                Log.d(TAG, "Retrieve cast for specific movie in Moviedetails");
                 List<Cast> castList = movie.getCast();
+                Log.d(TAG, "Retrieved cast for specific movie in Moviedetails");
 
                 if (castList != null) {
                     for (int i = 0; i < 3; i++) {
@@ -152,6 +157,8 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                         castTextViews.get(i).setText(cast.getName());
                     }
+                } else {
+                    Log.d(TAG, "Castlist is empty");
                 }
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
