@@ -39,7 +39,7 @@ public interface TMDB_Api {
     Call<GenreResponse> getMovieGenres(@Query("api_key") String api_key);
 
     //Get movie cast
-    @GET("/movie/{movie_id}/credits")
+    @GET("movie/{movie_id}/credits")
     Call<CastResponse> getMovieCast(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
 
     //Get videos related to specific movie

@@ -143,18 +143,20 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 movieGenres.setText(genres);
                 movieDescription.setText(movie.getOverview());
 
-//                List<Cast> castList = movie.getCast();
-//
-//                for (int i = 0; i < 3; i++) {
-//                    Cast cast = castList.get(i);
-//
-//                    Glide
-//                            .with(this)
-//                            .load("https://image.tmdb.org/t/p/w138_and_h175_face" + cast.getProfile_path())
-//                            .into(castImageView.get(i));
-//
-//                    castTextViews.get(i).setText(cast.getName());
-//                }
+                List<Cast> castList = movie.getCast();
+
+                if (castList != null) {
+                    for (int i = 0; i < 3; i++) {
+                        Cast cast = castList.get(i);
+
+                        Glide
+                                .with(this)
+                                .load("https://image.tmdb.org/t/p/w138_and_h175_face" + cast.getProfile_path())
+                                .into(castImageView.get(i));
+
+                        castTextViews.get(i).setText(cast.getName());
+                    }
+                }
 
                 Spinner spinner = findViewById(R.id.list_dropdown);
                 ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
