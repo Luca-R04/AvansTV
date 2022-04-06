@@ -33,6 +33,10 @@ public class MovieList implements Serializable {
         this.mMovies = mMovies;
     }
 
+    public void addMovie(Movie movie) {
+        this.mMovies.add(movie);
+    }
+
     public void setId(int id) {
         this.id = id;
     }

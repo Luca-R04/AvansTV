@@ -1,21 +1,26 @@
 package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
-import com.avans.avanstv.Domain.Cast;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Domain.MovieList;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
@@ -23,8 +28,6 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 MovieRepository movieRepository = MovieRepository.getInstance(getApplication());
                 movieRepository.getCast(movie.getMovieId());
+                MovieListRepository movieListRepository = MovieListRepository.getInstance(getApplication());
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
@@ -151,6 +155,39 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 //
 //                    castTextViews.get(i).setText(cast.getName());
 //                }
+
+                Spinner spinner = findViewById(R.id.list_dropdown);
+                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+
+                List<MovieList> movieLists = movieListRepository.getMovieLists().getValue();
+                List<String> movieListNames = new ArrayList<>();
+                for (MovieList movieList : movieLists) {
+                    movieListNames.add(movieList.getName());
+                }
+
+                for (String name : movieListNames) {
+                    adapter.add(name);
+                    adapter.notifyDataSetChanged();
+                }
+
+                final String[] spinnerValue = {""};
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                        Object item = parent.getItemAtPosition(pos);
+                        spinnerValue[0] = item.toString();
+                    }
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+
+                Button addToListButton = findViewById(R.id.add_to_list);
+                addToListButton.setOnClickListener(view -> {
+                    movieListRepository.addMovieToList(spinnerValue[0], movie);
+                    Log.i("MovieDetailsActivity", "Added " + movie.getTitle() + " to " + spinnerValue[0]);
+                });
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 CardView favoriteWrapper = findViewById(R.id.card_favorite);
