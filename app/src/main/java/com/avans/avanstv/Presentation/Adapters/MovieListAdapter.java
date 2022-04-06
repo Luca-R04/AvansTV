@@ -1,6 +1,8 @@
 package com.avans.avanstv.Presentation.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieList;
+import com.avans.avanstv.Presentation.ListOverviewActivity;
 import com.avans.avanstv.R;
 
 import java.util.List;
@@ -38,26 +41,30 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieListRecyclerAdapter holder, int position) {
-//        if (mMovieLists.size() < holder.getAdapterPosition()) {
-            //Set values for text fields
-            MovieList movieList = mMovieLists.get(holder.getAdapterPosition());
-            List<Movie> movies = movieList.getMovies();
+        MovieList movieList = mMovieLists.get(holder.getAdapterPosition());
+        List<Movie> movies = movieList.getMovies();
 
-                holder.listName.setText(movieList.getName());
+        holder.listName.setText(movieList.getName());
 
-                if (movies != null) {
-                    if (movies.size() >= 3) {
-                        holder.movie1.setText(movies.get(0).getTitle());
-                        holder.movie2.setText(movies.get(1).getTitle());
-                        holder.movie3.setText(movies.get(2).getTitle());
-                    } else if (movies.size() >= 2) {
-                        holder.movie1.setText(movies.get(0).getTitle());
-                        holder.movie2.setText(movies.get(1).getTitle());
-                    } else {
-                        holder.movie1.setText(movies.get(0).getTitle());
-                    }
-                }
-//        }
+        if (movies != null) {
+            if (movies.size() >= 3) {
+                holder.movie1.setText(movies.get(0).getTitle());
+                holder.movie2.setText(movies.get(1).getTitle());
+                holder.movie3.setText(movies.get(2).getTitle());
+            } else if (movies.size() >= 2) {
+                holder.movie1.setText(movies.get(0).getTitle());
+                holder.movie2.setText(movies.get(1).getTitle());
+            } else {
+                holder.movie1.setText(movies.get(0).getTitle());
+            }
+        }
+
+        holder.itemView.setOnClickListener(view -> {
+            Log.i("MovieAdapter", mMovieLists.get(holder.getAdapterPosition()).getName());
+            Intent intent = new Intent(mContext, ListOverviewActivity.class);
+            intent.putExtra("MovieList", mMovieLists.get(holder.getAdapterPosition()));
+            mContext.startActivity(intent);
+        });
     }
 
     @Override
@@ -69,7 +76,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     }
 
     static class MovieListRecyclerAdapter extends RecyclerView.ViewHolder {
-        private final TextView infoText;
         private final TextView listName;
         private final TextView movie1;
         private final TextView movie2;
@@ -77,7 +83,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
         public MovieListRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
-            infoText = itemView.findViewById(R.id.no_list_textview);
             listName = itemView.findViewById(R.id.list_name);
             movie1 = itemView.findViewById(R.id.movie_1);
             movie2 = itemView.findViewById(R.id.movie_2);

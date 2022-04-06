@@ -12,10 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Domain.MovieList;
 import com.avans.avanstv.Presentation.MovieDetailsActivity;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecyclerAdapter> {
@@ -24,6 +26,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
 
     public void setMovies(List<Movie> movieList) {
         this.mMovieList = movieList;
+        notifyDataSetChanged();
+    }
+
+    public void setMoviesFromList(List<MovieList> movieLists) {
+        List<Movie> moviesFromLists = new ArrayList<>();
+        assert movieLists != null;
+        for (MovieList movieList : movieLists) {
+            if (movieList.getMovies() != null) {
+                moviesFromLists.addAll(movieList.getMovies());
+            }
+        }
+        this.mMovieList = moviesFromLists;
         notifyDataSetChanged();
     }
 

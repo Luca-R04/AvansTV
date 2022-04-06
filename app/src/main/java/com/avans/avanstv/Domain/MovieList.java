@@ -3,10 +3,11 @@ package com.avans.avanstv.Domain;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class MovieList {
+public class MovieList implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String mName;
