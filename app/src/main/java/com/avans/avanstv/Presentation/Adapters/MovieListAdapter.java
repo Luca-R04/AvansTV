@@ -42,22 +42,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public void onBindViewHolder(@NonNull MovieListRecyclerAdapter holder, int position) {
         MovieList movieList = mMovieLists.get(holder.getAdapterPosition());
-        List<Movie> movies = movieList.getMovies();
 
         holder.listName.setText(movieList.getName());
-
-        if (movies != null) {
-            if (movies.size() >= 3) {
-                holder.movie1.setText(movies.get(0).getTitle());
-                holder.movie2.setText(movies.get(1).getTitle());
-                holder.movie3.setText(movies.get(2).getTitle());
-            } else if (movies.size() >= 2) {
-                holder.movie1.setText(movies.get(0).getTitle());
-                holder.movie2.setText(movies.get(1).getTitle());
-            } else {
-                holder.movie1.setText(movies.get(0).getTitle());
-            }
-        }
 
         holder.itemView.setOnClickListener(view -> {
             Log.i("MovieAdapter", mMovieLists.get(holder.getAdapterPosition()).getName());
@@ -77,16 +63,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     static class MovieListRecyclerAdapter extends RecyclerView.ViewHolder {
         private final TextView listName;
-        private final TextView movie1;
-        private final TextView movie2;
-        private final TextView movie3;
 
         public MovieListRecyclerAdapter(@NonNull View itemView) {
             super(itemView);
             listName = itemView.findViewById(R.id.list_name);
-            movie1 = itemView.findViewById(R.id.movie_1);
-            movie2 = itemView.findViewById(R.id.movie_2);
-            movie3 = itemView.findViewById(R.id.movie_3);
         }
     }
 }

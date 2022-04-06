@@ -129,6 +129,7 @@ public class MovieRepository {
 
     public void setFavoriteMovie(Movie movie) {
         new SetFavoriteMovie().execute(movie);
+        new GetFavoriteMovies().execute();
     }
 
     public LiveData<List<Movie>> getFavoriteMovies() {
