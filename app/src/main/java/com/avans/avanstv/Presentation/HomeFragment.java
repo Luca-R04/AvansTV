@@ -92,8 +92,13 @@ public class HomeFragment extends Fragment {
             featuredTitle.setText(featuredMovie.getTitle());
 
             StringBuilder dateMovie = new StringBuilder();
-            String[] splitDate = featuredMovie.getRelease_date().split("-");
-            dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+
+            if (featuredMovie.getRelease_date().split("-").length == 3) {
+                String[] splitDate = featuredMovie.getRelease_date().split("-");
+                dateMovie.append(splitDate[2]).append("-").append(splitDate[1]).append("-").append(splitDate[0]);
+            } else {
+                dateMovie.append(featuredMovie.getRelease_date());
+            }
             featuredDate.setText(dateMovie);
 
             String languageCaps = featuredMovie.getOriginal_language().substring(0, 1).toUpperCase() + featuredMovie.getOriginal_language().substring(1).toLowerCase();
