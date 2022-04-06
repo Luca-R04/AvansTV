@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritesFragment extends Fragment {
-    List<ImageButton> mImageButtons = new ArrayList<>();
+    final List<ImageButton> mImageButtons = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
