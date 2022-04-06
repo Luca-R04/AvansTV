@@ -115,6 +115,12 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 CardView favoriteWrapper = findViewById(R.id.card_favorite);
+
+                if (movie.isFavorite()) {
+                    favoriteButton.setBackgroundColor(getResources().getColor(R.color.primary));
+                    favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.primary));
+                }
+
                 favoriteButton.setOnClickListener(view -> {
                     if (!movie.isFavorite()) {
                         movie.setFavorite(true);
