@@ -42,6 +42,16 @@ public class Movie implements Serializable {
     private List<Cast> cast;
     private String type;
     private boolean favorite;
+    private int personalRating;
+
+
+    public int getPersonalRating() {
+        return personalRating;
+    }
+
+    public void setPersonalRating(int personalRating) {
+        this.personalRating = personalRating;
+    }
 
     public List<Cast> getCast() {
         return cast;

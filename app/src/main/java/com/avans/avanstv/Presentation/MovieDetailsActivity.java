@@ -2,6 +2,7 @@ package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
 import android.graphics.drawable.Icon;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +20,10 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.avans.avanstv.Data.MovieDao;
 import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Data.MovieRoomDatabase;
 import com.avans.avanstv.Domain.Cast;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
@@ -39,6 +43,7 @@ import java.util.List;
 public class MovieDetailsActivity extends YouTubeBaseActivity {
     private YouTubePlayerView youTubePlayerView;
     private final static String TAG = MovieDetailsActivity.class.getSimpleName();
+    private static MovieDao mMovieDao;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -56,6 +61,8 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
+                MovieRoomDatabase db = MovieRoomDatabase.getDatabase(getApplication());
+                mMovieDao = db.movieDao();
 
                 YouTubePlayer.OnInitializedListener onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                     @Override
@@ -94,6 +101,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 ImageView imageCast1 = findViewById(R.id.cast_img_1);
                 ImageView imageCast2 = findViewById(R.id.cast_img_2);
                 ImageView imageCast3 = findViewById(R.id.cast_img_3);
+                RatingBar personalRatingBar = findViewById(R.id.personal_rating_bar);
 
                 List<TextView> castTextViews = new ArrayList<>();
                 castTextViews.add(movieCast1);
@@ -207,6 +215,19 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     addToListButton.setVisibility(View.GONE);
                     listTitle.setText(R.string.no_lists_available);
                 }
+
+                int personalRating = movie.getPersonalRating();
+                personalRatingBar.setRating((float) personalRating);
+
+                personalRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                        int rating = (int) ratingBar.getRating();
+                        movie.setPersonalRating(rating);
+                        movieRepository.setPersonalRatingForMovie(movie);
+                        Log.d(TAG, "Rating set to: " + rating);
+                    }
+                });
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 Icon filledHeart = Icon.createWithResource(this, R.drawable.ic_favorite).setTint(getColor(R.color.primary));

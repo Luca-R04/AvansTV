@@ -130,6 +130,7 @@ public class MovieRepository {
         new SetVideosFromAPI().execute(movieId);
     }
 
+
     public List<Movie> searchMovie(String searchTerm) {
         new SearchMovie().execute(searchTerm);
         return mSearchResults;
@@ -147,6 +148,11 @@ public class MovieRepository {
     public static void setVideosForMovie(Movie movie) {
         new SetVideosForMovie().execute(movie);
     }
+
+    public void setPersonalRatingForMovie(Movie movie) {
+        new SetPersonalRatingDB().execute(movie);
+    }
+
 
     public static void setCastForMovie(Movie movie) {
         new SetCastForMovie().execute(movie);
@@ -460,6 +466,15 @@ public class MovieRepository {
         @Override
         protected Void doInBackground(Movie... movies) {
             mMovieDao.setCast(movies[0].getMovieId(), movies[0].getCast());
+            return null;
+        }
+    }
+
+    private static class SetPersonalRatingDB extends AsyncTask<Movie, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.setPersonalRating(movies[0].getMovieId(), movies[0].getPersonalRating());
             return null;
         }
     }

@@ -32,4 +32,7 @@ public interface MovieDao {
 
     @Query("SELECT * FROM Movie;")
     List<Movie> getAllMovies();
+
+    @Query("UPDATE Movie SET `personalRating` = :personalRating WHERE movieId = :movieId")
+    void setPersonalRating(int movieId, int personalRating);
 }

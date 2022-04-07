@@ -67,6 +67,29 @@ public class MovieListRepository {
         }
     }
 
+    public void deleteMovieFromList(Movie movie, MovieList movieList) {
+        Map<MovieList, Movie> map = new HashMap<>();
+        map.put(movieList, movie);
+        new DeleteMovieFromList().execute(map);
+    }
+
+    private static class DeleteMovieFromList extends AsyncTask<Map<MovieList, Movie>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Map<MovieList, Movie>... maps) {
+            Movie movie = maps[0].get(0);
+            List<Movie> movies = new ArrayList<>();
+            int listId = 0;
+            for(MovieList key : maps[0].keySet()) {
+                key.getMovies().remove(movie);
+                movies.addAll(key.getMovies());
+                listId = key.getId();
+            }
+            mMovieListDao.setMovies(movies, listId);
+            return null;
+        }
+    }
+
     public void deleteMovieList(MovieList movieList) {
         new DeleteMovieList().execute(movieList);
     }
@@ -81,7 +104,6 @@ public class MovieListRepository {
     }
 
     public void addMovieToList(String listName, Movie movie) {
-        Log.i("MovieListRepository", "Called addMovieToList");
         Map<String, Movie> map = new HashMap<>();
         map.put(listName, movie);
         new AddMovieToList().execute(map);

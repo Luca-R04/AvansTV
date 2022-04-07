@@ -321,7 +321,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cast_card3" />
+            app:layout_constraintTop_toBottomOf="@+id/personal_rating_bar" />
 
         <Spinner
             android:id="@+id/list_dropdown"
@@ -345,6 +345,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_dropdown" />
+
+        <RatingBar
+            android:id="@+id/personal_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/personal_rating_txt" />
+
+        <TextView
+            android:id="@+id/personal_rating_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Give this movie a personal rating:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cast_card2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
