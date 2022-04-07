@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ListPreference
+        android:defaultValue="@array/order"
+        android:summary="%s"
+        app:entries="@array/order"
+        app:entryValues="@array/order"
+        app:key="order"
+        app:title="@string/order"
+        app:useSimpleSummaryProvider="true" />
+
+    <ListPreference
+        android:defaultValue="none"
+        android:summary="%s"
+        app:entries="@array/order"
+        app:entryValues="@array/order"
+        app:key="order"
+        app:title="@string/order"
+        app:useSimpleSummaryProvider="true" />
+
+    <MultiSelectListPreference
+        android:key="Genres"
+        android:title="Genres"
+        app:entries="@array/genres"
+        android:summary=""
+        app:entryValues="@array/genres"
+        android:defaultValue="none"/>
+</PreferenceScreen>
