@@ -38,6 +38,7 @@ public class MovieRepository {
     private static final String API_KEY = "f7c59563b1ecac0e4e6c1debf2a7485e";
     private static final String TAG = "MovieRepository";
     private static MutableLiveData<List<Movie>> mPopularMovies;
+    private static MutableLiveData<List<Movie>> mCategoryMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
     private static MutableLiveData<List<Movie>> mFavoritesMovieList;
     private static List<Movie> mAllMovies;
@@ -65,6 +66,7 @@ public class MovieRepository {
         mPopularMovies = new MutableLiveData<>();
         mTopRatedMovies = new MutableLiveData<>();
         mFavoritesMovieList = new MutableLiveData<>();
+        mCategoryMovies = new MutableLiveData<>();
         mAllMovies = new ArrayList<>();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -98,6 +100,10 @@ public class MovieRepository {
 
     public static LiveData<List<Movie>> getLiveDataMovies() {
         return mPopularMovies;
+    }
+
+    public static LiveData<List<Movie>> getLiveDataCategoryMovies() {
+        return mCategoryMovies;
     }
 
     public LiveData<List<Movie>> getTopRated() {
@@ -576,7 +582,7 @@ public class MovieRepository {
                         popularMovies.add(movie);
                     }
                 }
-                mPopularMovies.setValue(popularMovies);
+                mCategoryMovies.setValue(popularMovies);
             }
         }
     }
@@ -596,7 +602,7 @@ public class MovieRepository {
                         popularMovies.add(movie);
                     }
                 }
-                mPopularMovies.setValue(popularMovies);
+                mCategoryMovies.setValue(popularMovies);
             }
         }
     }
@@ -616,7 +622,7 @@ public class MovieRepository {
                         popularMovies.add(movie);
                     }
                 }
-                mPopularMovies.setValue(popularMovies);
+                mCategoryMovies.setValue(popularMovies);
             }
         }
     }

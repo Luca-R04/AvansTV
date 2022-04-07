@@ -23,6 +23,7 @@ import android.widget.SearchView;
 
 import com.avans.avanstv.Data.MovieDao;
 import com.avans.avanstv.Domain.Movie;
+import com.avans.avanstv.Presentation.Adapters.MovieAdapter;
 import com.avans.avanstv.Presentation.Adapters.MovieExploreAdapter;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.Presentation.ViewModel.SearchMovieViewModel;
@@ -34,6 +35,7 @@ public class ExploreFragment extends Fragment {
     public static final String TAG = ExploreFragment.class.getSimpleName();
     private SharedPreferences sp;
     private PopularMovieViewModel mPopularMovieViewModel;
+    private SearchMovieViewModel mSearchViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
-        SearchMovieViewModel mSearchViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel.class);
+        mSearchViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel.class);
         mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
 
         // Create a Recyclerview and adapter to display the movies
@@ -92,12 +94,6 @@ public class ExploreFragment extends Fragment {
 
         //Preferences filters
         loadPreference();
-        mPopularMovieViewModel.getAllMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                mPopularMovieViewModel.setMovies(movies);
-            }
-          });
 
         return exploreView;
     }
@@ -118,12 +114,12 @@ public class ExploreFragment extends Fragment {
         String title = sp.getString("title", "");
         switch (title) {
             case "A-Z":
-                mPopularMovieViewModel.getMoviesAsc();
+                mSearchViewModel.getMoviesAsc();
                 Log.d(TAG, "A-Z");
                 break;
             case "Z-A":
                 Log.d(TAG, "Z-A");
-                mPopularMovieViewModel.getMoviesDesc();
+                mSearchViewModel.getMoviesDesc();
                 break;
             default:
                 Log.d(TAG, "Default");
@@ -136,11 +132,11 @@ public class ExploreFragment extends Fragment {
             switch (date){
                 case "Most recent":
                     Log.d(TAG, "Most recent");
-                    mPopularMovieViewModel.getMoviesDateAsc();
+                    mSearchViewModel.getMoviesDateAsc();
                     break;
                 case "Oldest":
                     Log.d(TAG, "Oldest");
-                    mPopularMovieViewModel.getMoviesDateDesc();
+                    mSearchViewModel.getMoviesDateDesc();
                     break;
                 default:
                     Log.d(TAG, "Default");
@@ -152,7 +148,7 @@ public class ExploreFragment extends Fragment {
         String genreIdString = sp.getString("genre", "");
         Log.d(TAG, genreIdString + "");
         if (!genreIdString.equals("none") || genreIdString.equals("0")) {
-            mPopularMovieViewModel.getMoviesByGenre(Integer.valueOf(genreIdString));
+            mSearchViewModel.getMoviesByGenre(Integer.valueOf(genreIdString));
         }
     }
 }
