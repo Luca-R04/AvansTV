@@ -52,7 +52,6 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 Movie movie = (Movie) intent.getSerializableExtra("Movie");
 
                 MovieRepository movieRepository = MovieRepository.getInstance(getApplication());
-                movieRepository.getCast(movie.getMovieId());
                 MovieListRepository movieListRepository = MovieListRepository.getInstance(getApplication());
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);

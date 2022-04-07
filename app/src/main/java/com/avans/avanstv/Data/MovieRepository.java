@@ -112,11 +112,7 @@ public class MovieRepository {
     }
 
     public static void getCast(int movieID) {
-        try {
-            new GetCastFromAPI().execute(movieID).get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+            new GetCastFromAPI().execute(movieID);
     }
 
     public Genre[] getGenres() {
@@ -175,6 +171,7 @@ public class MovieRepository {
 
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
+                        MovieRepository.getCast(movie.getMovieId());
                         movie.setType("Popular");
 
                         if (movie.getYoutubeVideo() == null) {
@@ -228,6 +225,7 @@ public class MovieRepository {
 
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
+                        MovieRepository.getCast(movie.getMovieId());
                         movie.setType("TopRated");
 
                         if (movie.getYoutubeVideo() == null) {
@@ -357,7 +355,7 @@ public class MovieRepository {
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    Log.d(TAG, "Good Response: " + response.body().getCast());
+                    Log.d(TAG, "Good Response: adding cast to movie");
 
                     mCastAPI = response.body().getCast();
                     for (Movie movie : mAllMovies) {
@@ -412,6 +410,7 @@ public class MovieRepository {
 
                         for (Movie movie : response.body().getMovies()) {
                             setVideosFromApi(movie.getMovieId());
+                            getCast(movie.getMovieId());
                         }
 
                         return response.body().getMovies();
