@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.avans.avanstv.R;
 import com.google.android.material.button.MaterialButton;
@@ -36,8 +37,12 @@ public class FilterContained extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         MaterialButton backArrow = view.findViewById(R.id.filter_btn_back);
+        Button resetButton = view.findViewById(R.id.btn_reset);
 
-        backArrow.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_filterContained_to_exploreFragment));
+        backArrow.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_filterContained_to_exploreFragment));
+        resetButton.setOnClickListener(v -> {
+            // TODO: make the reset button work
+        });
     }
 
 }
