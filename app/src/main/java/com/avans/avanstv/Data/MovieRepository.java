@@ -57,7 +57,7 @@ public class MovieRepository {
             .build();
     private static final TMDB_Api service = retrofit.create(TMDB_Api.class);
 
-    private MovieRepository(Application application) {
+    public MovieRepository(Application application) {
         MovieRoomDatabase db = MovieRoomDatabase.getDatabase(application);
         mMovieDao = db.movieDao();
         mGenreDao = db.genreDao();
@@ -521,7 +521,7 @@ public class MovieRepository {
         }
     }
 
-    private static class getMoviesAsc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class getMoviesAsc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesASC();
@@ -541,7 +541,7 @@ public class MovieRepository {
         }
     }
 
-    private static class getMoviesDesc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class getMoviesDesc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesDESC();
@@ -561,7 +561,7 @@ public class MovieRepository {
         }
     }
 
-    private static class getMoviesRatingAsc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class getMoviesRatingAsc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesRatingASC();
@@ -581,7 +581,7 @@ public class MovieRepository {
         }
     }
 
-    private static class getMoviesRatingDesc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class getMoviesRatingDesc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesRatingDESC();
@@ -601,7 +601,7 @@ public class MovieRepository {
         }
     }
 
-    private static class getMoviesByGenre extends AsyncTask<Integer, Void, List<Movie>> {
+    public static class getMoviesByGenre extends AsyncTask<Integer, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Integer... ints) {
             return mMovieDao.getMoviesByGenre(ints[0]);
