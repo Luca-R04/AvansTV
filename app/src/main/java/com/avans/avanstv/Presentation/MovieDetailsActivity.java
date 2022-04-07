@@ -102,9 +102,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 castImageView.add(imageCast3);
 
                 backButton.setOnClickListener(view -> {
-                    Intent i = new Intent(this, MainActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
+                    onBackPressed();
                 });
 
                 movieTitle.setText(movie.getTitle());
