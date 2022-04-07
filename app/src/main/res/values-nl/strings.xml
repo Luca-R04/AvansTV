@@ -39,4 +39,7 @@
     <string name="remove_list_toast">Lijst verwijderd</string>
     <string name="no_lists_available">Er zijn geen lijsten beschikbaar</string>
     <string name="remove_movie_toast">Film verwijderd</string>
+    <string name="order_title">Sorteer op titel</string>
+    <string name="order_time">Sorteer op datum</string>
+    <string name="order">Sorteer</string>
 </resources>
