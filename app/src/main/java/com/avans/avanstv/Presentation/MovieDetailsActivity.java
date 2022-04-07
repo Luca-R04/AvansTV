@@ -28,6 +28,7 @@ import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieList;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
+import com.avans.avanstv.Presentation.ViewModel.TopRatedMovieViewModel;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -58,6 +59,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 MovieRepository movieRepository = MovieRepository.getInstance(getApplication());
                 MovieListRepository movieListRepository = MovieListRepository.getInstance(getApplication());
                 PopularMovieViewModel popularMovieViewModel = PopularMovieViewModel.getInstance(getApplication());
+                TopRatedMovieViewModel topRatedMovieViewModel = TopRatedMovieViewModel.getInstance(getApplication());
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
@@ -222,7 +224,11 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     int rating = (int) ratingBar.getRating();
                     movie.setPersonalRating(rating);
                     movieRepository.setPersonalRatingForMovie(movie);
-                    popularMovieViewModel.setmMovie(movie);
+                    if(movie.getType().equals("TopRated")) {
+                        topRatedMovieViewModel.setmMovies(movie);
+                    } else if (movie.getType().equals("Popular")) {
+                        popularMovieViewModel.setmMovie(movie);
+                    }
                     Log.d(TAG, "Rating set to: " + rating);
                 });
 
