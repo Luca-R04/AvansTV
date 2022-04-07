@@ -16,12 +16,12 @@ import java.util.List;
 
 public class PopularMovieViewModel extends AndroidViewModel {
     private static volatile PopularMovieViewModel INSTANCE;
-    private MutableLiveData<List<Movie>> mMovie;
+    private LiveData<List<Movie>> mMovie;
     private MovieRepository movieRepository = new MovieRepository(getApplication());
 
     public PopularMovieViewModel(@NonNull Application application) {
         super(application);
-        mMovie.setValue(MovieRepository.getLiveDataMovies().getValue());
+        mMovie = MovieRepository.getLiveDataMovies();
     }
 
     public LiveData<List<Movie>> getAllMovies() {
@@ -35,7 +35,7 @@ public class PopularMovieViewModel extends AndroidViewModel {
                 movieItem.setPersonalRating(movie.getPersonalRating());
             }
         }
-        mMovie.setValue(updatedMovies.getValue());
+        mMovie = updatedMovies;
     }
 
     public static PopularMovieViewModel getInstance(Application application) {
