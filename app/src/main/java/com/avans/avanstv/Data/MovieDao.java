@@ -33,6 +33,21 @@ public interface MovieDao {
     @Query("SELECT * FROM Movie;")
     List<Movie> getAllMovies();
 
+    @Query("SELECT * FROM Movie ORDER BY title ASC;")
+    List<Movie> getMoviesASC();
+
+    @Query("SELECT * FROM Movie ORDER BY title DESC;")
+    List<Movie> getMoviesDESC();
+
+    @Query("SELECT * FROM Movie ORDER BY vote_average ASC;")
+    List<Movie> getMoviesRatingASC();
+
+    @Query("SELECT * FROM Movie ORDER BY vote_average DESC;")
+    List<Movie> getMoviesRatingDESC();
+
+    @Query("SELECT * FROM Movie WHERE genre_ids = :genreId;")
+    List<Movie> getMoviesByGenre(int genreId);
+
     @Query("UPDATE Movie SET `personalRating` = :personalRating WHERE movieId = :movieId")
     void setPersonalRating(int movieId, int personalRating);
 }
