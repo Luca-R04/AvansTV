@@ -1,17 +1,19 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:useSimpleSummaryProvider="true">
     <ListPreference
         android:defaultValue="none"
-        android:summary="%s"
+
         app:entries="@array/order_title"
         app:entryValues="@array/order_title"
         app:key="title"
         app:title="@string/order_title"
-        app:useSimpleSummaryProvider="true" />
+        app:useSimpleSummaryProvider="true"
+        />
 
     <ListPreference
         android:defaultValue="none"
-        android:summary="%s"
         app:entries="@array/order_time"
         app:entryValues="@array/order_time"
         app:key="date"
@@ -22,7 +24,7 @@
         android:key="Genres"
         android:title="Genres"
         app:entries="@array/genres"
-        android:summary="%s"
         app:entryValues="@array/genres"
-        android:defaultValue="none"/>
+        android:defaultValue="none"
+        app:useSimpleSummaryProvider="true"/>
 </PreferenceScreen>
