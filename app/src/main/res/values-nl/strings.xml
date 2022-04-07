@@ -42,4 +42,5 @@
     <string name="order_title">Sorteer op titel</string>
     <string name="order_time">Sorteer op datum</string>
     <string name="order">Sorteer</string>
+    <string name="swipe_left_to_remove_movie">Swipe naar links om een film te verwijderen</string>
 </resources>

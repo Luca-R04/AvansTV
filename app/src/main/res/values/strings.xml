@@ -52,4 +52,5 @@
     <string name="order_title">Sort by title</string>
     <string name="order_time">Sort by date</string>
     <string name="remove_movie_toast">Removed movie</string>
+    <string name="swipe_left_to_remove_movie">Swipe left to remove movie</string>
 </resources>
