@@ -1,28 +1,28 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ListPreference
-        android:defaultValue="@array/order"
+        android:defaultValue="none"
         android:summary="%s"
-        app:entries="@array/order"
-        app:entryValues="@array/order"
-        app:key="order"
-        app:title="@string/order"
+        app:entries="@array/order_title"
+        app:entryValues="@array/order_title"
+        app:key="title"
+        app:title="@string/order_title"
         app:useSimpleSummaryProvider="true" />
 
     <ListPreference
         android:defaultValue="none"
         android:summary="%s"
-        app:entries="@array/order"
-        app:entryValues="@array/order"
-        app:key="order"
-        app:title="@string/order"
+        app:entries="@array/order_time"
+        app:entryValues="@array/order_time"
+        app:key="date"
+        app:title="@string/order_time"
         app:useSimpleSummaryProvider="true" />
 
     <ListPreference
         android:key="Genres"
         android:title="Genres"
         app:entries="@array/genres"
-        android:summary=""
+        android:summary="%s"
         app:entryValues="@array/genres"
         android:defaultValue="none"/>
 </PreferenceScreen>
