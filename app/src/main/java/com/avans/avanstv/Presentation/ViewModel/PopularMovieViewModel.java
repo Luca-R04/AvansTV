@@ -27,13 +27,13 @@ public class PopularMovieViewModel extends AndroidViewModel {
     }
 
     public void setmMovie(Movie movie) {
-        List<Movie> updatetMovies = (List<Movie>) mMovie;
-        for (Movie movieItem : updatetMovies) {
+        LiveData<List<Movie>> updatetMovies = mMovie;
+        for (Movie movieItem : updatetMovies.getValue()) {
             if (movie.getMovieId() == movieItem.getMovieId()) {
                 movieItem.setPersonalRating(movie.getPersonalRating());
             }
         }
-        mMovie = (LiveData<List<Movie>>) updatetMovies;
+        mMovie = updatetMovies;
     }
 
     public static PopularMovieViewModel getInstance(Application application) {
