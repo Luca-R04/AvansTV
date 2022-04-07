@@ -66,8 +66,9 @@ public class FavoritesFragment extends Fragment {
     }
 
     private void setFavoriteMovies(List<Movie> movies) {
+        // i<3 to prevent out of bounds exception
         for (int i = 0; i < movies.size(); i++) {
-            if (!movies.isEmpty()) {
+            if (!movies.isEmpty() && i < 3) {
                 Glide
                         .with(this.getActivity())
                         .load("https://image.tmdb.org/t/p/original/" + movies.get(i).getPoster_path())
