@@ -39,6 +39,6 @@ public class FilterContained extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         MaterialButton backArrow = view.findViewById(R.id.settings_btn_back);
 
-        backArrow.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_settingsContained_to_profileFragment));
+        backArrow.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_filterContained_to_exploreFragment));
     }
 }
