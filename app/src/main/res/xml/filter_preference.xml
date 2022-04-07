@@ -21,10 +21,10 @@
         app:useSimpleSummaryProvider="true" />
 
     <ListPreference
-        android:key="Genres"
+        android:key="genre"
         android:title="Genres"
         app:entries="@array/genres"
-        app:entryValues="@array/genres"
+        app:entryValues="@array/genres_value"
         android:defaultValue="none"
         app:useSimpleSummaryProvider="true"/>
 </PreferenceScreen>

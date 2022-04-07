@@ -66,7 +66,7 @@ public class FilterFragment extends PreferenceFragmentCompat {
     }
 
     private void FilterGenre() {
-        Preference sortTitle = findPreference("date");
+        Preference sortTitle = findPreference("genre");
         assert sortTitle != null;
         sortTitle.setOnPreferenceChangeListener((preference, newValue) -> {
             String genre = (String) newValue;
