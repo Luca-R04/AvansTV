@@ -37,15 +37,14 @@ public class ListOverviewActivity extends AppCompatActivity {
                 listRecyclerView.setAdapter(movieAdapter);
 
                 //updates adapter
-                movieListViewModel.getAllLists().observe(this, movieAdapter::setMoviesFromList);
+//                movieListViewModel.getAllLists().observe(this, movieAdapter::setMoviesFromList);
 
                 TextView listName = findViewById(R.id.list_name_overview);
                 listName.setText(movieList.getName());
 
                 MaterialButton backButton = findViewById(R.id.list_btn_back);
                 backButton.setOnClickListener(view -> {
-                    Intent i = new Intent(this, MainActivity.class);
-                    startActivity(i);
+                    onBackPressed();
                 });
             }
         }
