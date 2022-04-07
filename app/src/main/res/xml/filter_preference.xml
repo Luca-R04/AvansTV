@@ -25,6 +25,6 @@
         android:title="Genres"
         app:entries="@array/genres"
         app:entryValues="@array/genres_value"
-        android:defaultValue="none"
+        android:defaultValue="@array/genres"
         app:useSimpleSummaryProvider="true"/>
 </PreferenceScreen>
