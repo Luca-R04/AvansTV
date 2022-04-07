@@ -1,4 +1,4 @@
-package com.avans.avanstv.Presentation.ViewModel;
+package com.avans.avanstv.Presentation;
 
 import android.os.Bundle;
 
@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.avans.avanstv.Presentation.FilterFragment;
-import com.avans.avanstv.Presentation.SettingsFragment;
 import com.avans.avanstv.R;
 import com.google.android.material.button.MaterialButton;
 
@@ -27,9 +25,9 @@ public class FilterContained extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings_contained, container, false);
+        View view = inflater.inflate(R.layout.fragment_filter_contained, container, false);
 
-        getChildFragmentManager().beginTransaction().replace(R.id.rootPreferenceHolder, new FilterFragment()).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.filterPreferenceHolder, new FilterFragment()).commit();
 
 
         return view;
@@ -37,8 +35,9 @@ public class FilterContained extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        MaterialButton backArrow = view.findViewById(R.id.settings_btn_back);
+        MaterialButton backArrow = view.findViewById(R.id.filter_btn_back);
 
         backArrow.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_filterContained_to_exploreFragment));
     }
+
 }

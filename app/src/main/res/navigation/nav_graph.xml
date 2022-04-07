@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/filterContained"
-        android:name="com.avans.avanstv.Presentation.ViewModel.FilterContained"
+        android:name="com.avans.avanstv.Presentation.FilterContained"
         android:label="fragment_filter_contained"
         tools:layout="@layout/fragment_filter_contained" >
         <action
