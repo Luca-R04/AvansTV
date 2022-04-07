@@ -41,8 +41,8 @@ public class MovieRepository {
     private static MutableLiveData<List<Movie>> mCategoryMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
     private static MutableLiveData<List<Movie>> mFavoritesMovieList;
+    private static MutableLiveData<List<Movie>> mSearchResults;
     private static List<Movie> mAllMovies;
-    private static List<Movie> mSearchResults;
     private static Genre[] mGenresAPI;
     private static Genre[] mGenresDatabase;
     private static GenreDao mGenreDao;
@@ -67,6 +67,7 @@ public class MovieRepository {
         mTopRatedMovies = new MutableLiveData<>();
         mFavoritesMovieList = new MutableLiveData<>();
         mCategoryMovies = new MutableLiveData<>();
+        mSearchResults = new MutableLiveData<>();
         mAllMovies = new ArrayList<>();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -102,10 +103,6 @@ public class MovieRepository {
         return mPopularMovies;
     }
 
-    public static LiveData<List<Movie>> getLiveDataCategoryMovies() {
-        return mCategoryMovies;
-    }
-
     public LiveData<List<Movie>> getTopRated() {
         return mTopRatedMovies;
     }
@@ -130,13 +127,16 @@ public class MovieRepository {
         return mGenresAPI;
     }
 
+    public LiveData<List<Movie>> getSearchResults() {
+        return mSearchResults;
+    }
+
     public static void setVideosFromApi(int movieId) {
         new SetVideosFromAPI().execute(movieId);
     }
 
-    public List<Movie> searchMovie(String searchTerm) {
+    public void searchMovie(String searchTerm) {
         new SearchMovie().execute(searchTerm);
-        return mSearchResults;
     }
 
     public void setFavoriteMovie(Movie movie) {
@@ -158,6 +158,26 @@ public class MovieRepository {
 
     public static void setCastForMovie(Movie movie) {
         new SetCastForMovie().execute(movie);
+    }
+
+    public void getMoviesAsc() {
+        new GetMoviesAsc().execute();
+    }
+
+    public void getMoviesDesc() {
+        new GetMoviesDesc().execute();
+    }
+
+    public void getMoviesDateAsc() {
+        new GetMoviesDateAsc().execute();
+    }
+
+    public void getMoviesDateDesc() {
+        new GetMoviesDateDesc().execute();
+    }
+
+    public void getMoviesByGenre(int genreId) {
+        new GetMoviesByGenre().execute(genreId);
     }
 
     private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
@@ -293,7 +313,7 @@ public class MovieRepository {
                     }
 
                     if (mSearchResults != null) {
-                        for (Movie movie : mSearchResults) {
+                        for (Movie movie : mSearchResults.getValue()) {
                             if (movie.getMovieId() == movieId) {
                                 for (Video video : videos) {
                                     movie.setYoutubeVideo(video);
@@ -435,7 +455,7 @@ public class MovieRepository {
         @Override
         protected void onPostExecute(List<Movie> movies) {
             if (movies != null) {
-                mSearchResults = movies;
+                mSearchResults.setValue(movies);
             }
         }
     }
@@ -522,7 +542,7 @@ public class MovieRepository {
         }
     }
 
-    public static class getMoviesAsc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class GetMoviesAsc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesASC();
@@ -530,19 +550,11 @@ public class MovieRepository {
 
         @Override
         protected void onPostExecute(List<Movie> movies) {
-            List<Movie> popularMovies = new ArrayList<>();
-            if (movies != null) {
-                for (Movie movie : movies) {
-                    if (movie.getType().equals("Popular")) {
-                        popularMovies.add(movie);
-                    }
-                }
-                mPopularMovies.setValue(popularMovies);
-            }
+            mSearchResults.setValue(movies);
         }
     }
 
-    public static class getMoviesDesc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class GetMoviesDesc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesDESC();
@@ -550,19 +562,12 @@ public class MovieRepository {
 
         @Override
         protected void onPostExecute(List<Movie> movies) {
-            List<Movie> popularMovies = new ArrayList<>();
-            if (movies != null) {
-                for (Movie movie : movies) {
-                    if (movie.getType().equals("Popular")) {
-                        popularMovies.add(movie);
-                    }
-                }
-                mPopularMovies.setValue(popularMovies);
-            }
+            mSearchResults.setValue(movies);
         }
     }
 
-    public static class getMoviesDateAsc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class GetMoviesDateAsc extends AsyncTask<Void, Void, List<Movie>> {
+
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesDateASC();
@@ -570,19 +575,11 @@ public class MovieRepository {
 
         @Override
         protected void onPostExecute(List<Movie> movies) {
-            List<Movie> popularMovies = new ArrayList<>();
-            if (movies != null) {
-                for (Movie movie : movies) {
-                    if (movie.getType().equals("Popular")) {
-                        popularMovies.add(movie);
-                    }
-                }
-                mCategoryMovies.setValue(popularMovies);
-            }
+            mSearchResults.setValue(movies);
         }
     }
 
-    public static class getMoviesDateDesc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class GetMoviesDateDesc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
             return mMovieDao.getMoviesDateDESC();
@@ -590,19 +587,11 @@ public class MovieRepository {
 
         @Override
         protected void onPostExecute(List<Movie> movies) {
-            List<Movie> popularMovies = new ArrayList<>();
-            if (movies != null) {
-                for (Movie movie : movies) {
-                    if (movie.getType().equals("Popular")) {
-                        popularMovies.add(movie);
-                    }
-                }
-                mCategoryMovies.setValue(popularMovies);
-            }
+            mSearchResults.setValue(movies);
         }
     }
 
-    public static class getMoviesByGenre extends AsyncTask<Integer, Void, List<Movie>> {
+    public static class GetMoviesByGenre extends AsyncTask<Integer, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Integer... ints) {
             return mMovieDao.getMoviesByGenre(ints[0]);
@@ -617,7 +606,7 @@ public class MovieRepository {
                         popularMovies.add(movie);
                     }
                 }
-                mCategoryMovies.setValue(popularMovies);
+                mPopularMovies.setValue(popularMovies);
             }
         }
     }

@@ -5,10 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,21 +19,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
-import com.avans.avanstv.Data.MovieDao;
-import com.avans.avanstv.Domain.Movie;
-import com.avans.avanstv.Presentation.Adapters.MovieAdapter;
+import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Presentation.Adapters.MovieExploreAdapter;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.Presentation.ViewModel.SearchMovieViewModel;
 import com.avans.avanstv.R;
 
-import java.util.List;
-
 public class ExploreFragment extends Fragment {
     public static final String TAG = ExploreFragment.class.getSimpleName();
-    private SharedPreferences sp;
-    private PopularMovieViewModel mPopularMovieViewModel;
-    private SearchMovieViewModel mSearchViewModel;
+    private SharedPreferences mSharedPreferences;
+    private MovieRepository mMovieRepository;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +38,9 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
-        mSearchViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel.class);
-        mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        SearchMovieViewModel mSearchViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel.class);
+        mMovieRepository = MovieRepository.getInstance(requireActivity().getApplication());
+        PopularMovieViewModel mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
 
         // Create a Recyclerview and adapter to display the movies
         RecyclerView exploreRecyclerView = exploreView.findViewById(R.id.rv_explore);
@@ -65,8 +59,6 @@ public class ExploreFragment extends Fragment {
         //OnClickListener
         filterButton.setOnClickListener(view -> Navigation.findNavController(exploreView).navigate(R.id.action_exploreFragment_to_filterContained));
 
-
-
         //QueryTextListener on the searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -77,7 +69,7 @@ public class ExploreFragment extends Fragment {
                 Log.i(TAG, "onQueryTextSubmit");
 
                 if (!searchView.getQuery().toString().equals("")) {
-                    mSearchViewModel.setMovie(searchView.getQuery().toString());
+                    mMovieRepository.searchMovie(searchView.getQuery().toString());
                 }
                 return false;
             }
@@ -101,7 +93,7 @@ public class ExploreFragment extends Fragment {
 
     private void loadPreference() {
         //Set SharedPreferences
-        this.sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        this.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         //Sub-methods
         SortTitle();
         SortDate();
@@ -110,16 +102,15 @@ public class ExploreFragment extends Fragment {
 
     //Listener for to update the preference immediately;
     private void SortTitle() {
-
-        String title = sp.getString("title", "");
+        String title = mSharedPreferences.getString("title", "");
         switch (title) {
             case "A-Z":
-                mSearchViewModel.getMoviesAsc();
+                mMovieRepository.getMoviesAsc();
                 Log.d(TAG, "A-Z");
                 break;
             case "Z-A":
                 Log.d(TAG, "Z-A");
-                mSearchViewModel.getMoviesDesc();
+                mMovieRepository.getMoviesDesc();
                 break;
             default:
                 Log.d(TAG, "Default");
@@ -128,15 +119,15 @@ public class ExploreFragment extends Fragment {
     }
 
     private void SortDate() {
-        String date = sp.getString("date", "");
+        String date = mSharedPreferences.getString("date", "");
             switch (date){
                 case "Most recent":
                     Log.d(TAG, "Most recent");
-                    mSearchViewModel.getMoviesDateAsc();
+                    mMovieRepository.getMoviesDateDesc();
                     break;
                 case "Oldest":
                     Log.d(TAG, "Oldest");
-                    mSearchViewModel.getMoviesDateDesc();
+                    mMovieRepository.getMoviesDateAsc();
                     break;
                 default:
                     Log.d(TAG, "Default");
@@ -145,10 +136,10 @@ public class ExploreFragment extends Fragment {
     }
 
     private void FilterGenre() {
-        String genreIdString = sp.getString("genre", "");
+        String genreIdString = mSharedPreferences.getString("genre", "").replace("@", "");
         Log.d(TAG, genreIdString + "");
-        if (!genreIdString.equals("none") || genreIdString.equals("0")) {
-            mSearchViewModel.getMoviesByGenre(Integer.valueOf(genreIdString));
+        if (!genreIdString.equals("none") && !genreIdString.equals("")) {
+            mMovieRepository.getMoviesByGenre(Integer.parseInt(genreIdString));
         }
     }
 }
