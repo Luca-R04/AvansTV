@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +95,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 ImageView imageCast1 = findViewById(R.id.cast_img_1);
                 ImageView imageCast2 = findViewById(R.id.cast_img_2);
                 ImageView imageCast3 = findViewById(R.id.cast_img_3);
+                RatingBar personalRatingBar = findViewById(R.id.personal_rating_bar);
 
                 List<TextView> castTextViews = new ArrayList<>();
                 castTextViews.add(movieCast1);
@@ -207,6 +209,18 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     addToListButton.setVisibility(View.GONE);
                     listTitle.setText(R.string.no_lists_available);
                 }
+
+                int personalRating = movie.getPersonalRating();
+                personalRatingBar.setRating((float) personalRating);
+
+                personalRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                        int rating = (int) ratingBar.getRating();
+                        Log.d(TAG, "Rating set to: " + rating);
+                        movie.setPersonalRating(rating);
+                    }
+                });
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 Icon filledHeart = Icon.createWithResource(this, R.drawable.ic_favorite).setTint(getColor(R.color.primary));
