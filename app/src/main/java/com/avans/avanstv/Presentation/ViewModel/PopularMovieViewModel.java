@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
@@ -15,11 +16,12 @@ import java.util.List;
 
 public class PopularMovieViewModel extends AndroidViewModel {
     private static volatile PopularMovieViewModel INSTANCE;
-    private LiveData<List<Movie>> mMovie;
+    private MutableLiveData<List<Movie>> mMovie;
+    private MovieRepository movieRepository = new MovieRepository(getApplication());
 
     public PopularMovieViewModel(@NonNull Application application) {
         super(application);
-        mMovie = MovieRepository.getLiveDataMovies();
+        mMovie.setValue(MovieRepository.getLiveDataMovies().getValue());
     }
 
     public LiveData<List<Movie>> getAllMovies() {
@@ -27,13 +29,13 @@ public class PopularMovieViewModel extends AndroidViewModel {
     }
 
     public void setmMovie(Movie movie) {
-        LiveData<List<Movie>> updatetMovies = mMovie;
-        for (Movie movieItem : updatetMovies.getValue()) {
+        LiveData<List<Movie>> updatedMovies = mMovie;
+        for (Movie movieItem : updatedMovies.getValue()) {
             if (movie.getMovieId() == movieItem.getMovieId()) {
                 movieItem.setPersonalRating(movie.getPersonalRating());
             }
         }
-        mMovie = updatetMovies;
+        mMovie.setValue(updatedMovies.getValue());
     }
 
     public static PopularMovieViewModel getInstance(Application application) {
@@ -41,5 +43,25 @@ public class PopularMovieViewModel extends AndroidViewModel {
             INSTANCE = new PopularMovieViewModel(application);
         }
         return INSTANCE;
+    }
+
+    public void getMoviesAsc() {
+        new MovieRepository.getMoviesAsc().execute();
+    }
+
+    public void getMoviesDesc() {
+        new MovieRepository.getMoviesDesc().execute();
+    }
+
+    public void getMoviesRatingAsc() {
+        new MovieRepository.getMoviesRatingAsc().execute();
+    }
+
+    public void getMoviesRatingDesc() {
+        new MovieRepository.getMoviesRatingDesc().execute();
+    }
+
+    public void getMoviesByGenre(int genreId) {
+        new MovieRepository.getMoviesByGenre().execute(genreId);
     }
 }
