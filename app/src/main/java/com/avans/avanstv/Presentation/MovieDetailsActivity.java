@@ -1,6 +1,8 @@
 package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -37,6 +40,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
     private YouTubePlayerView youTubePlayerView;
     private final static String TAG = MovieDetailsActivity.class.getSimpleName();
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,21 +202,20 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 CardView favoriteWrapper = findViewById(R.id.card_favorite);
+                Icon filledHeart = Icon.createWithResource(this, R.drawable.ic_favorite).setTint(getColor(R.color.primary));
+                Icon Heart = Icon.createWithResource(this, R.drawable.ic_favorite_border).setTint(getColor(R.color.primary));
 
                 if (movie.isFavorite()) {
-                    favoriteButton.setBackgroundColor(getResources().getColor(R.color.primary));
-                    favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.primary));
+                    movie.setFavorite(true);
                 }
 
                 favoriteButton.setOnClickListener(view -> {
                     if (!movie.isFavorite()) {
                         movie.setFavorite(true);
-                        favoriteButton.setBackgroundColor(getResources().getColor(R.color.primary));
-                        favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.primary));
+                        favoriteButton.setImageIcon(filledHeart);
                     } else {
                         movie.setFavorite(false);
-                        favoriteButton.setBackgroundColor(getResources().getColor(R.color.white));
-                        favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.white));
+                        favoriteButton.setImageIcon(Heart);
                     }
                     movieRepository.setFavoriteMovie(movie);
                 });
