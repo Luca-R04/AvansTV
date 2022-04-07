@@ -278,7 +278,6 @@ public class MovieRepository {
             try {
                 Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
                 Response<VideoResponse> response = call.execute();
-                Log.d(TAG, "Set videos for movies");
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
@@ -358,16 +357,12 @@ public class MovieRepository {
             Integer movieId = integers[0];
 
             try {
-                Log.d(TAG, "doInBackground - retrieve cast for specific movie");
 
                 Call<CastResponse> call = service.getMovieCast(integers[0], API_KEY);
                 Response<CastResponse> response = call.execute();
 
-                Log.d(TAG, "Executed call, response.code = " + response.code());
-
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    Log.d(TAG, "Good Response: adding cast to movie");
 
                     List<Cast> cast = response.body().getCast();
                     for (Movie movie : mAllMovies) {
