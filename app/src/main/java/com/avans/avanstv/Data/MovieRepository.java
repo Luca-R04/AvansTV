@@ -108,7 +108,11 @@ public class MovieRepository {
 
     public static void getMoreMovies() {
         pageNumber++;
-        new GetPopularMoviesFromAPI().execute();
+        try {
+            new GetPopularMoviesFromAPI().execute().get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void getCast(int movieID) {
