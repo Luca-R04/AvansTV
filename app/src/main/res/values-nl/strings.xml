@@ -22,8 +22,8 @@
     <string name="theme_off">Lightmode aan</string>
     <string name="settings">Instellingen</string>
     <string name="language">Taal</string>
-    <string name="favorite_movies">Favorieten films</string>
-    <string name="favorite_lists">Favorieten lijsten</string>
+    <string name="favorite_movies">Favoriete films</string>
+    <string name="favorite_lists">Favoriete lijsten</string>
     <string name="list_input_hint">Naam</string>
     <string name="date_placeholder">Datum</string>
     <string name="more_movies_btn_txt">Laad meer films</string>
@@ -35,4 +35,7 @@
     <string name="cast">Acteurs</string>
     <string name="added">"Voegde "</string>
     <string name="to">" toe aan "</string>
+    <string name="cast_name_txt">Cast naam</string>
+    <string name="remove_list_toast">Lijst verwijderd</string>
+    <string name="no_lists_available">Er zijn geen lijsten beschikbaar</string>
 </resources>

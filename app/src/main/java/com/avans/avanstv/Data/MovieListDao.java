@@ -14,6 +14,9 @@ public interface MovieListDao {
     @Insert
     void insert(MovieList movieList);
 
+    @Query("DELETE FROM MovieList WHERE id = :movieListId")
+    void delete(int movieListId);
+
     @Query("UPDATE MovieList SET mMovies = :movieList WHERE id = :listId")
     void setMovies(List<Movie> movieList, int listId);
 

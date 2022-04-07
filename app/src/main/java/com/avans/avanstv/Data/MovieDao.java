@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.avans.avanstv.Domain.Cast;
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.Video;
 
@@ -22,6 +23,9 @@ public interface MovieDao {
 
     @Query("UPDATE Movie SET youtubeVideo = :video WHERE movieId = :movieId")
     void setVideo(int movieId, Video video);
+
+    @Query("UPDATE Movie SET `cast` = :cast WHERE movieId = :movieId")
+    void setCast(int movieId, List<Cast> cast);
 
     @Query("SELECT * FROM Movie WHERE favorite = 1")
     List<Movie> getFavoriteMovies();

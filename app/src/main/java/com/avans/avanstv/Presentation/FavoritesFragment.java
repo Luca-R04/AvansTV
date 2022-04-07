@@ -3,8 +3,10 @@ package com.avans.avanstv.Presentation;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Presentation.Adapters.MovieListAdapter;
@@ -51,6 +54,26 @@ public class FavoritesFragment extends Fragment {
 
         //updates adapter
         movieListViewModel.getAllLists().observe(getViewLifecycleOwner(), movieAdapter::setMovieLists);
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                int position = viewHolder.getAdapterPosition();
+                Toast.makeText(getContext(), getString(R.string.remove_list_toast), Toast.LENGTH_SHORT).show();
+                movieListViewModel.deleteMovieList(movieListViewModel.getAllLists().getValue().get(position));
+                movieAdapter.removeMovieList(movieListViewModel.getAllLists().getValue().get(position));
+                movieAdapter.notifyItemRemoved(position);
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(favoritesRecyclerView);
 
         ImageButton movie1 = favoriteView.findViewById(R.id.favorite_movie_1);
         ImageButton movie2 = favoriteView.findViewById(R.id.favorite_movie_2);

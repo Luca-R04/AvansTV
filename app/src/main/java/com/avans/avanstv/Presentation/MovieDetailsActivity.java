@@ -166,39 +166,47 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     Log.d(TAG, "Castlist is empty");
                 }
 
+                TextView listTitle = findViewById(R.id.add_list_title);
                 Spinner spinner = findViewById(R.id.list_dropdown);
-                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adapter);
-
-                List<MovieList> movieLists = movieListRepository.getMovieLists().getValue();
-                List<String> movieListNames = new ArrayList<>();
-                for (MovieList movieList : movieLists) {
-                    movieListNames.add(movieList.getName());
-                }
-
-                for (String name : movieListNames) {
-                    adapter.add(name);
-                    adapter.notifyDataSetChanged();
-                }
-
-                final String[] spinnerValue = {""};
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                        Object item = parent.getItemAtPosition(pos);
-                        spinnerValue[0] = item.toString();
-                    }
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
-
                 Button addToListButton = findViewById(R.id.add_to_list);
-                addToListButton.setOnClickListener(view -> {
-                    movieListRepository.addMovieToList(spinnerValue[0], movie);
-                    Toast.makeText(this, getString(R.string.added) + movie.getTitle() + getString(R.string.to) + spinnerValue[0], Toast.LENGTH_SHORT).show();
-                    Log.i("MovieDetailsActivity", "Added " + movie.getTitle() + " to " + spinnerValue[0]);
-                });
+                List<MovieList> movieLists = movieListRepository.getMovieLists().getValue();
+                if (!movieLists.isEmpty()) {
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+
+                    List<String> movieListNames = new ArrayList<>();
+                    for (MovieList movieList : movieLists) {
+                        movieListNames.add(movieList.getName());
+                    }
+
+                    for (String name : movieListNames) {
+                        adapter.add(name);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    final String[] spinnerValue = {""};
+
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                            Object item = parent.getItemAtPosition(pos);
+                            spinnerValue[0] = item.toString();
+                        }
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
+
+                    addToListButton.setOnClickListener(view -> {
+                        movieListRepository.addMovieToList(spinnerValue[0], movie);
+                        Toast.makeText(this, getString(R.string.added) + movie.getTitle() + getString(R.string.to) + spinnerValue[0], Toast.LENGTH_SHORT).show();
+                        Log.i("MovieDetailsActivity", "Added " + movie.getTitle() + " to " + spinnerValue[0]);
+                    });
+                } else {
+                    spinner.setVisibility(View.GONE);
+                    addToListButton.setVisibility(View.GONE);
+                    listTitle.setText(R.string.no_lists_available);
+                }
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
                 Icon filledHeart = Icon.createWithResource(this, R.drawable.ic_favorite).setTint(getColor(R.color.primary));
