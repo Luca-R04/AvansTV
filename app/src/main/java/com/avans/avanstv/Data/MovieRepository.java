@@ -112,7 +112,7 @@ public class MovieRepository {
     }
 
     public static void getCast(int movieID) {
-            new GetCastFromAPI().execute(movieID);
+        new GetCastFromAPI().execute(movieID);
     }
 
     public Genre[] getGenres() {
@@ -146,6 +146,10 @@ public class MovieRepository {
 
     public static void setVideosForMovie(Movie movie) {
         new SetVideosForMovie().execute(movie);
+    }
+
+    public static void setCastForMovie(Movie movie) {
+        new SetCastForMovie().execute(movie);
     }
 
     private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
@@ -361,6 +365,7 @@ public class MovieRepository {
                     for (Movie movie : mAllMovies) {
                         if (movie.getMovieId() == movieId) {
                             movie.setCast(mCastAPI);
+                            MovieRepository.setCastForMovie(movie);
                         }
                     }
 
@@ -446,6 +451,15 @@ public class MovieRepository {
         @Override
         protected Void doInBackground(Movie... movies) {
             mMovieDao.setVideo(movies[0].getMovieId(), movies[0].getYoutubeVideo());
+            return null;
+        }
+    }
+
+    private static class SetCastForMovie extends AsyncTask<Movie, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.setCast(movies[0].getMovieId(), movies[0].getCast());
             return null;
         }
     }
