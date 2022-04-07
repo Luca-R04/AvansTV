@@ -206,10 +206,6 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 Icon filledHeart = Icon.createWithResource(this, R.drawable.ic_favorite).setTint(getColor(R.color.primary));
                 Icon Heart = Icon.createWithResource(this, R.drawable.ic_favorite_border).setTint(getColor(R.color.primary));
 
-                if (movie.isFavorite()) {
-                    favoriteButton.setImageIcon(filledHeart);
-                }
-
                 favoriteButton.setOnClickListener(view -> {
                     if (!movie.isFavorite()) {
                         movie.setFavorite(true);
@@ -220,6 +216,10 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     }
                     movieRepository.setFavoriteMovie(movie);
                 });
+
+                if (movie.isFavorite()) {
+                    favoriteButton.setImageIcon(filledHeart);
+                }
             }
         }
     }
