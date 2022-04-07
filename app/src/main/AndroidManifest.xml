@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AvansTV">
         <activity
+            android:name=".Presentation.ListOverviewActivity"
+            android:exported="false" />
+        <activity
             android:name=".Presentation.CreateListActivity"
             android:exported="false" />
         <activity

@@ -5,52 +5,30 @@
     android:layout_height="wrap_content"
     android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/no_list_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/favorite_list_card"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:backgroundTint="@color/secondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:backgroundTint="@color/secondary"
         app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/list_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/movie_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/movie_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/movie_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
