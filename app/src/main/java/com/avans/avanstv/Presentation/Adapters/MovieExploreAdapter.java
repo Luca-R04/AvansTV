@@ -61,6 +61,7 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
                 List<Movie> newMovies = MovieRepository.getLiveDataMovies().getValue();
                 assert newMovies != null;
                 mMovieList.addAll(newMovies);
+                notifyDataSetChanged();
             });
         }
         else {
