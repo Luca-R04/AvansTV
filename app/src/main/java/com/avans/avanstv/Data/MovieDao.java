@@ -39,11 +39,11 @@ public interface MovieDao {
     @Query("SELECT * FROM Movie ORDER BY title DESC;")
     List<Movie> getMoviesDESC();
 
-    @Query("SELECT * FROM Movie ORDER BY vote_average ASC;")
-    List<Movie> getMoviesRatingASC();
+    @Query("SELECT * FROM Movie ORDER BY release_date ASC;")
+    List<Movie> getMoviesDateASC();
 
-    @Query("SELECT * FROM Movie ORDER BY vote_average DESC;")
-    List<Movie> getMoviesRatingDESC();
+    @Query("SELECT * FROM Movie ORDER BY release_date DESC;")
+    List<Movie> getMoviesDateDESC();
 
     @Query("SELECT * FROM Movie WHERE genre_ids = :genreId;")
     List<Movie> getMoviesByGenre(int genreId);

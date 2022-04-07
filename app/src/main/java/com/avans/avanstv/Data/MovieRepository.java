@@ -561,10 +561,10 @@ public class MovieRepository {
         }
     }
 
-    public static class getMoviesRatingAsc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class getMoviesDateAsc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
-            return mMovieDao.getMoviesRatingASC();
+            return mMovieDao.getMoviesDateASC();
         }
 
         @Override
@@ -581,10 +581,10 @@ public class MovieRepository {
         }
     }
 
-    public static class getMoviesRatingDesc extends AsyncTask<Void, Void, List<Movie>> {
+    public static class getMoviesDateDesc extends AsyncTask<Void, Void, List<Movie>> {
         @Override
         protected List<Movie> doInBackground(Void... voids) {
-            return mMovieDao.getMoviesRatingDESC();
+            return mMovieDao.getMoviesDateDESC();
         }
 
         @Override

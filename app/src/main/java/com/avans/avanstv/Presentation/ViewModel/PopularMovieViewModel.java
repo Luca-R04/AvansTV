@@ -53,12 +53,12 @@ public class PopularMovieViewModel extends AndroidViewModel {
         new MovieRepository.getMoviesDesc().execute();
     }
 
-    public void getMoviesRatingAsc() {
-        new MovieRepository.getMoviesRatingAsc().execute();
+    public void getMoviesDateAsc() {
+        new MovieRepository.getMoviesDateAsc().execute();
     }
 
-    public void getMoviesRatingDesc() {
-        new MovieRepository.getMoviesRatingDesc().execute();
+    public void getMoviesDateDesc() {
+        new MovieRepository.getMoviesDateDesc().execute();
     }
 
     public void getMoviesByGenre(int genreId) {
