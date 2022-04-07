@@ -17,7 +17,6 @@ import java.util.List;
 public class PopularMovieViewModel extends AndroidViewModel {
     private static volatile PopularMovieViewModel INSTANCE;
     private LiveData<List<Movie>> mMovie;
-    private MovieRepository movieRepository = new MovieRepository(getApplication());
 
     public PopularMovieViewModel(@NonNull Application application) {
         super(application);
@@ -38,9 +37,7 @@ public class PopularMovieViewModel extends AndroidViewModel {
         mMovie = updatedMovies;
     }
 
-    public void setMovies(List<Movie> movies) {
 
-    }
 
     public static PopularMovieViewModel getInstance(Application application) {
         if (INSTANCE == null) {
@@ -49,23 +46,4 @@ public class PopularMovieViewModel extends AndroidViewModel {
         return INSTANCE;
     }
 
-    public void getMoviesAsc() {
-        new MovieRepository.getMoviesAsc().execute();
-    }
-
-    public void getMoviesDesc() {
-        new MovieRepository.getMoviesDesc().execute();
-    }
-
-    public void getMoviesDateAsc() {
-        new MovieRepository.getMoviesDateAsc().execute();
-    }
-
-    public void getMoviesDateDesc() {
-        new MovieRepository.getMoviesDateDesc().execute();
-    }
-
-    public void getMoviesByGenre(int genreId) {
-        new MovieRepository.getMoviesByGenre().execute(genreId);
-    }
 }
