@@ -264,6 +264,7 @@ public class MovieRepository {
             try {
                 Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
                 Response<VideoResponse> response = call.execute();
+                Log.d(TAG, "Set videos for movies");
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
@@ -274,6 +275,17 @@ public class MovieRepository {
                             for (Video video : videos) {
                                 movie.setYoutubeVideo(video);
                                 MovieRepository.setVideosForMovie(movie);
+                            }
+                        }
+                    }
+
+                    if (mSearchResults != null) {
+                        for (Movie movie : mSearchResults) {
+                            if (movie.getMovieId() == movieId) {
+                                for (Video video : videos) {
+                                    movie.setYoutubeVideo(video);
+                                    MovieRepository.setVideosForMovie(movie);
+                                }
                             }
                         }
                     }

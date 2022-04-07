@@ -28,16 +28,11 @@ public class ListOverviewActivity extends AppCompatActivity {
             if (intent.hasExtra("MovieList")) {
                 MovieList movieList = (MovieList) intent.getSerializableExtra("MovieList");
 
-                MovieListViewModel movieListViewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
-
                 // Create a Recyclerview and adapter to display the movies
                 RecyclerView listRecyclerView = findViewById(R.id.rv_list_overview);
                 MovieAdapter movieAdapter = new MovieAdapter(this, movieList.getMovies());
                 listRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
                 listRecyclerView.setAdapter(movieAdapter);
-
-                //updates adapter
-//                movieListViewModel.getAllLists().observe(this, movieAdapter::setMoviesFromList);
 
                 TextView listName = findViewById(R.id.list_name_overview);
                 listName.setText(movieList.getName());
