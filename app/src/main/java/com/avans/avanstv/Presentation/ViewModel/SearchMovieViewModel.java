@@ -12,15 +12,15 @@ import com.avans.avanstv.Domain.Movie;
 import java.util.List;
 
 public class SearchMovieViewModel extends AndroidViewModel {
-    private final LiveData<List<Movie>> mMovie;
+    private final LiveData<List<Movie>> mMovieList;
 
     public SearchMovieViewModel(@NonNull Application application) {
         super(application);
         MovieRepository mMovieRepository = MovieRepository.getInstance(application);
-        mMovie = mMovieRepository.getSearchResults();
+        mMovieList = mMovieRepository.getSearchResults();
     }
 
     public LiveData<List<Movie>> getAllMovies() {
-        return mMovie;
+        return mMovieList;
     }
 }

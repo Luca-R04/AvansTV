@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void setRandomMovie(List<Movie> movies) {
-        if (movies != null) {
+        if (movies != null && movies.size() > 0) {
             int random = new Random().nextInt(movies.size());
             Movie featuredMovie = movies.get(random);
 
