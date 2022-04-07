@@ -12,7 +12,7 @@ import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieList;
 
 @TypeConverters({Converters.class})
-@Database(entities = {Movie.class, Genre.class, MovieList.class}, version = 9, exportSchema = false)
+@Database(entities = {Movie.class, Genre.class, MovieList.class}, version = 10, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
     public abstract GenreDao genreDao();
