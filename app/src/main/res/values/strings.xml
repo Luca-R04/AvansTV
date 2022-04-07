@@ -47,4 +47,9 @@
     <string name="cast_name_txt">Cast name</string>
     <string name="remove_list_toast">Removed list</string>
     <string name="no_lists_available">There are no lists available.</string>
+    <string name="filter">Filter</string>
+    <string name="order">Order</string>
+    <string name="order_title">Sort by title</string>
+    <string name="order_time">Sort by date</string>
+    <string name="remove_movie_toast">Removed movie</string>
 </resources>

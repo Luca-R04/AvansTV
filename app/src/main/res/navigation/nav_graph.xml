@@ -14,7 +14,11 @@
         android:id="@+id/exploreFragment"
         android:name="com.avans.avanstv.Presentation.ExploreFragment"
         android:label="fragment_explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_filterContained"
+            app:destination="@id/filterContained" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.avans.avanstv.Presentation.FavoritesFragment"
@@ -41,5 +45,25 @@
         <action
             android:id="@+id/action_settingsContained_to_profileFragment"
             app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.avans.avanstv.Presentation.FilterFragment"
+        android:label="FilterFragment" >
+        <action
+            android:id="@+id/action_filterFragment_to_filterContained2"
+            app:destination="@id/filterContained" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterContained"
+        android:name="com.avans.avanstv.Presentation.FilterContained"
+        android:label="fragment_filter_contained"
+        tools:layout="@layout/fragment_filter_contained" >
+        <action
+            android:id="@+id/action_filterContained_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_filterContained_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
     </fragment>
 </navigation>

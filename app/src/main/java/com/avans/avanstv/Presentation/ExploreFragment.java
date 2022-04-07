@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.avans.avanstv.Presentation.Adapters.MovieExploreAdapter;
@@ -44,6 +46,15 @@ public class ExploreFragment extends Fragment {
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint(getString(R.string.query_hint));
         searchView.setIconifiedByDefault(false);
+
+        //ImageView Filter
+        ImageView filterButton = exploreView.findViewById(R.id.filter_button);
+
+        //OnClickListener
+        filterButton.setOnClickListener(view -> {
+            Navigation.findNavController(exploreView).navigate(R.id.action_exploreFragment_to_filterContained);
+        });
+
 
         //QueryTextListener on the searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

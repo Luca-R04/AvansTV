@@ -3,33 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Github/AvansTV/app/src/main/res/layout/activity_list_overview.xml" value="0.36666666666666664" />
-        <entry key="..\:/Github/AvansTV/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/activity_movie_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/create_list_activity.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/favorites_recycler_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_explore.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_favorites.xml" value="0.25" />
-        <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_home.xml" value="0.19010416666666666" />
-        <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_movie_overview.xml" value="0.33" />
+        <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_movie_overview.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/fragment_settings_contained.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/home_recycler_movie.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/list_popup_window.xml" value="0.36666666666666664" />
         <entry key="..\:/Github/AvansTV/app/src/main/res/layout/load_button.xml" value="0.36666666666666664" />
-        <entry key="..\:/Github/AvansTV/app/src/main/res/menu/btm_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/drawable/ic_explore.xml" value="0.156" />
-        <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/activity_list_overview.xml" value="0.26902173913043476" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/activity_main.xml" value="0.14635416666666667" />
-        <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/detail_recycler_cast.xml" value="0.26902173913043476" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/explore_recycler_movie.xml" value="0.2966485507246377" />
-        <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/favorites_recycler_list.xml" value="0.26902173913043476" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/fragment_explore.xml" value="0.2966485507246377" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/fragment_favorites.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/fragment_home.xml" value="0.4" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/fragment_movie_overview.xml" value="0.26902173913043476" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/fragment_profile.xml" value="0.14635416666666667" />
-        <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/fragment_settings_contained.xml" value="0.26902173913043476" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/home_recycler_movie.xml" value="0.2966485507246377" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/load_button.xml" value="0.2966485507246377" />
         <entry key="..\:/Users/lucar/AndroidStudioProjects/AvansTV/app/src/main/res/layout/recycler_movie.xml" value="0.2" />
@@ -39,16 +31,20 @@
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTV/app/src/main/res/menu/btm_menu.xml" value="0.19166666666666668" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/drawable/ic_settings.xml" value="0.134" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/activity_main.xml" value="0.1638888888888889" />
+        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/create_list_activity.xml" value="0.2212962962962963" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/explore_recycler_movie.xml" value="0.36615384615384616" />
+        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/favorites_recycler_list.xml" value="0.18333333333333332" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_explore.xml" value="0.33" />
-        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_favorites.xml" value="0.25" />
+        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_favorites.xml" value="0.1" />
+        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_filter_contained.xml" value="0.36205128205128206" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_home.xml" value="0.1638888888888889" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_movie_overview.xml" value="0.33" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
-        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_settings_contained.xml" value="0.40919282511210764" />
+        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/fragment_settings_contained.xml" value="0.3778280542986425" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/home_recycler_movie.xml" value="0.1638888888888889" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/layout/recycler_movie.xml" value="0.1638888888888889" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.134" />
+        <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/xml/filter_preference.xml" value="0.33" />
         <entry key="..\:/dev/Avans/Programmeren/android/fund/AvansTVclone/app/src/main/res/xml/root_preferences.xml" value="0.371875" />
       </map>
     </option>
