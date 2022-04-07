@@ -2,6 +2,7 @@ package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
 import android.graphics.drawable.Icon;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,8 +20,10 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.avans.avanstv.Data.MovieDao;
 import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Data.MovieRoomDatabase;
 import com.avans.avanstv.Domain.Cast;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
@@ -40,6 +43,7 @@ import java.util.List;
 public class MovieDetailsActivity extends YouTubeBaseActivity {
     private YouTubePlayerView youTubePlayerView;
     private final static String TAG = MovieDetailsActivity.class.getSimpleName();
+    private static MovieDao mMovieDao;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -57,6 +61,8 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
+                MovieRoomDatabase db = MovieRoomDatabase.getDatabase(getApplication());
+                mMovieDao = db.movieDao();
 
                 YouTubePlayer.OnInitializedListener onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                     @Override
@@ -217,8 +223,9 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                         int rating = (int) ratingBar.getRating();
-                        Log.d(TAG, "Rating set to: " + rating);
                         movie.setPersonalRating(rating);
+                        movieRepository.setPersonalRatingForMovie(movie);
+                        Log.d(TAG, "Rating set to: " + rating);
                     }
                 });
 
