@@ -15,10 +15,16 @@
         <item>Reply to all</item>
     </string-array>
 
-    <string-array name="order">
+    <string-array name="order_title">
         <item>none</item>
         <item>A-Z</item>
         <item>Z-A</item>
+    </string-array>
+
+    <string-array name="order_time">
+        <item>none</item>
+        <item>Most recent</item>
+        <item>Oldest</item>
     </string-array>
 
 
