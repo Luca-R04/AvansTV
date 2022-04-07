@@ -31,9 +31,7 @@ public class CreateListActivity extends AppCompatActivity {
                 MovieListRepository movieListRepository = MovieListRepository.getInstance(getApplication());
                 movieListRepository.insertMovieList(movieList);
 
-                Intent i = new Intent(this, MainActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                onBackPressed();
             }
         });
     }
