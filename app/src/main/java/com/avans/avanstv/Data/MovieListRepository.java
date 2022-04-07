@@ -83,7 +83,9 @@ public class MovieListRepository {
             for (MovieList movieList : mMovieLists.getValue()) {
                 if (movieList != null) {
                     if (movieList.getName().equals(listName)) {
-                        movieList.setMovies(new ArrayList<>());
+                        if (movieList.getMovies() == null) {
+                            movieList.setMovies(new ArrayList<>());
+                        }
                         movieList.addMovie(maps[0].get(listName));
                         mMovieListDao.setMovies(movieList.getMovies(), movieList.getId());
                         Log.i("AddMovieToList", "Added movie to list");

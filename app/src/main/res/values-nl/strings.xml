@@ -30,4 +30,9 @@
     <string name="create_list_button">Maak aan</string>
     <string name="query_hint">Zoek naar een film</string>
     <string name="no_list_available">Geen lijsten beschikbaar</string>
+    <string name="add_to_list_text">Voeg toe</string>
+    <string name="add_to_a_list">"Voeg toe aan lijst: "</string>
+    <string name="cast">Acteurs</string>
+    <string name="added">"Voegde "</string>
+    <string name="to">" toe aan "</string>
 </resources>

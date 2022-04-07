@@ -1,6 +1,8 @@
 package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.avans.avanstv.Data.MovieListRepository;
@@ -24,6 +26,7 @@ import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieList;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -37,6 +40,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
     private YouTubePlayerView youTubePlayerView;
     private final static String TAG = MovieDetailsActivity.class.getSimpleName();
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +61,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 YouTubePlayer.OnInitializedListener onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                        if (movie.getYoutubeVideo() != null) {
+                        if (movie.getYoutubeVideo() != null && movieRepository.hasInternet()) {
                             youTubePlayer.cueVideo(movie.getYoutubeVideo().getKey());
                         } else {
                             youTubePlayerView.setVisibility(View.INVISIBLE);
@@ -66,6 +70,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                             Glide
                                     .with(MovieDetailsActivity.this)
                                     .load("https://image.tmdb.org/t/p/original/" + movie.getPoster_path())
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(thumbnailView);
                         }
                     }
@@ -101,11 +106,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 castImageView.add(imageCast2);
                 castImageView.add(imageCast3);
 
-                backButton.setOnClickListener(view -> {
-                    Intent i = new Intent(this, MainActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                });
+                backButton.setOnClickListener(view -> onBackPressed());
 
                 movieTitle.setText(movie.getTitle());
                 movieRating.setText(String.valueOf(movie.getVote_average()));
@@ -157,6 +158,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                         Glide
                                 .with(this)
                                 .load("https://image.tmdb.org/t/p/w138_and_h175_face" + cast.getProfile_path())
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .into(castImageView.get(i));
 
                         castTextViews.get(i).setText(cast.getName());
@@ -195,29 +197,30 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 Button addToListButton = findViewById(R.id.add_to_list);
                 addToListButton.setOnClickListener(view -> {
                     movieListRepository.addMovieToList(spinnerValue[0], movie);
+                    Toast.makeText(this, getString(R.string.added) + movie.getTitle() + getString(R.string.to) + spinnerValue[0], Toast.LENGTH_SHORT).show();
                     Log.i("MovieDetailsActivity", "Added " + movie.getTitle() + " to " + spinnerValue[0]);
                 });
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
-                CardView favoriteWrapper = findViewById(R.id.card_favorite);
-
-                if (movie.isFavorite()) {
-                    favoriteButton.setBackgroundColor(getResources().getColor(R.color.primary));
-                    favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.primary));
-                }
+                Icon filledHeart = Icon.createWithResource(this, R.drawable.ic_favorite).setTint(getColor(R.color.primary));
+                Icon Heart = Icon.createWithResource(this, R.drawable.ic_favorite_border).setTint(getColor(R.color.primary));
 
                 favoriteButton.setOnClickListener(view -> {
                     if (!movie.isFavorite()) {
                         movie.setFavorite(true);
-                        favoriteButton.setBackgroundColor(getResources().getColor(R.color.primary));
-                        favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.primary));
+                        favoriteButton.setImageIcon(filledHeart);
                     } else {
                         movie.setFavorite(false);
-                        favoriteButton.setBackgroundColor(getResources().getColor(R.color.white));
-                        favoriteWrapper.setBackgroundColor(getResources().getColor(R.color.white));
+                        favoriteButton.setImageIcon(Heart);
                     }
+                    Log.d(TAG, "Favorite after click: " + movie.isFavorite());
                     movieRepository.setFavoriteMovie(movie);
                 });
+
+                Log.d(TAG, "Favorite: " + movie.isFavorite());
+                if (movie.isFavorite()) {
+                    favoriteButton.setImageIcon(filledHeart);
+                }
             }
         }
     }

@@ -2,7 +2,9 @@ package com.avans.avanstv.Domain;
 
 import androidx.annotation.NonNull;
 
-public class Cast {
+import java.io.Serializable;
+
+public class Cast implements Serializable {
     private boolean adult;
     private int gender;
     private int id;

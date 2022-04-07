@@ -94,6 +94,10 @@ public class MovieRepository {
         return INSTANCE;
     }
 
+    public boolean hasInternet() {
+        return mNetworkInfo != null && mNetworkInfo.isConnected();
+    }
+
     public static LiveData<List<Movie>> getLiveDataMovies() {
         return mPopularMovies;
     }
@@ -169,8 +173,6 @@ public class MovieRepository {
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
                     List<Movie> movies = response.body().getMovies();
 
-                    mMovieDao.deleteAll();
-
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
                         movie.setType("Popular");
@@ -222,6 +224,8 @@ public class MovieRepository {
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
                     List<Movie> movies = response.body().getMovies();
 
+                    mMovieDao.deleteAll();
+
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
                         movie.setType("TopRated");
@@ -264,6 +268,7 @@ public class MovieRepository {
             try {
                 Call<VideoResponse> call = service.getVideos(integers[0], API_KEY);
                 Response<VideoResponse> response = call.execute();
+                Log.d(TAG, "Set videos for movies");
 
                 if (response.isSuccessful()) {
                     assert response.body() != null;
@@ -274,6 +279,17 @@ public class MovieRepository {
                             for (Video video : videos) {
                                 movie.setYoutubeVideo(video);
                                 MovieRepository.setVideosForMovie(movie);
+                            }
+                        }
+                    }
+
+                    if (mSearchResults != null) {
+                        for (Movie movie : mSearchResults) {
+                            if (movie.getMovieId() == movieId) {
+                                for (Video video : videos) {
+                                    movie.setYoutubeVideo(video);
+                                    MovieRepository.setVideosForMovie(movie);
+                                }
                             }
                         }
                     }
@@ -367,31 +383,46 @@ public class MovieRepository {
 
         @Override
         protected List<Movie> doInBackground(String... strings) {
-            try {
-                Log.d(TAG, "doInBackground - search for movies");
-
-                Log.d(TAG, strings[0]);
-                Call<MovieResponse> call = service.searchMovie(strings[0], API_KEY);
-                Response<MovieResponse> response = call.execute();
-
-                Log.d(TAG, "Executed call, response.code = " + response.code());
-
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    Log.d(TAG, "Good Response: " + response.body().getMovies());
-
-                    for (Movie movie : response.body().getMovies()) {
-                        setVideosFromApi(movie.getMovieId());
+            //There is no internet connection, so search in the database
+            if (mNetworkInfo == null || !mNetworkInfo.isConnected()) {
+                Log.d(TAG, "There is no internet connection, so search in the database " + strings[0].length());
+                List<Movie> movies = new ArrayList<>();
+                for (Movie movie : mAllMovies) {
+                    Log.d(TAG, "There is no internet connection, so search in the database " + strings[0].length());
+                    if (movie.getTitle().contains(strings[0]) || movie.getOverview().contains(strings[0])) {
+                        movies.add(movie);
+                        Log.d(TAG, "added movie " + movie.getTitle());
                     }
+                }
+                return movies;
+            } else {
+                //There is a internet connection, so search in the API
+                try {
+                    Log.d(TAG, "doInBackground - search for movies");
 
-                    return response.body().getMovies();
-                } else {
-                    Log.d(TAG, "Bad Response: " + response.code());
+                    Log.d(TAG, strings[0]);
+                    Call<MovieResponse> call = service.searchMovie(strings[0], API_KEY);
+                    Response<MovieResponse> response = call.execute();
+
+                    Log.d(TAG, "Executed call, response.code = " + response.code());
+
+                    if (response.isSuccessful()) {
+                        assert response.body() != null;
+                        Log.d(TAG, "Good Response: " + response.body().getMovies());
+
+                        for (Movie movie : response.body().getMovies()) {
+                            setVideosFromApi(movie.getMovieId());
+                        }
+
+                        return response.body().getMovies();
+                    } else {
+                        Log.d(TAG, "Bad Response: " + response.code());
+                        return null;
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Exception: " + e);
                     return null;
                 }
-            } catch (Exception e) {
-                Log.e(TAG, "Exception: " + e);
-                return null;
             }
         }
 

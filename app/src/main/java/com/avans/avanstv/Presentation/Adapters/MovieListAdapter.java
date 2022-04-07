@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieList;
 import com.avans.avanstv.Presentation.ListOverviewActivity;
 import com.avans.avanstv.R;
