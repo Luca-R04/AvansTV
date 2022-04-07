@@ -9,4 +9,38 @@
         <item>en</item>
         <item>nl</item>
     </string-array>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="order">
+        <item>none</item>
+        <item>A-Z</item>
+        <item>Z-A</item>
+    </string-array>
+
+
+    <string-array name="genres">
+        <item>none</item>
+        <item>Action</item>
+        <item>Adventure</item>
+        <item>Comedy</item>
+        <item>Crime</item>
+        <item>Documentary</item>
+        <item>Drama</item>
+        <item>Family</item>
+        <item>Fantasy</item>
+        <item>History</item>
+        <item>Horror</item>
+        <item>Music</item>
+        <item>Mystery</item>
+        <item>Romance</item>
+        <item>Science Fiction</item>
+        <item>TV movie</item>
+        <item>Thriller</item>
+        <item>War</item>
+        <item>Western</item>
+    </string-array>
 </resources>
