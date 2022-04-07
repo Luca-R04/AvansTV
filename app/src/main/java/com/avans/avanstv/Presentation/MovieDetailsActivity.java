@@ -2,7 +2,6 @@ package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
 import android.graphics.drawable.Icon;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +42,6 @@ import java.util.List;
 public class MovieDetailsActivity extends YouTubeBaseActivity {
     private YouTubePlayerView youTubePlayerView;
     private final static String TAG = MovieDetailsActivity.class.getSimpleName();
-    private static MovieDao mMovieDao;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -62,7 +60,6 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
                 MovieRoomDatabase db = MovieRoomDatabase.getDatabase(getApplication());
-                mMovieDao = db.movieDao();
 
                 YouTubePlayer.OnInitializedListener onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                     @Override
@@ -219,14 +216,11 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 int personalRating = movie.getPersonalRating();
                 personalRatingBar.setRating((float) personalRating);
 
-                personalRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                        int rating = (int) ratingBar.getRating();
-                        movie.setPersonalRating(rating);
-                        movieRepository.setPersonalRatingForMovie(movie);
-                        Log.d(TAG, "Rating set to: " + rating);
-                    }
+                personalRatingBar.setOnRatingBarChangeListener((ratingBar, v, b) -> {
+                    int rating = (int) ratingBar.getRating();
+                    movie.setPersonalRating(rating);
+                    movieRepository.setPersonalRatingForMovie(movie);
+                    Log.d(TAG, "Rating set to: " + rating);
                 });
 
                 ImageButton favoriteButton = findViewById(R.id.card_favorite_ic);
