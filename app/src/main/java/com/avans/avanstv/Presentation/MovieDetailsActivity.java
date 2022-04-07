@@ -197,7 +197,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 Button addToListButton = findViewById(R.id.add_to_list);
                 addToListButton.setOnClickListener(view -> {
                     movieListRepository.addMovieToList(spinnerValue[0], movie);
-                    Toast.makeText(this, "Added " + movie.getTitle() + " to " + spinnerValue[0], Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.added) + movie.getTitle() + getString(R.string.to) + spinnerValue[0], Toast.LENGTH_SHORT).show();
                     Log.i("MovieDetailsActivity", "Added " + movie.getTitle() + " to " + spinnerValue[0]);
                 });
 
@@ -209,12 +209,11 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     if (!movie.isFavorite()) {
                         movie.setFavorite(true);
                         favoriteButton.setImageIcon(filledHeart);
-                        Log.d(TAG, "Favorite after click: " + movie.isFavorite());
                     } else {
                         movie.setFavorite(false);
                         favoriteButton.setImageIcon(Heart);
-                        Log.d(TAG, "Favorite after click: " + movie.isFavorite());
                     }
+                    Log.d(TAG, "Favorite after click: " + movie.isFavorite());
                     movieRepository.setFavoriteMovie(movie);
                 });
 

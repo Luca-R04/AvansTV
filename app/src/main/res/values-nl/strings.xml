@@ -33,4 +33,6 @@
     <string name="add_to_list_text">Voeg toe</string>
     <string name="add_to_a_list">"Voeg toe aan lijst: "</string>
     <string name="cast">Acteurs</string>
+    <string name="added">"Voegde "</string>
+    <string name="to">" toe aan "</string>
 </resources>
