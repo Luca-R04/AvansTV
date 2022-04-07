@@ -7,20 +7,30 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.avans.avanstv.Data.MovieListRepository;
+import com.avans.avanstv.Data.MovieRepository;
+import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieList;
 
 import java.util.List;
 
 public class MovieListViewModel extends AndroidViewModel {
     private final LiveData<List<MovieList>> mMovieLists;
+    private final LiveData<List<Movie>> mFavoriteMoviesList;
 
     public MovieListViewModel(@NonNull Application application) {
         super(application);
-        MovieListRepository mMovieRepository = MovieListRepository.getInstance(application);
-        mMovieLists = mMovieRepository.getMovieLists();
+        MovieListRepository mMovieListRepository = MovieListRepository.getInstance(application);
+        MovieRepository mMovieRepository = MovieRepository.getInstance(application);
+
+        mMovieLists = mMovieListRepository.getMovieLists();
+        mFavoriteMoviesList = mMovieRepository.getFavoriteMovies();
     }
 
     public LiveData<List<MovieList>> getAllLists() {
         return mMovieLists;
+    }
+
+    public LiveData<List<Movie>> getFavoriteMovies() {
+        return mFavoriteMoviesList;
     }
 }

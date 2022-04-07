@@ -26,6 +26,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -38,6 +39,8 @@ public class MovieRepository {
     private static final String TAG = "MovieRepository";
     private static MutableLiveData<List<Movie>> mPopularMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
+    private static MutableLiveData<List<Movie>> mFavoritesMovieList;
+    private static List<Movie> mAllMovies;
     private static List<Movie> mSearchResults;
     private static Genre[] mGenresAPI;
     private static Genre[] mGenresDatabase;
@@ -63,6 +66,8 @@ public class MovieRepository {
 
         mPopularMovies = new MutableLiveData<>();
         mTopRatedMovies = new MutableLiveData<>();
+        mFavoritesMovieList = new MutableLiveData<>();
+        mAllMovies = new ArrayList<>();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -79,6 +84,7 @@ public class MovieRepository {
             new GetTopRatedMoviesFromAPI().execute();
             new GetPopularMoviesFromAPI().execute();
         }
+        new GetFavoriteMovies().execute();
     }
 
     public static MovieRepository getInstance(Application application) {
@@ -101,11 +107,23 @@ public class MovieRepository {
         new GetPopularMoviesFromAPI().execute();
     }
 
+    public void getCast(int movieID) {
+        try {
+            new GetCastFromAPI().execute(movieID).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Genre[] getGenres() {
         if (mNetworkInfo == null || !mNetworkInfo.isConnected()) {
             return mGenresDatabase;
         }
         return mGenresAPI;
+    }
+
+    public List<Cast> getCastList() {
+        return mCastAPI;
     }
 
     public static void setVideosFromApi(int movieId) {
@@ -115,6 +133,19 @@ public class MovieRepository {
     public List<Movie> searchMovie(String searchTerm) {
         new SearchMovie().execute(searchTerm);
         return mSearchResults;
+    }
+
+    public void setFavoriteMovie(Movie movie) {
+        new SetFavoriteMovie().execute(movie);
+        new GetFavoriteMovies().execute();
+    }
+
+    public LiveData<List<Movie>> getFavoriteMovies() {
+        return mFavoritesMovieList;
+    }
+
+    public static void setVideosForMovie(Movie movie) {
+        new SetVideosForMovie().execute(movie);
     }
 
     private static class GetPopularMoviesFromAPI extends AsyncTask<Void, Void, List<Movie>> {
@@ -138,10 +169,20 @@ public class MovieRepository {
                     Log.d(TAG, "Good Response: " + response.body().getMovies());
                     List<Movie> movies = response.body().getMovies();
 
+                    mMovieDao.deleteAll();
+
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
                         movie.setType("Popular");
+
+                        if (movie.getYoutubeVideo() == null) {
+                            Video video = new Video("");
+                            movie.setYoutubeVideo(video);
+                        }
+                        mMovieDao.insert(movie);
                     }
+
+                    mAllMovies.addAll(movies);
 
                     return movies;
                 } else {
@@ -184,7 +225,15 @@ public class MovieRepository {
                     for (Movie movie : movies) {
                         MovieRepository.setVideosFromApi(movie.getMovieId());
                         movie.setType("TopRated");
+
+                        if (movie.getYoutubeVideo() == null) {
+                            Video video = new Video("");
+                            movie.setYoutubeVideo(video);
+                        }
+                        mMovieDao.insert(movie);
                     }
+
+                    mAllMovies.addAll(movies);
 
                     return movies;
                 } else {
@@ -220,40 +269,19 @@ public class MovieRepository {
                     assert response.body() != null;
                     List<Video> videos = response.body().getVideos();
 
-                    mMovieDao.deleteAll();
-
-                    for (Movie movie : mPopularMovies.getValue()) {
+                    for (Movie movie : mAllMovies) {
                         if (movie.getMovieId() == movieId) {
                             for (Video video : videos) {
                                 movie.setYoutubeVideo(video);
+                                MovieRepository.setVideosForMovie(movie);
                             }
                         }
-                        if (movie.getYoutubeVideo() == null) {
-                            Video video = new Video("");
-                            movie.setYoutubeVideo(video);
-                        }
-                        mMovieDao.insert(movie);
                     }
 
-                    for (Movie movie : mTopRatedMovies.getValue()) {
-                        if (movie.getMovieId() == movieId) {
-                            for (Video video : videos) {
-                                movie.setYoutubeVideo(video);
-                            }
-                        }
-                        //This needs to be done for the Room database, otherwise it won't save the movie
-                        if (movie.getYoutubeVideo() == null) {
-                            Video video = new Video("");
-                            movie.setYoutubeVideo(video);
-                        }
-                        mMovieDao.insert(movie);
-                    }
-
-                    return null;
                 } else {
                     Log.e(TAG, "Bad Response: " + response.code());
-                    return null;
                 }
+                return null;
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e);
                 return null;
@@ -316,17 +344,16 @@ public class MovieRepository {
                     Log.d(TAG, "Good Response: " + response.body().getCast());
 
                     mCastAPI = response.body().getCast();
-                    for (Movie movie : mPopularMovies.getValue()) {
+                    for (Movie movie : mAllMovies) {
                         if (movie.getMovieId() == movieId) {
                             movie.setCast(mCastAPI);
                         }
                     }
 
-                    return null;
                 } else {
                     Log.d(TAG, "Bad Response: " + response.code());
-                    return null;
                 }
+                return null;
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e);
                 return null;
@@ -375,6 +402,37 @@ public class MovieRepository {
         }
     }
 
+    private static class SetFavoriteMovie extends AsyncTask<Movie, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.setFavorite(movies[0].getMovieId(), movies[0].isFavorite());
+            return null;
+        }
+    }
+
+    private static class SetVideosForMovie extends AsyncTask<Movie, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.setVideo(movies[0].getMovieId(), movies[0].getYoutubeVideo());
+            return null;
+        }
+    }
+
+    private static class GetFavoriteMovies extends AsyncTask<Void, Void, List<Movie>> {
+
+        @Override
+        protected List<Movie> doInBackground(Void... voids) {
+            return mMovieDao.getFavoriteMovies();
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            super.onPostExecute(movies);
+            mFavoritesMovieList.setValue(movies);
+        }
+    }
 
     private static class GetGenresFromDatabase extends AsyncTask<Void, Void, Void> {
         @Override
