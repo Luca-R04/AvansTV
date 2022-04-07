@@ -161,10 +161,10 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@color/white"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/favorite_image_description"
                 android:src="@drawable/ic_favorite_border"
-                app:tint="@color/secondary" />
+                app:tint="@color/primary" />
 
         </androidx.cardview.widget.CardView>
 
