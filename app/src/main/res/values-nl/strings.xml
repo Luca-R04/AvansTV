@@ -38,4 +38,5 @@
     <string name="cast_name_txt">Cast naam</string>
     <string name="remove_list_toast">Lijst verwijderd</string>
     <string name="no_lists_available">Er zijn geen lijsten beschikbaar</string>
+    <string name="remove_movie_toast">Film verwijderd</string>
 </resources>
