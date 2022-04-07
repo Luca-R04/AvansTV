@@ -360,7 +360,6 @@ public class MovieRepository {
                     mCastAPI = response.body().getCast();
                     for (Movie movie : mAllMovies) {
                         if (movie.getMovieId() == movieId) {
-                            Log.d(TAG, "Added cast to movie");
                             movie.setCast(mCastAPI);
                         }
                     }
