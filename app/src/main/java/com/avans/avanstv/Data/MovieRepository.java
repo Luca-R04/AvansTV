@@ -520,4 +520,104 @@ public class MovieRepository {
             }
         }
     }
+
+    private static class getMoviesAsc extends AsyncTask<Void, Void, List<Movie>> {
+        @Override
+        protected List<Movie> doInBackground(Void... voids) {
+            return mMovieDao.getMoviesASC();
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            List<Movie> popularMovies = new ArrayList<>();
+            if (movies != null) {
+                for (Movie movie : movies) {
+                    if (movie.getType().equals("Popular")) {
+                        popularMovies.add(movie);
+                    }
+                }
+                mPopularMovies.setValue(popularMovies);
+            }
+        }
+    }
+
+    private static class getMoviesDesc extends AsyncTask<Void, Void, List<Movie>> {
+        @Override
+        protected List<Movie> doInBackground(Void... voids) {
+            return mMovieDao.getMoviesDESC();
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            List<Movie> popularMovies = new ArrayList<>();
+            if (movies != null) {
+                for (Movie movie : movies) {
+                    if (movie.getType().equals("Popular")) {
+                        popularMovies.add(movie);
+                    }
+                }
+                mPopularMovies.setValue(popularMovies);
+            }
+        }
+    }
+
+    private static class getMoviesRatingAsc extends AsyncTask<Void, Void, List<Movie>> {
+        @Override
+        protected List<Movie> doInBackground(Void... voids) {
+            return mMovieDao.getMoviesRatingASC();
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            List<Movie> popularMovies = new ArrayList<>();
+            if (movies != null) {
+                for (Movie movie : movies) {
+                    if (movie.getType().equals("Popular")) {
+                        popularMovies.add(movie);
+                    }
+                }
+                mPopularMovies.setValue(popularMovies);
+            }
+        }
+    }
+
+    private static class getMoviesRatingDesc extends AsyncTask<Void, Void, List<Movie>> {
+        @Override
+        protected List<Movie> doInBackground(Void... voids) {
+            return mMovieDao.getMoviesRatingDESC();
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            List<Movie> popularMovies = new ArrayList<>();
+            if (movies != null) {
+                for (Movie movie : movies) {
+                    if (movie.getType().equals("Popular")) {
+                        popularMovies.add(movie);
+                    }
+                }
+                mPopularMovies.setValue(popularMovies);
+            }
+        }
+    }
+
+    private static class getMoviesByGenre extends AsyncTask<Integer, Void, List<Movie>> {
+        @Override
+        protected List<Movie> doInBackground(Integer... ints) {
+            return mMovieDao.getMoviesByGenre(ints[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<Movie> movies) {
+            List<Movie> popularMovies = new ArrayList<>();
+            if (movies != null) {
+                for (Movie movie : movies) {
+                    if (movie.getType().equals("Popular")) {
+                        popularMovies.add(movie);
+                    }
+                }
+                mPopularMovies.setValue(popularMovies);
+            }
+        }
+    }
 }
