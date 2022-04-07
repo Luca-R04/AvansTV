@@ -18,7 +18,7 @@
         app:title="@string/order"
         app:useSimpleSummaryProvider="true" />
 
-    <MultiSelectListPreference
+    <ListPreference
         android:key="Genres"
         android:title="Genres"
         app:entries="@array/genres"
