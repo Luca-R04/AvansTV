@@ -38,6 +38,10 @@ public class PopularMovieViewModel extends AndroidViewModel {
         mMovie = updatedMovies;
     }
 
+    public void setMovies(List<Movie> movies) {
+
+    }
+
     public static PopularMovieViewModel getInstance(Application application) {
         if (INSTANCE == null) {
             INSTANCE = new PopularMovieViewModel(application);

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.preference.Preference;
@@ -21,15 +22,18 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.avans.avanstv.Data.MovieDao;
+import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Presentation.Adapters.MovieExploreAdapter;
 import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.Presentation.ViewModel.SearchMovieViewModel;
 import com.avans.avanstv.R;
 
+import java.util.List;
+
 public class ExploreFragment extends Fragment {
     public static final String TAG = ExploreFragment.class.getSimpleName();
     private SharedPreferences sp;
-    private PopularMovieViewModel mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+    private PopularMovieViewModel mPopularMovieViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         SearchMovieViewModel mSearchViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel.class);
+        mPopularMovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
 
         // Create a Recyclerview and adapter to display the movies
         RecyclerView exploreRecyclerView = exploreView.findViewById(R.id.rv_explore);
@@ -87,6 +92,12 @@ public class ExploreFragment extends Fragment {
 
         //Preferences filters
         loadPreference();
+        mPopularMovieViewModel.getAllMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                mPopularMovieViewModel.setMovies(movies);
+            }
+          });
 
         return exploreView;
     }
@@ -140,7 +151,7 @@ public class ExploreFragment extends Fragment {
     private void FilterGenre() {
         String genreIdString = sp.getString("genre", "");
         Log.d(TAG, genreIdString + "");
-        if (!genreIdString.equals("none")) {
+        if (!genreIdString.equals("none") || genreIdString.equals("0")) {
             mPopularMovieViewModel.getMoviesByGenre(Integer.valueOf(genreIdString));
         }
     }
