@@ -209,13 +209,16 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     if (!movie.isFavorite()) {
                         movie.setFavorite(true);
                         favoriteButton.setImageIcon(filledHeart);
+                        Log.d(TAG, "Favorite after click: " + movie.isFavorite());
                     } else {
                         movie.setFavorite(false);
                         favoriteButton.setImageIcon(Heart);
+                        Log.d(TAG, "Favorite after click: " + movie.isFavorite());
                     }
                     movieRepository.setFavoriteMovie(movie);
                 });
 
+                Log.d(TAG, "Favorite: " + movie.isFavorite());
                 if (movie.isFavorite()) {
                     favoriteButton.setImageIcon(filledHeart);
                 }
