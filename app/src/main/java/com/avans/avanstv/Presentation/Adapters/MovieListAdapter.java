@@ -21,17 +21,21 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private List<MovieList> mMovieLists;
     private final Context mContext;
 
-    public void setMovieLists(List<MovieList> movieLists) {
-        this.mMovieLists = movieLists;
-        notifyDataSetChanged();
-    }
-
     public MovieListAdapter(Context context, List<MovieList> moviesLists) {
         this.mContext = context;
         this.mMovieLists = moviesLists;
         notifyDataSetChanged();
     }
 
+    public void setMovieLists(List<MovieList> movieLists) {
+        this.mMovieLists = movieLists;
+        notifyDataSetChanged();
+    }
+
+    public void removeMovieList(MovieList movieList) {
+        this.mMovieLists.remove(movieList);
+    }
+    
     @NonNull
     @Override
     public MovieListRecyclerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

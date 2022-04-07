@@ -67,6 +67,19 @@ public class MovieListRepository {
         }
     }
 
+    public void deleteMovieList(MovieList movieList) {
+        new DeleteMovieList().execute(movieList);
+    }
+
+    private static class DeleteMovieList extends AsyncTask<MovieList, Void, Void> {
+
+        @Override
+        protected Void doInBackground(MovieList... movieLists) {
+            mMovieListDao.delete(movieLists[0].getId());
+            return null;
+        }
+    }
+
     public void addMovieToList(String listName, Movie movie) {
         Log.i("MovieListRepository", "Called addMovieToList");
         Map<String, Movie> map = new HashMap<>();
