@@ -26,7 +26,6 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -44,8 +43,6 @@ public class MovieRepository {
     private static List<Movie> mSearchResults;
     private static Genre[] mGenresAPI;
     private static Genre[] mGenresDatabase;
-    private static List<Cast> mCastAPI;
-    private static List<Cast> mCastDatabase;
     private static GenreDao mGenreDao;
     private static MovieDao mMovieDao;
     private static NetworkInfo mNetworkInfo;
@@ -122,14 +119,9 @@ public class MovieRepository {
         return mGenresAPI;
     }
 
-    public List<Cast> getCastList() {
-        return mCastAPI;
-    }
-
     public static void setVideosFromApi(int movieId) {
         new SetVideosFromAPI().execute(movieId);
     }
-
 
     public List<Movie> searchMovie(String searchTerm) {
         new SearchMovie().execute(searchTerm);
@@ -152,7 +144,6 @@ public class MovieRepository {
     public void setPersonalRatingForMovie(Movie movie) {
         new SetPersonalRatingDB().execute(movie);
     }
-
 
     public static void setCastForMovie(Movie movie) {
         new SetCastForMovie().execute(movie);
@@ -367,10 +358,10 @@ public class MovieRepository {
                     assert response.body() != null;
                     Log.d(TAG, "Good Response: adding cast to movie");
 
-                    mCastAPI = response.body().getCast();
+                    List<Cast> cast = response.body().getCast();
                     for (Movie movie : mAllMovies) {
                         if (movie.getMovieId() == movieId) {
-                            movie.setCast(mCastAPI);
+                            movie.setCast(cast);
                             MovieRepository.setCastForMovie(movie);
                         }
                     }

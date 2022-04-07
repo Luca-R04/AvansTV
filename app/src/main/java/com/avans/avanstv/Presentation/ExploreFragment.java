@@ -51,9 +51,7 @@ public class ExploreFragment extends Fragment {
         ImageView filterButton = exploreView.findViewById(R.id.filter_button);
 
         //OnClickListener
-        filterButton.setOnClickListener(view -> {
-            Navigation.findNavController(exploreView).navigate(R.id.action_exploreFragment_to_filterContained);
-        });
+        filterButton.setOnClickListener(view -> Navigation.findNavController(exploreView).navigate(R.id.action_exploreFragment_to_filterContained));
 
 
         //QueryTextListener on the searchView;

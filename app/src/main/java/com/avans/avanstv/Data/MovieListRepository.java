@@ -75,8 +75,9 @@ public class MovieListRepository {
 
     private static class DeleteMovieFromList extends AsyncTask<Map<MovieList, Movie>, Void, Void> {
 
+        @SafeVarargs
         @Override
-        protected Void doInBackground(Map<MovieList, Movie>... maps) {
+        protected final Void doInBackground(Map<MovieList, Movie>... maps) {
             Movie movie = maps[0].get(0);
             List<Movie> movies = new ArrayList<>();
             int listId = 0;
