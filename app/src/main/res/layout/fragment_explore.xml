@@ -61,13 +61,5 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout:/nav_filter_header"
-        app:menu="@menu/nav_filter_menu"
-        android:layout_gravity="end"
-        android:fitsSystemWindows="true"/>
-
+    
 </androidx.drawerlayout.widget.DrawerLayout>
