@@ -23,9 +23,7 @@ public class CreateListActivity extends AppCompatActivity {
         Button createButton = findViewById(R.id.create_list_button);
         EditText listName = findViewById(R.id.list_name_input);
 
-        backButton.setOnClickListener(view -> {
-            onBackPressed();
-        });
+        backButton.setOnClickListener(view -> onBackPressed());
 
         createButton.setOnClickListener(view -> {
             if (!listName.getText().equals("")) {

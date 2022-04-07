@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:text="Cast"
+            android:text="@string/cast"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -216,7 +216,6 @@
                     android:background="#80000000"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="TextView"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -260,7 +259,6 @@
                     android:background="#80000000"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="TextView"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -303,7 +301,6 @@
                     android:background="#80000000"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="TextView"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -315,8 +312,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
-            android:text="Add to a list: "
+            android:layout_marginTop="16dp"
+            android:text="@string/add_to_a_list"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -330,7 +327,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="30dp"
             android:minHeight="48dp"
-            android:tooltipText="Lists"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -340,7 +336,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Add to list"
+            android:text="@string/add_to_list_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_dropdown" />

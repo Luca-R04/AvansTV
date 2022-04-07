@@ -39,4 +39,7 @@
     <string name="query_hint">Search for a movie</string>
     <string name="no_list_available">There are no lists available</string>
     <string name="filter_button_description" translatable="false">Button for filter options</string>
+    <string name="add_to_list_text">Add</string>
+    <string name="add_to_a_list">Add to a list:</string>
+    <string name="cast">Cast</string>
 </resources>

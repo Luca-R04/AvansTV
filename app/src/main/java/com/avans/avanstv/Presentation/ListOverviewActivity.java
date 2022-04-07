@@ -1,7 +1,6 @@
 package com.avans.avanstv.Presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.avans.avanstv.Domain.MovieList;
 import com.avans.avanstv.Presentation.Adapters.MovieAdapter;
-import com.avans.avanstv.Presentation.ViewModel.MovieListViewModel;
 import com.avans.avanstv.R;
 
 import com.google.android.material.button.MaterialButton;
@@ -38,9 +36,7 @@ public class ListOverviewActivity extends AppCompatActivity {
                 listName.setText(movieList.getName());
 
                 MaterialButton backButton = findViewById(R.id.list_btn_back);
-                backButton.setOnClickListener(view -> {
-                    onBackPressed();
-                });
+                backButton.setOnClickListener(view -> onBackPressed());
             }
         }
     }
