@@ -72,9 +72,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 TextView movieDescription = findViewById(R.id.movie_description_detail);
 
                 backButton.setOnClickListener(view -> {
-                    Intent i = new Intent(this, MainActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
+                    onBackPressed();
                 });
 
                 movieTitle.setText(movie.getTitle());
