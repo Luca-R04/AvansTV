@@ -35,7 +35,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     public void removeMovieList(MovieList movieList) {
         this.mMovieLists.remove(movieList);
     }
-    
+
     @NonNull
     @Override
     public MovieListRecyclerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

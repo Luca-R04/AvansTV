@@ -36,5 +36,5 @@
     <string name="added">"Voegde "</string>
     <string name="to">" toe aan "</string>
     <string name="cast_name_txt">Cast naam</string>
-    <string name="thumbnail_description" translatable="false">Film poster</string>
+    <string name="remove_list_toast">Lijst verwijderd</string>
 </resources>

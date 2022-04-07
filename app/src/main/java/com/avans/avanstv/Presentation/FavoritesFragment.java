@@ -1,6 +1,5 @@
 package com.avans.avanstv.Presentation;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -66,6 +65,7 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 int position = viewHolder.getAdapterPosition();
+                Toast.makeText(getContext(), getString(R.string.remove_list_toast), Toast.LENGTH_SHORT).show();
                 movieListViewModel.deleteMovieList(movieListViewModel.getAllLists().getValue().get(position));
                 movieAdapter.removeMovieList(movieListViewModel.getAllLists().getValue().get(position));
                 movieAdapter.notifyItemRemoved(position);
