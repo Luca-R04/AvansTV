@@ -101,9 +101,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 castImageView.add(imageCast2);
                 castImageView.add(imageCast3);
 
-                backButton.setOnClickListener(view -> {
-                    onBackPressed();
-                });
+                backButton.setOnClickListener(view -> onBackPressed());
 
                 movieTitle.setText(movie.getTitle());
                 movieRating.setText(String.valueOf(movie.getVote_average()));
@@ -193,6 +191,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 Button addToListButton = findViewById(R.id.add_to_list);
                 addToListButton.setOnClickListener(view -> {
                     movieListRepository.addMovieToList(spinnerValue[0], movie);
+                    Toast.makeText(this, "Added " + movie.getTitle() + " to " + spinnerValue[0], Toast.LENGTH_SHORT).show();
                     Log.i("MovieDetailsActivity", "Added " + movie.getTitle() + " to " + spinnerValue[0]);
                 });
 

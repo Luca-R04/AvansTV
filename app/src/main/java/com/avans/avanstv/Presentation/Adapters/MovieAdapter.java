@@ -24,26 +24,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieRecycle
     private List<Movie> mMovieList;
     private final Context mContext;
 
-    public void setMovies(List<Movie> movieList) {
-        this.mMovieList = movieList;
-        notifyDataSetChanged();
-    }
-
-    public void setMoviesFromList(List<MovieList> movieLists) {
-        List<Movie> moviesFromLists = new ArrayList<>();
-        assert movieLists != null;
-        for (MovieList movieList : movieLists) {
-            if (movieList.getMovies() != null) {
-                moviesFromLists.addAll(movieList.getMovies());
-            }
-        }
-        this.mMovieList = moviesFromLists;
-        notifyDataSetChanged();
-    }
-
     public MovieAdapter(Context mContext,@NonNull List<Movie> mMovieList) {
         this.mContext = mContext;
         this.mMovieList = mMovieList;
+        notifyDataSetChanged();
+    }
+
+    public void setMovies(List<Movie> movieList) {
+        this.mMovieList = movieList;
         notifyDataSetChanged();
     }
 
