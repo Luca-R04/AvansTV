@@ -25,6 +25,7 @@ import com.avans.avanstv.Presentation.ViewModel.PopularMovieViewModel;
 import com.avans.avanstv.Presentation.ViewModel.TopRatedMovieViewModel;
 import com.avans.avanstv.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 import java.util.Random;
@@ -133,6 +134,7 @@ public class HomeFragment extends Fragment {
             Glide
                     .with(this)
                     .load("https://image.tmdb.org/t/p/original/" + featuredMovie.getPoster_path())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(mFeaturedMovieView);
 
             //Featured movie OnClickListener
