@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.avans.avanstv.Data.MovieDao;
 import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Data.MovieRoomDatabase;
@@ -227,7 +226,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     if(movie.getType().equals("TopRated")) {
                         topRatedMovieViewModel.setmMovies(movie);
                     } else {
-                        popularMovieViewModel.setmMovie(movie);
+                        popularMovieViewModel.setMovie(movie);
                     }
                     Log.d(TAG, "Rating set to: " + rating);
                 });

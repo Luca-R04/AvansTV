@@ -1,18 +1,12 @@
 package com.avans.avanstv.Presentation;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.avans.avanstv.R;
-
-import java.util.Locale;
 
 public class FilterFragment extends PreferenceFragmentCompat {
     private static final String TAG = FilterFragment.class.getSimpleName();
