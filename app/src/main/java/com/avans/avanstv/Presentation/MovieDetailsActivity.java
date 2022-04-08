@@ -223,10 +223,12 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     int rating = (int) ratingBar.getRating();
                     movie.setPersonalRating(rating);
                     movieRepository.setPersonalRatingForMovie(movie);
-                    if(movie.getType().equals("TopRated")) {
-                        topRatedMovieViewModel.setmMovies(movie);
-                    } else {
-                        popularMovieViewModel.setMovie(movie);
+                    if (movie.getType() != null) {
+                        if (movie.getType().equals("TopRated")) {
+                            topRatedMovieViewModel.setmMovies(movie);
+                        } else {
+                            popularMovieViewModel.setMovie(movie);
+                        }
                     }
                     Log.d(TAG, "Rating set to: " + rating);
                 });
