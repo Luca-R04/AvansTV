@@ -48,7 +48,7 @@ public class FilterContained extends Fragment {
                     .remove("title")
                     .remove("date")
                     .remove("genre")
-                    .commit();
+                    .apply();
             //Refresh fragment
             getChildFragmentManager().beginTransaction().replace(R.id.filterPreferenceHolder, new FilterFragment()).commit();
 

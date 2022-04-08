@@ -26,7 +26,6 @@ import androidx.preference.PreferenceManager;
 
 import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
-import com.avans.avanstv.Data.MovieRoomDatabase;
 import com.avans.avanstv.Domain.Cast;
 import com.avans.avanstv.Domain.Genre;
 import com.avans.avanstv.Domain.Movie;
@@ -76,7 +75,6 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
-                MovieRoomDatabase db = MovieRoomDatabase.getDatabase(getApplication());
 
                 YouTubePlayer.OnInitializedListener onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                     @Override
@@ -239,7 +237,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                     movieRepository.setPersonalRatingForMovie(movie);
                     if (movie.getType() != null) {
                         if (movie.getType().equals("TopRated")) {
-                            topRatedMovieViewModel.setmMovies(movie);
+                            topRatedMovieViewModel.setMovies(movie);
                         } else {
                             popularMovieViewModel.setMovie(movie);
                         }
@@ -254,9 +252,19 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 favoriteButton.setOnClickListener(view -> {
                     if (!movie.isFavorite()) {
                         movie.setFavorite(true);
+                        if (movie.getType().equals("TopRated")) {
+                            topRatedMovieViewModel.setMovies(movie);
+                        } else {
+                            popularMovieViewModel.setMovie(movie);
+                        }
                         favoriteButton.setImageIcon(filledHeart);
                     } else {
                         movie.setFavorite(false);
+                        if (movie.getType().equals("TopRated")) {
+                            topRatedMovieViewModel.setMovies(movie);
+                        } else {
+                            popularMovieViewModel.setMovie(movie);
+                        }
                         favoriteButton.setImageIcon(Heart);
                     }
                     Log.d(TAG, "Favorite after click: " + movie.isFavorite());

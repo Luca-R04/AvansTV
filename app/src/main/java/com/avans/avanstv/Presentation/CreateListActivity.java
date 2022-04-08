@@ -25,7 +25,7 @@ public class CreateListActivity extends AppCompatActivity {
         backButton.setOnClickListener(view -> onBackPressed());
 
         createButton.setOnClickListener(view -> {
-            if (!listName.getText().equals("")) {
+            if (!listName.getText().toString().equals("")) {
                 MovieList movieList = new MovieList(listName.getText().toString());
                 MovieListRepository movieListRepository = MovieListRepository.getInstance(getApplication());
                 movieListRepository.insertMovieList(movieList);

@@ -25,14 +25,15 @@ public class TopRatedMovieViewModel extends AndroidViewModel {
         return mMovies;
     }
 
-    public void setmMovies(Movie movie) {
-        LiveData<List<Movie>> updatetMovies = mMovies;
-        for (Movie movieItem : updatetMovies.getValue()) {
+    public void setMovies(Movie movie) {
+        LiveData<List<Movie>> updateMovies = mMovies;
+        for (Movie movieItem : updateMovies.getValue()) {
             if (movie.getMovieId() == movieItem.getMovieId()) {
                 movieItem.setPersonalRating(movie.getPersonalRating());
+                movieItem.setFavorite(movie.isFavorite());
             }
         }
-        mMovies = updatetMovies;
+        mMovies = updateMovies;
     }
 
     public static TopRatedMovieViewModel getInstance(Application application) {
