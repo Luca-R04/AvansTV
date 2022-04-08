@@ -96,6 +96,13 @@ public class FavoritesFragment extends Fragment {
                         .with(this.getActivity())
                         .load("https://image.tmdb.org/t/p/original/" + movies.get(i).getPoster_path())
                         .into(mImageButtons.get(i));
+
+                int finalI = i;
+                mImageButtons.get(i).setOnClickListener(view -> {
+                    Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
+                    intent.putExtra("Movie", movies.get(finalI));
+                    startActivity(intent);
+                });
             }
         }
     }
