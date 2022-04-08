@@ -38,7 +38,6 @@ public class MovieRepository {
     private static final String API_KEY = "f7c59563b1ecac0e4e6c1debf2a7485e";
     private static final String TAG = "MovieRepository";
     private static MutableLiveData<List<Movie>> mPopularMovies;
-    private static MutableLiveData<List<Movie>> mCategoryMovies;
     private static MutableLiveData<List<Movie>> mTopRatedMovies;
     private static MutableLiveData<List<Movie>> mFavoritesMovieList;
     private static MutableLiveData<List<Movie>> mSearchResults;
@@ -66,7 +65,6 @@ public class MovieRepository {
         mPopularMovies = new MutableLiveData<>();
         mTopRatedMovies = new MutableLiveData<>();
         mFavoritesMovieList = new MutableLiveData<>();
-        mCategoryMovies = new MutableLiveData<>();
         mSearchResults = new MutableLiveData<>();
         mAllMovies = new ArrayList<>();
 
@@ -595,19 +593,6 @@ public class MovieRepository {
         @Override
         protected List<Movie> doInBackground(Integer... ints) {
             return mMovieDao.getMoviesByGenre(ints[0]);
-        }
-
-        @Override
-        protected void onPostExecute(List<Movie> movies) {
-            List<Movie> popularMovies = new ArrayList<>();
-            if (movies != null) {
-                for (Movie movie : movies) {
-                    if (movie.getType().equals("Popular")) {
-                        popularMovies.add(movie);
-                    }
-                }
-                mPopularMovies.setValue(popularMovies);
-            }
         }
     }
 }

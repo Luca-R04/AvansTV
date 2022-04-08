@@ -117,7 +117,7 @@ public class MovieExploreAdapter extends RecyclerView.Adapter<MovieExploreAdapte
             movieTitle = itemView.findViewById(R.id.explore_title);
             movieDate = itemView.findViewById(R.id.explore_date);
             movieRating = itemView.findViewById(R.id.explore_rating);
-            button = (Button) itemView.findViewById(R.id.more_movies_btn);
+            button = itemView.findViewById(R.id.more_movies_btn);
         }
     }
 }

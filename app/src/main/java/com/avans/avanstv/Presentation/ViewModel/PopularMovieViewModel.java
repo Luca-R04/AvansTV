@@ -5,13 +5,10 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
 import com.avans.avanstv.Domain.Movie;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PopularMovieViewModel extends AndroidViewModel {
@@ -27,7 +24,7 @@ public class PopularMovieViewModel extends AndroidViewModel {
         return mMovie;
     }
 
-    public void setmMovie(Movie movie) {
+    public void setMovie(Movie movie) {
         LiveData<List<Movie>> updatedMovies = mMovie;
         for (Movie movieItem : updatedMovies.getValue()) {
             if (movie.getMovieId() == movieItem.getMovieId()) {
