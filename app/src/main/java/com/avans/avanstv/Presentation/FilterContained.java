@@ -1,11 +1,13 @@
 package com.avans.avanstv.Presentation;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.preference.PreferenceManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,15 @@ public class FilterContained extends Fragment {
 
         backArrow.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_filterContained_to_exploreFragment));
         resetButton.setOnClickListener(v -> {
-            // TODO: make the reset button work
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+            sp.edit()
+                    .remove("title")
+                    .remove("date")
+                    .remove("genre")
+                    .commit();
+            //Refresh fragment
+            getChildFragmentManager().beginTransaction().replace(R.id.filterPreferenceHolder, new FilterFragment()).commit();
+
         });
     }
 
