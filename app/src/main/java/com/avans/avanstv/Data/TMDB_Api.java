@@ -2,7 +2,6 @@ package com.avans.avanstv.Data;
 
 import com.avans.avanstv.Domain.CastResponse;
 import com.avans.avanstv.Domain.GenreResponse;
-import com.avans.avanstv.Domain.Movie;
 import com.avans.avanstv.Domain.MovieResponse;
 import com.avans.avanstv.Domain.VideoResponse;
 
@@ -25,14 +24,6 @@ public interface TMDB_Api {
     //Search for a movie
     @GET("search/movie")
     Call<MovieResponse> searchMovie(@Query("query") String searchTerm, @Query("api_key") String api_key);
-
-    //Get movie by id
-    @GET("movie/{movie_id}")
-    Call<Movie> getMovieID(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
-
-    //Get movie by id + language
-    @GET("movie/{movie_id}?language={language}")
-    Call<Movie> getMovieID(@Path("movie_id") int movie_id, @Query("api_key") String api_key, @Path("Language") String language);
 
     //Get movie genres
     @GET("genre/movie/list")

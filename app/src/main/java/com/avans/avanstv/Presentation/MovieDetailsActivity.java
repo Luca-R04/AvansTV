@@ -62,7 +62,6 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 youTubePlayerView = findViewById(R.id.youtubePlayerView);
                 ImageView thumbnailView = findViewById(R.id.thumbnail_view);
                 ConstraintLayout constraintLayout = findViewById(R.id.detail_constraint);
-                MovieRoomDatabase db = MovieRoomDatabase.getDatabase(getApplication());
 
                 YouTubePlayer.OnInitializedListener onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                     @Override
