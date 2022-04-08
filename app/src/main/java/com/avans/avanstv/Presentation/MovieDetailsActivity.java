@@ -1,6 +1,9 @@
 package com.avans.avanstv.Presentation;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.preference.PreferenceManager;
 
 import com.avans.avanstv.Data.MovieListRepository;
 import com.avans.avanstv.Data.MovieRepository;
@@ -39,16 +44,25 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MovieDetailsActivity extends YouTubeBaseActivity {
     private YouTubePlayerView youTubePlayerView;
     private final static String TAG = MovieDetailsActivity.class.getSimpleName();
+    private SharedPreferences sp;
+    private static String language;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Set SharedPreferences
+        this.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        loadSettings();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_movie_overview);
+
+
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -255,5 +269,25 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
                 }
             }
         }
+
+
+    }
+
+    private void loadSettings() {
+        this.language = sp.getString("language", "");
+        boolean isDarkMode = sp.getBoolean("theme", false);
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 }
