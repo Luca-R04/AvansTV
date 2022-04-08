@@ -9,4 +9,62 @@
         <item>en</item>
         <item>nl</item>
     </string-array>
+
+    <string-array name="order_title">
+        <item>geen</item>
+        <item>A-Z</item>
+        <item>Z-A</item>
+    </string-array>
+
+    <string-array name="order_time">
+        <item>geen</item>
+        <item>Most recent</item>
+        <item>Oldest</item>
+    </string-array>
+
+
+    <string-array name="genres">
+        <item>geen</item>
+        <item>Actie</item>
+        <item>Avontuur</item>
+        <item>Comedy</item>
+        <item>Misdaad</item>
+        <item>Documentaire</item>
+        <item>Drama</item>
+        <item>Familie</item>
+        <item>Fantasie</item>
+        <item>Geschiedenis</item>
+        <item>Horror</item>
+        <item>Muziek</item>
+        <item>Mysterie</item>
+        <item>Romantiek</item>
+        <item>Science Fiction</item>
+        <item>TV film</item>
+        <item>Thriller</item>
+        <item>Oorlog</item>
+        <item>Western</item>
+    </string-array>
+
+    <string-array name="genres_value">
+        <item>0</item>
+        <item>28</item>
+        <item>12</item>
+        <item>16</item>
+        <item>35</item>
+        <item>80</item>
+        <item>99</item>
+        <item>18</item>
+        <item>10751</item>
+        <item>14</item>
+        <item>36</item>
+        <item>27</item>
+        <item>10402</item>
+        <item>9648</item>
+        <item>10749</item>
+        <item>878</item>
+        <item>10770</item>
+        <item>53</item>
+        <item>10752</item>
+        <item>37</item>
+    </string-array>
 </resources>
