@@ -29,6 +29,7 @@ public class PopularMovieViewModel extends AndroidViewModel {
         for (Movie movieItem : updatedMovies.getValue()) {
             if (movie.getMovieId() == movieItem.getMovieId()) {
                 movieItem.setPersonalRating(movie.getPersonalRating());
+                movieItem.setFavorite(movie.isFavorite());
             }
         }
         mMovie = updatedMovies;
