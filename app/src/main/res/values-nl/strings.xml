@@ -44,4 +44,6 @@
     <string name="order">Sorteer</string>
     <string name="swipe_left_to_remove_movie">Swipe naar links om een film te verwijderen</string>
     <string name="reset_filters">Filters resetten</string>
+    <string name="failed_to_load">Trailer laden mislukt!</string>
+    <string name="personal_rating_text">"Geef deze film een persoonlijke beoordeling: "</string>
 </resources>

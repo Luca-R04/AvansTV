@@ -54,4 +54,6 @@
     <string name="remove_movie_toast">Removed movie</string>
     <string name="swipe_left_to_remove_movie">Swipe left to remove movie</string>
     <string name="reset_filters">Reset filters</string>
+    <string name="failed_to_load">Failed to load trailer!</string>
+    <string name="personal_rating_text">Give this movie a personal rating:</string>
 </resources>

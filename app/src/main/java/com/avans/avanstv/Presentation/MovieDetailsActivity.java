@@ -95,7 +95,7 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
 
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                        Toast.makeText(MovieDetailsActivity.this, "Failed to load trailer!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MovieDetailsActivity.this, getString(R.string.failed_to_load), Toast.LENGTH_SHORT).show();
                     }
                 };
 
