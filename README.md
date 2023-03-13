@@ -1,2 +1,2 @@
 # AvansTV
-AvansTV is a cinema app for avans hogeschool.
+AvansTV is an android cinema app for avans hogeschool, made with java.
